@@ -724,8 +724,33 @@ UniValue getblocktemplate(const JSONRPCRequest& request)
 
     result.push_back(Pair("masternode", masternodeObj));
     result.push_back(Pair("masternode_payments_started", pindexPrev->nHeight + 1 > consensusParams.nMasternodePaymentsStartBlock));
-    result.push_back(Pair("masternode_payments_enforced", deterministicMNManager->IsDeterministicMNsSporkActive() || sporkManager.IsSporkActive(SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT)));
+    
+    // Masternodes must be paid with every block after block nHardForkTwo up to nHardForkFour which caused chain to fork
+    if (pindexPrev->nHeight + 1 > consensusParams.nHardForkTwo && pindexPrev->nHeight + 1 <= consensusParams.nHardForkFour)
+        result.push_back(Pair("masternode_payments_enforced", true));
+    // else use Spork 8 to determine whether or not the Masternode payment is enforced.
+    else
+        result.push_back(Pair("masternode_payments_enforced", sporkManager.IsSporkActive(SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT)));
 
+    if (pindexPrev->nHeight + 1 > consensusParams.nHardForkTwo) {
+        std::string strDevAddress; 
+        CAmount fundReward = GetDevelopmentFundPayment(pindexPrev->nHeight + 1);
+
+        if (pindexPrev->nHeight + 1 <= consensusParams.nHardForkThree)
+            strDevAddress = "53NTdWeAxEfVjXufpBqU2YKopyZYmN9P1V"; // old Dev Fund address
+        else
+            strDevAddress = "CPhPudPYNC8uXZPCHovyTyY98Q6fJzjJLm"; // new Dev Fund address
+
+        UniValue fundRewardObj(UniValue::VOBJ);
+        CScript devScriptPubKey = GetScriptForDestination(CBitcoinAddress(strDevAddress.c_str()).Get());
+
+        fundRewardObj.push_back(Pair("payee", strDevAddress.c_str()));
+        fundRewardObj.push_back(Pair("script", HexStr(devScriptPubKey.begin(), devScriptPubKey.end())));
+        fundRewardObj.push_back(Pair("amount", fundReward));
+
+        result.push_back(Pair("fundreward", fundRewardObj));
+    }
+    
     UniValue superblockObjArray(UniValue::VARR);
     if(pblocktemplate->voutSuperblockPayments.size()) {
         for (const auto& txout : pblocktemplate->voutSuperblockPayments) {

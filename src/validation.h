@@ -74,7 +74,7 @@ static const unsigned int DEFAULT_DESCENDANT_SIZE_LIMIT = 101;
 /** Default for -mempoolexpiry, expiration time for mempool transactions in hours */
 static const unsigned int DEFAULT_MEMPOOL_EXPIRY = 336;
 /** The maximum size of a blk?????.dat file (since 0.8) */
-static const unsigned int MAX_BLOCKFILE_SIZE = 0x10000000; // 256 MiB TODO_BCRS info
+static const unsigned int MAX_BLOCKFILE_SIZE = 0x20000000; // 512 MiB TODO_BCRS info lower this
 /** The pre-allocation chunk size for blk?????.dat files (since 0.8) */
 static const unsigned int BLOCKFILE_CHUNK_SIZE = 0x4000000; // 64 MiB
 /** The pre-allocation chunk size for rev?????.dat files (since 0.8) */
@@ -289,6 +289,9 @@ bool ActivateBestChain(CValidationState& state, const CChainParams& chainparams,
 double ConvertBitsToDouble(unsigned int nBits);
 CAmount GetPoWBlockPayment(const int& nHeight, CAmount nFees);
 CAmount GetMasternodePayment(const int& nHeight);
+CAmount GetDevelopmentFundPayment(const int& nHeight);
+
+bool IsFundRewardValid(const CTransaction& txNew, CAmount fundReward, const int& nHeight);
 
 /** Guess verification progress (as a fraction between 0.0=genesis and 1.0=current tip). */
 double GuessVerificationProgress(const ChainTxData& data, CBlockIndex* pindex);

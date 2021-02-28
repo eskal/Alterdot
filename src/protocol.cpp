@@ -147,7 +147,7 @@ const static std::string allNetMessageTypes[] = {
     NetMsgType::MASTERNODEPAYMENTSYNC,
     NetMsgType::MNANNOUNCE,
     NetMsgType::MNPING,
-    NetMsgType::DSACCEPT,
+    NetMsgType::DSACCEPT, // TODO_BCRS in Bitcreds these start with P as in PSACCEPT
     NetMsgType::DSVIN,
     NetMsgType::DSFINALTX,
     NetMsgType::DSSIGNFINALTX,

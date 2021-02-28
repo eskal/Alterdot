@@ -37,6 +37,7 @@
 #include "validationinterface.h"
 #include "versionbits.h"
 #include "warnings.h"
+#include "base58.h"
 
 #include "instantx.h"
 #include "masternodeman.h"
@@ -1144,14 +1145,14 @@ CAmount GetPoWBlockPayment(const int& nHeight, CAmount nFees) {
     CAmount nIntPoWReward = 0 * COIN;
     Consensus::Params consensusParams = Params().GetConsensus();
 
-    if (nHeight == 0) {
+    if (nHeight == 1) {
         nIntPoWReward = 475000 * COIN;
         LogPrint("premine creation", "GetPoWBlockPayment() : create=%s Premine=%d\n", FormatMoney(nIntPoWReward), nIntPoWReward);
         return nIntPoWReward;
     }
-    else if (nHeight >= 1 && nHeight <= consensusParams.nHardForkTwo)
+    else if (nHeight > 1 && nHeight <= consensusParams.nHardForkTwo)
         nIntPoWReward = 10 * COIN;
-    else if (nHeight > consensusParams.nHardForkTwo && nHeight <= consensusParams.nHardForkSix) {
+    else if (nHeight > consensusParams.nHardForkTwo && nHeight < consensusParams.nHardForkSix) {
         int nIntPhase = (nHeight - consensusParams.nHardForkTwo) / consensusParams.nIntPhaseTotalBlocks;
 
         switch (nIntPhase) {
@@ -1165,10 +1166,8 @@ CAmount GetPoWBlockPayment(const int& nHeight, CAmount nFees) {
                     break;
             case 4: nIntPoWReward = 4 * COIN;
         }
-
-        nIntPoWReward += nFees;
     }
-    else if (nHeight > consensusParams.nHardForkSix && nHeight <= consensusParams.nHardForkSix + 2 * consensusParams.nBlocksPerYear) {
+    else if (nHeight > consensusParams.nHardForkSix && nHeight < consensusParams.nHardForkSix + 2 * consensusParams.nBlocksPerYear) {
         int nIntPhase = (nHeight - consensusParams.nHardForkSix) / (consensusParams.nBlocksPerYear / 2);
 
         switch (nIntPhase) {
@@ -1180,14 +1179,12 @@ CAmount GetPoWBlockPayment(const int& nHeight, CAmount nFees) {
                     break;
             case 3: nIntPoWReward = 3 * COIN;
         }
-
-        nIntPoWReward += nFees;
     }
     else
-        nIntPoWReward = 2 * COIN + nFees;
+        nIntPoWReward = 2 * COIN;
 
     LogPrint("creation", "GetPoWBlockPayment(): create=%s PoW Reward=%d\n", FormatMoney(nIntPoWReward), nIntPoWReward);
-    return nIntPoWReward;
+    return nIntPoWReward + nFees;
 }
 
 CAmount GetMasternodePayment(const int& nHeight) {
@@ -1229,6 +1226,25 @@ CAmount GetMasternodePayment(const int& nHeight) {
 
     LogPrint("creation", "GetMasternodePayment(): create=%s MN Payment=%d\n", FormatMoney(nIntMNReward), nIntMNReward);
     return nIntMNReward;
+}
+
+CAmount GetDevelopmentFundPayment(const int& nHeight) {
+    CAmount nIntDevFundReward = 0 * COIN;
+    Consensus::Params consensusParams = Params().GetConsensus();
+
+    // 0.5 BCRS reward to DevFund from 375,001 until block 1,000,000
+    if (nHeight > consensusParams.nHardForkTwo && nHeight <= consensusParams.nHardForkSix) {
+        // Temporal increase to 1 BCRS reward to DevFund from 550,001 until block 625,000
+        if (nHeight > consensusParams.nHardForkThree && nHeight <= consensusParams.nTempDevFundIncreaseEnd)
+            nIntDevFundReward = 1 * COIN;
+        else
+            nIntDevFundReward = 0.5 * COIN;
+    } 
+    else if (nHeight > consensusParams.nHardForkSix)
+        nIntDevFundReward = 2 * COIN;
+
+    LogPrint("creation", "GetDevelopmentFundPayment(): create=%s Dev Fund Payment=%d\n", FormatMoney(nIntDevFundReward), nIntDevFundReward);
+    return nIntDevFundReward;
 }
 
 bool IsInitialBlockDownload()
@@ -1929,6 +1945,26 @@ static int64_t nTimeIndex = 0;
 static int64_t nTimeCallbacks = 0;
 static int64_t nTimeTotal = 0;
 
+bool IsFundRewardValid(const CTransaction& txNew, CAmount fundReward, const int& nHeight) {
+    std::string strDevAddress;
+    
+    //Use the new Dev Fund address after HardForkThree (block 550,001)
+    if (nHeight > Params().GetConsensus().nHardForkThree)
+        strDevAddress = "CPhPudPYNC8uXZPCHovyTyY98Q6fJzjJLm";
+    //Use the old Dev Fund address starting from HardForkTwo until HardForkThree
+    else if (nHeight > Params().GetConsensus().nHardForkTwo && nHeight <= Params().GetConsensus().nHardForkThree)
+        strDevAddress = "53NTdWeAxEfVjXufpBqU2YKopyZYmN9P1V";
+    else if (txNew.vout.size() <= 2) // before HardForkTwo there should be at most 2 outgoing transanctions, PoW and MN rewards
+        return true;
+
+    CScript devScriptPubKey = GetScriptForDestination(CBitcoinAddress(strDevAddress.c_str()).Get());
+
+    if ((txNew.vout[2].scriptPubKey == devScriptPubKey && txNew.vout[2].nValue == fundReward) || (txNew.vout[1].scriptPubKey == devScriptPubKey && txNew.vout[1].nValue == fundReward))
+        return true;
+
+    return false;
+}
+
 /** Apply the effects of this block (with given index) on the UTXO set represented by coins.
  *  Validity checks that depend on the UTXO set are also done; ConnectBlock()
  *  can fail if those validity checks fail (among other reasons). */
@@ -2272,17 +2308,32 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     // DASH : MODIFIED TO CHECK MASTERNODE PAYMENTS AND SUPERBLOCKS
 
     // TODO: resync data (both ways?) and try to reprocess this block later.
-    CAmount blockReward = GetPoWBlockPayment(pindex->pprev->nHeight, nFees);
+    CAmount nExpectedBlockValue;
+
+    if (pindex->nHeight > Params().GetConsensus().nMasternodePaymentsStartBlock)
+        nExpectedBlockValue = GetPoWBlockPayment(pindex->nHeight, nFees) + GetMasternodePayment(pindex->nHeight);
+    else if (pindex->nHeight <= Params().GetConsensus().nMasternodePaymentsStartBlock)
+        nExpectedBlockValue = GetPoWBlockPayment(pindex->nHeight, nFees);
+
+    CAmount fundReward = GetDevelopmentFundPayment(pindex->nHeight);
+
+    if (!IsFundRewardValid(*block.vtx[0], fundReward, pindex->nHeight))
+        return state.DoS(0, error("ConnectBlock(BCRS): Didn't pay the Development Fund"), REJECT_INVALID, "bad-cb-amount");
+    
+    nExpectedBlockValue += fundReward;
+
     std::string strError = "";
-    if (!IsBlockValueValid(block, pindex->nHeight, blockReward, strError)) {
-        return state.DoS(0, error("ConnectBlock(DASH): %s", strError), REJECT_INVALID, "bad-cb-amount");
+
+    if(!IsBlockValueValid(block, pindex->nHeight, nExpectedBlockValue, strError)){
+        return state.DoS(0, error("ConnectBlock(BCRS): %s", strError), REJECT_INVALID, "bad-cb-amount");
     }
 
-    if (!IsBlockPayeeValid(*block.vtx[0], pindex->nHeight, blockReward)) {
+    if (!IsBlockPayeeValid(*block.vtx[0], pindex->nHeight, nExpectedBlockValue)) {
         mapRejectedBlocks.insert(std::make_pair(block.GetHash(), GetTime()));
-        return state.DoS(0, error("ConnectBlock(DASH): couldn't find masternode or superblock payments"),
+        return state.DoS(0, error("ConnectBlock(BCRS): couldn't find Masternode or Superblock payments"),
                                 REJECT_INVALID, "bad-cb-payee");
     }
+
     int64_t nTime5 = GetTimeMicros(); nTimePayeeAndSpecial += nTime5 - nTime4;
     LogPrint("bench", "    - Payee and special txes: %.2fms [%.2fs]\n", 0.001 * (nTime5 - nTime4), nTimePayeeAndSpecial * 0.000001);
 
@@ -3303,7 +3354,7 @@ bool CheckBlock(const CBlock& block, CValidationState& state, const Consensus::P
     // because we receive the wrong transactions for it.
 
     // Size limits (relaxed)
-    if (block.vtx.empty() || block.vtx.size() > MaxBlockSize(true) || ::GetSerializeSize(block, SER_NETWORK, PROTOCOL_VERSION) > MaxBlockSize(true))
+    if (block.vtx.empty() || block.vtx.size() > MaxBlockSize(false) || ::GetSerializeSize(block, SER_NETWORK, PROTOCOL_VERSION) > MaxBlockSize(false))
         return state.DoS(100, false, REJECT_INVALID, "bad-blk-length", false, "size limits failed");
 
     // First transaction must be coinbase, the rest must not be
@@ -3403,6 +3454,7 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, const Co
 
     // Size limits
     unsigned int nMaxBlockSize = MaxBlockSize(fDIP0001Active_context);
+    LogPrintf("fDIP0001Active = %s and nMaxBlockSize = %d\n", fDIP0001Active_context ? "true" : "false", nMaxBlockSize);
     if (block.vtx.empty() || block.vtx.size() > nMaxBlockSize || ::GetSerializeSize(block, SER_NETWORK, PROTOCOL_VERSION) > nMaxBlockSize)
         return state.DoS(10, false, REJECT_INVALID, "bad-blk-length", false, "size limits failed");
 
@@ -3559,6 +3611,7 @@ static bool AcceptBlock(const std::shared_ptr<const CBlock>& pblock, CValidation
     }
     if (fNewBlock) *fNewBlock = true;
 
+    LogPrintf("AcceptBlock: before ContextualCheckBlock");
     if (!CheckBlock(block, state, chainparams.GetConsensus()) ||
         !ContextualCheckBlock(block, state, chainparams.GetConsensus(), pindex->pprev)) {
         if (state.IsInvalid() && !state.CorruptionPossible()) {

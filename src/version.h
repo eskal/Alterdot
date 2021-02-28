@@ -10,17 +10,16 @@
  * network protocol versioning
  */
 
-
-static const int PROTOCOL_VERSION = 70213;
+static const int PROTOCOL_VERSION = 70012;
 
 //! initial proto version, to be increased after version/verack negotiation
 static const int INIT_PROTO_VERSION = 209;
 
 //! In this version, 'getheaders' was introduced.
-static const int GETHEADERS_VERSION = 70077;
+static const int GETHEADERS_VERSION = 70000;
 
 //! disconnect from peers older than this proto version
-static const int MIN_PEER_PROTO_VERSION = 70210;
+static const int MIN_PEER_PROTO_VERSION = 70010;
 
 //! disconnect from peers older than this proto version when DIP3 is activated via the BIP9 deployment
 static const int MIN_PEER_PROTO_VERSION_DIP3 = 70213;
@@ -36,10 +35,10 @@ static const int BIP0031_VERSION = 60000;
 static const int MEMPOOL_GD_VERSION = 60002;
 
 //! "filter*" commands are disabled without NODE_BLOOM after and including this version
-static const int NO_BLOOM_VERSION = 70201;
+static const int NO_BLOOM_VERSION = 70000;
 
 //! "sendheaders" command and announcing blocks with headers starts with this version
-static const int SENDHEADERS_VERSION = 70201;
+static const int SENDHEADERS_VERSION = 70000;
 
 //! DIP0001 was activated in this version
 static const int DIP0001_PROTOCOL_VERSION = 70208;

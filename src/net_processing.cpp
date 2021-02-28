@@ -445,7 +445,17 @@ void MaybeSetPeerAsAnnouncingHeaderAndIDs(NodeId nodeid, CConnman& connman) {
 // Requires cs_main
 bool CanDirectFetch(const Consensus::Params &consensusParams)
 {
-    return chainActive.Tip()->GetBlockTime() > GetAdjustedTime() - consensusParams.nPowTargetSpacing * 20;
+    int64_t timeDifference;
+
+    if (chainActive.Tip()->nHeight > consensusParams.nHardForkSix - 20 && chainActive.Tip()->nHeight < consensusParams.nHardForkSix) {
+        int nBlocksOldTargetSpacing = consensusParams.nHardForkSix - chainActive.Tip()->nHeight;
+
+        timeDifference = nBlocksOldTargetSpacing * consensusParams.GetCurrentPowTargetSpacing(1) + // after HardForkSix the target spacing changed
+                         (20 - nBlocksOldTargetSpacing) * consensusParams.GetCurrentPowTargetSpacing(consensusParams.nHardForkSix + 1);
+    } else
+        timeDifference = consensusParams.GetCurrentPowTargetSpacing(chainActive.Tip()->nHeight) * 20;
+
+    return chainActive.Tip()->GetBlockTime() > GetAdjustedTime() - timeDifference;
 }
 
 // Requires cs_main
@@ -1584,15 +1594,14 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
         if (fLogIPs)
             remoteAddr = ", peeraddr=" + pfrom->addr.ToString();
 
-        LogPrintf("receive version message: %s: version %d, blocks=%d, us=%s, peer=%d%s\n",
+        LogPrintf("receive version message: %s: version %d, blocks=%d, us=%s, peer=%d%s, fDIP0003Active=%s\n",
                   cleanSubVer, pfrom->nVersion,
                   pfrom->nStartingHeight, addrMe.ToString(), pfrom->id,
-                  remoteAddr);
+                  remoteAddr, fDIP0003Active ? "true":"false");
 
         int64_t nTimeOffset = nTime - GetTime();
         pfrom->nTimeOffset = nTimeOffset;
         AddTimeData(pfrom->addr, nTimeOffset);
-
         // Feeler connections exist only to verify if address is online.
         if (pfrom->fFeeler) {
             assert(pfrom->fInbound == false);
@@ -1783,7 +1792,7 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
                 if ((nSyncStarted == 0 && fFetch) || pindexBestHeader->GetBlockTime() > GetAdjustedTime() - nMaxTipAge) {
                     // Make sure to mark this peer as the one we are currently syncing with etc.
                     state->fSyncStarted = true;
-                    state->nHeadersSyncTimeout = GetTimeMicros() + HEADERS_DOWNLOAD_TIMEOUT_BASE + HEADERS_DOWNLOAD_TIMEOUT_PER_HEADER * (GetAdjustedTime() - pindexBestHeader->GetBlockTime())/(chainparams.GetConsensus().nPowTargetSpacing);
+                    state->nHeadersSyncTimeout = GetTimeMicros() + HEADERS_DOWNLOAD_TIMEOUT_BASE + HEADERS_DOWNLOAD_TIMEOUT_PER_HEADER * (GetAdjustedTime() - pindexBestHeader->GetBlockTime())/(chainparams.GetConsensus().GetCurrentPowTargetSpacing(chainActive.Tip()->nHeight));
                     nSyncStarted++;
                     // We used to request the full block here, but since headers-announcements are now the
                     // primary method of announcement on the network, and since, in the case that a node
@@ -1893,7 +1902,17 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
             }
             // If pruning, don't inv blocks unless we have on disk and are likely to still have
             // for some reasonable time window (1 hour) that block relay might require.
-            const int nPrunedBlocksLikelyToHave = MIN_BLOCKS_TO_KEEP - 3600 / chainparams.GetConsensus().nPowTargetSpacing;
+            int nBlocksPastHour;
+            Consensus::Params consensusParams = chainparams.GetConsensus();
+
+            if (chainActive.Tip()->nHeight > consensusParams.nHardForkSix && chainActive.Tip()->nHeight < consensusParams.nHardForkSix + 10)
+                nBlocksPastHour = (chainActive.Tip()->nHeight - consensusParams.nHardForkSix) + // after HardForkSix the target spacing increased so before it more than 10 blocks per hour were produced
+                                  (consensusParams.nHardForkSix + 10 - chainActive.Tip()->nHeight) * consensusParams.GetCurrentPowTargetSpacing(consensusParams.nHardForkSix + 1) / consensusParams.GetCurrentPowTargetSpacing(1);
+            else
+                nBlocksPastHour = 3600 / consensusParams.GetCurrentPowTargetSpacing(chainActive.Tip()->nHeight);
+            
+            const int nPrunedBlocksLikelyToHave = MIN_BLOCKS_TO_KEEP - nBlocksPastHour;
+
             if (fPruneMode && (!(pindex->nStatus & BLOCK_HAVE_DATA) || pindex->nHeight <= chainActive.Tip()->nHeight - nPrunedBlocksLikelyToHave))
             {
                 LogPrint("net", " getblocks stopping, pruned or too old block at %d %s\n", pindex->nHeight, pindex->GetBlockHash().ToString());
@@ -2960,6 +2979,7 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
     else {
         bool found = false;
         const std::vector<std::string> &allMessages = getAllNetMessageTypes();
+        LogPrintf("strCommand: %s", strCommand);
         BOOST_FOREACH(const std::string msg, allMessages) {
             if(msg == strCommand) {
                 found = true;
@@ -3106,6 +3126,7 @@ bool ProcessMessages(CNode* pfrom, CConnman& connman, const std::atomic<bool>& i
         }
         catch (const std::ios_base::failure& e)
         {
+            LogPrintf("ProcessMessages: after failure");
             connman.PushMessage(pfrom, CNetMsgMaker(INIT_PROTO_VERSION).Make(NetMsgType::REJECT, strCommand, REJECT_MALFORMED, std::string("error parsing message")));
             if (strstr(e.what(), "end of data"))
             {
@@ -3252,7 +3273,7 @@ bool SendMessages(CNode* pto, CConnman& connman, const std::atomic<bool>& interr
             // Only actively request headers from a single peer, unless we're close to end of initial download.
             if ((nSyncStarted == 0 && fFetch) || pindexBestHeader->GetBlockTime() > GetAdjustedTime() - nMaxTipAge) {
                 state.fSyncStarted = true;
-                state.nHeadersSyncTimeout = GetTimeMicros() + HEADERS_DOWNLOAD_TIMEOUT_BASE + HEADERS_DOWNLOAD_TIMEOUT_PER_HEADER * (GetAdjustedTime() - pindexBestHeader->GetBlockTime())/(consensusParams.nPowTargetSpacing);
+                state.nHeadersSyncTimeout = GetTimeMicros() + HEADERS_DOWNLOAD_TIMEOUT_BASE + HEADERS_DOWNLOAD_TIMEOUT_PER_HEADER * (GetAdjustedTime() - pindexBestHeader->GetBlockTime())/(consensusParams.GetCurrentPowTargetSpacing(chainActive.Tip()->nHeight + 1));
                 nSyncStarted++;
                 const CBlockIndex *pindexStart = pindexBestHeader;
                 /* If possible, start at the block preceding the currently
@@ -3576,7 +3597,7 @@ bool SendMessages(CNode* pto, CConnman& connman, const std::atomic<bool>& interr
         if (state.vBlocksInFlight.size() > 0) {
             QueuedBlock &queuedBlock = state.vBlocksInFlight.front();
             int nOtherPeersWithValidatedDownloads = nPeersWithValidatedDownloads - (state.nBlocksInFlightValidHeaders > 0);
-            if (nNow > state.nDownloadingSince + consensusParams.nPowTargetSpacing * (BLOCK_DOWNLOAD_TIMEOUT_BASE + BLOCK_DOWNLOAD_TIMEOUT_PER_PEER * nOtherPeersWithValidatedDownloads)) {
+            if (nNow > state.nDownloadingSince + consensusParams.GetCurrentPowTargetSpacing(chainActive.Tip()->nHeight + 1) * (BLOCK_DOWNLOAD_TIMEOUT_BASE + BLOCK_DOWNLOAD_TIMEOUT_PER_PEER * nOtherPeersWithValidatedDownloads)) {
                 LogPrintf("Timeout downloading block %s from peer=%d, disconnecting\n", queuedBlock.hash.ToString(), pto->id);
                 pto->fDisconnect = true;
                 return true;

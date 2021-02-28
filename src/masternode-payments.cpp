@@ -265,8 +265,27 @@ void FillBlockPayments(CMutableTransaction& txNew, int nBlockHeight, CAmount blo
         voutMasternodeStr += txout.ToString();
     }
 
+    if (nBlockHeight > Params().GetConsensus().nHardForkTwo) {
+        CTxOut devFundTx = CTxOut();
+        devFundTx.nValue = GetDevelopmentFundPayment(nBlockHeight);
+        devFundTx.scriptPubKey = GetDevFundScriptPubKey(nBlockHeight);
+
+        txNew.vout.insert(txNew.vout.end(), devFundTx);
+    }
+
     LogPrint("mnpayments", "%s -- nBlockHeight %d blockReward %lld voutMasternodePaymentsRet \"%s\" txNew %s", __func__,
                             nBlockHeight, blockReward, voutMasternodeStr, txNew.ToString());
+}
+
+CScript GetDevFundScriptPubKey(const int& nBlockHeight) {
+    std::string strDevFundAddress;
+
+    if (nBlockHeight <= Params().GetConsensus().nHardForkThree)
+        strDevFundAddress = "53NTdWeAxEfVjXufpBqU2YKopyZYmN9P1V";
+    else
+        strDevFundAddress = "CPhPudPYNC8uXZPCHovyTyY98Q6fJzjJLm";
+
+    return GetScriptForDestination(CBitcoinAddress(strDevFundAddress.c_str()).Get());
 }
 
 std::string GetLegacyRequiredPaymentsString(int nBlockHeight)
