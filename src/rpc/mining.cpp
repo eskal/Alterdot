@@ -223,7 +223,68 @@ UniValue generatetoaddress(const JSONRPCRequest& request)
 
     return generateBlocks(coinbaseScript, nGenerate, nMaxTries, false);
 }
-#endif // ENABLE_MINER
+#endif // ENABLE_MINER TODO_BCRS include setgenerate under ENABLE_MINER or have it by default
+
+UniValue setgenerate(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() < 1 || request.params.size() > 2)
+        throw std::runtime_error(
+            "setgenerate generate ( genproclimit )\n"
+            "\nSet 'generate' true or false to turn generation on or off.\n"
+            "Generation is limited to 'genproclimit' processors, -1 is unlimited.\n"
+            "See the getgenerate call for the current setting.\n"
+            "\nArguments:\n"
+            "1. generate         (boolean, required) Set to true to turn on generation, false to turn off.\n"
+            "2. genproclimit     (numeric, optional) Set the processor limit for when generation is on. Can be -1 for unlimited.\n"
+            "\nExamples:\n"
+            "\nSet the generation on with a limit of one processor\n"
+            + HelpExampleCli("setgenerate", "true 1") +
+            "\nCheck the setting\n"
+            + HelpExampleCli("getgenerate", "") +
+            "\nTurn off generation\n"
+            + HelpExampleCli("setgenerate", "false") +
+            "\nUsing json rpc\n"
+            + HelpExampleRpc("setgenerate", "true, 1")
+        );
+
+    if (Params().MineBlocksOnDemand())
+        throw JSONRPCError(RPC_METHOD_NOT_FOUND, "Use the generate method instead of setgenerate on this network");
+
+    bool fGenerate = true;
+    if (request.params.size() > 0)
+        fGenerate = request.params[0].get_bool();
+
+    int nGenProcLimit = GetArg("-genproclimit", DEFAULT_GENERATE_THREADS);
+    if (request.params.size() > 1)
+    {
+        nGenProcLimit = request.params[1].get_int();
+        if (nGenProcLimit == 0)
+            fGenerate = false;
+    }
+
+    SoftSetBoolArg("-gen", fGenerate);
+    SoftSetArg("-genproclimit", itostr(nGenProcLimit));
+    GenerateBitcreds(fGenerate, nGenProcLimit, Params());
+
+    return NullUniValue;
+}
+
+UniValue gethashespersec(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() != 0)
+        throw std::runtime_error(
+            "gethashespersec\n"
+            "\nReturns a recent hashes per second performance measurement while generating.\n"
+            "See the getgenerate and setgenerate calls to turn generation on and off.\n"
+            "\nResult:\n"
+            "n            (numeric) The recent hashes per second when generation is on (will return 0 if generation is off)\n"
+            "\nExamples:\n"
+            + HelpExampleCli("gethashespersec", "")
+            + HelpExampleRpc("gethashespersec", "")
+        );
+        
+    return (int64_t)dHashesPerSec;
+}
 
 UniValue getmininginfo(const JSONRPCRequest& request)
 {
@@ -709,37 +770,43 @@ UniValue getblocktemplate(const JSONRPCRequest& request)
     result.push_back(Pair("previousbits", strprintf("%08x", pblocktemplate->nPrevBits)));
     result.push_back(Pair("height", (int64_t)(pindexPrev->nHeight+1)));
 
+    int nNextHeight = pindexPrev->nHeight + 1;
+
     UniValue masternodeObj(UniValue::VARR);
     for (const auto& txout : pblocktemplate->voutMasternodePayments) {
         CTxDestination address1;
         ExtractDestination(txout.scriptPubKey, address1);
         CBitcoinAddress address2(address1);
 
-        UniValue obj(UniValue::VOBJ);
-        obj.push_back(Pair("payee", address2.ToString().c_str()));
-        obj.push_back(Pair("script", HexStr(txout.scriptPubKey)));
-        obj.push_back(Pair("amount", txout.nValue));
-        masternodeObj.push_back(obj);
+        if (nNextHeight < consensusParams.nHardForkSeven || nNextHeight >= consensusParams.nHardForkEight) {
+            UniValue obj(UniValue::VOBJ);
+            obj.push_back(Pair("payee", address2.ToString().c_str()));
+            obj.push_back(Pair("script", HexStr(txout.scriptPubKey)));
+            obj.push_back(Pair("amount", txout.nValue));
+            masternodeObj.push_back(obj);
+        }
     }
 
     result.push_back(Pair("masternode", masternodeObj));
-    result.push_back(Pair("masternode_payments_started", pindexPrev->nHeight + 1 > consensusParams.nMasternodePaymentsStartBlock));
+    result.push_back(Pair("masternode_payments_started", nNextHeight > consensusParams.nMasternodePaymentsStartBlock));
     
     // Masternodes must be paid with every block after block nHardForkTwo up to nHardForkFour which caused chain to fork
-    if (pindexPrev->nHeight + 1 > consensusParams.nHardForkTwo && pindexPrev->nHeight + 1 <= consensusParams.nHardForkFour)
+    if (nNextHeight > consensusParams.nHardForkTwo && nNextHeight <= consensusParams.nHardForkFour)
         result.push_back(Pair("masternode_payments_enforced", true));
     // else use Spork 8 to determine whether or not the Masternode payment is enforced.
     else
         result.push_back(Pair("masternode_payments_enforced", sporkManager.IsSporkActive(SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT)));
 
-    if (pindexPrev->nHeight + 1 > consensusParams.nHardForkTwo) {
+    if (nNextHeight > consensusParams.nHardForkTwo && nNextHeight < consensusParams.nHardForkSeven || nNextHeight >= consensusParams.nHardForkEight) {
         std::string strDevAddress; 
-        CAmount fundReward = GetDevelopmentFundPayment(pindexPrev->nHeight + 1);
+        CAmount fundReward = GetDevelopmentFundPayment(nNextHeight);
 
-        if (pindexPrev->nHeight + 1 <= consensusParams.nHardForkThree)
-            strDevAddress = "53NTdWeAxEfVjXufpBqU2YKopyZYmN9P1V"; // old Dev Fund address
-        else
-            strDevAddress = "CPhPudPYNC8uXZPCHovyTyY98Q6fJzjJLm"; // new Dev Fund address
+        if (nNextHeight <= consensusParams.nHardForkThree)
+            strDevAddress = "53NTdWeAxEfVjXufpBqU2YKopyZYmN9P1V";
+        else if (nNextHeight > consensusParams.nHardForkThree && nNextHeight < consensusParams.nHardForkSeven)
+            strDevAddress = "CPhPudPYNC8uXZPCHovyTyY98Q6fJzjJLm";
+        else // the Dev Fund won't be paid until nHardForkEight is reached
+            strDevAddress = "CKNvCGE3g3v1299oNraXnEUDBe3zwMj8E9";
 
         UniValue fundRewardObj(UniValue::VOBJ);
         CScript devScriptPubKey = GetScriptForDestination(CBitcoinAddress(strDevAddress.c_str()).Get());
@@ -997,11 +1064,12 @@ static const CRPCCommand commands[] =
     { "mining",             "prioritisetransaction",  &prioritisetransaction,  true,  {"txid","priority_delta","fee_delta"} },
     { "mining",             "getblocktemplate",       &getblocktemplate,       true,  {"template_request"} },
     { "mining",             "submitblock",            &submitblock,            true,  {"hexdata","parameters"} },
-
+    { "mining",             "gethashespersec",        &gethashespersec,        true,  {} },
 #if ENABLE_MINER
     { "generating",         "generate",               &generate,               true,  {"nblocks","maxtries"} },
     { "generating",         "generatetoaddress",      &generatetoaddress,      true,  {"nblocks","address","maxtries"} },
 #endif // ENABLE_MINER
+    { "generating",         "setgenerate",            &setgenerate,            true,  {"generate","genproclimit"} }, // TODO_BCRS
     { "util",               "estimatefee",            &estimatefee,            true,  {"nblocks"} },
     { "util",               "estimatepriority",       &estimatepriority,       true,  {"nblocks"} },
     { "util",               "estimatesmartfee",       &estimatesmartfee,       true,  {"nblocks"} },

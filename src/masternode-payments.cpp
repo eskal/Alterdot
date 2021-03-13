@@ -265,7 +265,8 @@ void FillBlockPayments(CMutableTransaction& txNew, int nBlockHeight, CAmount blo
         voutMasternodeStr += txout.ToString();
     }
 
-    if (nBlockHeight > Params().GetConsensus().nHardForkTwo) {
+    if (nBlockHeight > Params().GetConsensus().nHardForkTwo && nBlockHeight < Params().GetConsensus().nHardForkSeven ||
+        nBlockHeight >= Params().GetConsensus().nHardForkEight) {
         CTxOut devFundTx = CTxOut();
         devFundTx.nValue = GetDevelopmentFundPayment(nBlockHeight);
         devFundTx.scriptPubKey = GetDevFundScriptPubKey(nBlockHeight);
@@ -282,8 +283,10 @@ CScript GetDevFundScriptPubKey(const int& nBlockHeight) {
 
     if (nBlockHeight <= Params().GetConsensus().nHardForkThree)
         strDevFundAddress = "53NTdWeAxEfVjXufpBqU2YKopyZYmN9P1V";
-    else
+    else if (nBlockHeight > Params().GetConsensus().nHardForkThree && nBlockHeight < Params().GetConsensus().nHardForkSeven)
         strDevFundAddress = "CPhPudPYNC8uXZPCHovyTyY98Q6fJzjJLm";
+    else // the Dev Fund won't be paid until nHardForkEight is reached
+        strDevFundAddress = "CKNvCGE3g3v1299oNraXnEUDBe3zwMj8E9";
 
     return GetScriptForDestination(CBitcoinAddress(strDevFundAddress.c_str()).Get());
 }
@@ -384,6 +387,9 @@ bool CMasternodePayments::GetMasternodeTxOuts(int nBlockHeight, CAmount blockRew
 {
     // make sure it's not filled yet
     voutMasternodePaymentsRet.clear();
+
+    if (fLiteMode)
+        return false;
 
     if(!GetBlockTxOuts(nBlockHeight, blockReward, voutMasternodePaymentsRet)) {
         if (deterministicMNManager->IsDeterministicMNsSporkActive(nBlockHeight)) {

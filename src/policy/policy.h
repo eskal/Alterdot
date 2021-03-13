@@ -15,7 +15,7 @@
 class CCoinsViewCache;
 
 /** Default for -blockmaxsize, which controls the maximum size of block the mining code will create **/
-static const unsigned int DEFAULT_BLOCK_MAX_SIZE = 3145728; // 3MiB (75% of MAX_BLOCK_SIZE (4MiB)) TODO_BCRS update to 4 MiB
+static const unsigned int DEFAULT_BLOCK_MAX_SIZE = 4194304; // 4MiB (100% of MAX_BLOCK_SIZE (4MiB))
 /** Default for -blockprioritysize, maximum space for zero/low-fee transactions **/
 static const unsigned int DEFAULT_BLOCK_PRIORITY_SIZE = 200000; // was 50000 in 0.12.0 and it is 0 in Bitcoin since 0.12
 /** Default for -blockmintxfee, which sets the minimum feerate for a transaction in blocks created by mining code **/
@@ -29,13 +29,13 @@ static const unsigned int MAX_STANDARD_TX_SIGOPS = MaxBlockSigOps(false)/5; // T
 /** Default for -maxmempool, maximum megabytes of mempool memory usage */
 static const unsigned int DEFAULT_MAX_MEMPOOL_SIZE = 300;
 /** Default for -incrementalrelayfee, which sets the minimum feerate increase for mempool limiting or BIP 125 replacement **/
-static const unsigned int DEFAULT_INCREMENTAL_RELAY_FEE = 1000;
+static const unsigned int DEFAULT_INCREMENTAL_RELAY_FEE = 10000;
 /** Min feerate for defining dust. Historically this has been the same as the
  * minRelayTxFee, however changing the dust limit changes which transactions are
  * standard and should be done with care and ideally rarely. It makes sense to
  * only increase the dust limit after prior releases were already not creating
  * outputs below the new threshold */
-static const unsigned int DUST_RELAY_TX_FEE = 1000;
+static const unsigned int DUST_RELAY_TX_FEE = 10000;
 /**
  * Standard script verification flags that standard transactions will comply
  * with. However scripts violating these flags may still be present in valid

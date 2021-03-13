@@ -105,12 +105,15 @@ struct LLMQParams {
 struct Params {
     uint256 hashGenesisBlock;
     uint256 hashDevnetGenesisBlock;
-    int nHardForkOne; // block
+    int nHardForkOne; // block TODO_BCRS refactor hard forks into an array
     int nHardForkTwo; // block
     int nHardForkThree; //block
     int nHardForkFour; //block
     int nHardForkFive; //block
     int nHardForkSix; // block
+    int nHardForkSeven; // block, lite/core network mode
+    int nHardForkEight; // block, exit core mode, reactivation of MNs and Dash-specific functionalities, BIP147
+    int nHardForkNine; // block, shouldn't really be a hard fork, activation of Determnisitic MNs, TODO_BCRS allow registration 2-3000 blocks before
     int nTempDevFundIncreaseEnd; //block height for temporal Dev fund increase ending
     int nSubsidyHalvingInterval;
     int nMasternodePaymentsStartBlock;
@@ -131,11 +134,11 @@ struct Params {
     //int BIP34Height;
     //uint256 BIP34Hash;
     /** Block height at which BIP65 becomes active */
-    int BIP65Height;
+    //int BIP65Height;
     /** Block height at which BIP66 becomes active */
-    int BIP66Height;
+    //int BIP66Height;
     /** Block height at which DIP0001 becomes active */
-    int DIP0001Height;
+    int DIP0001Height; // TODO_BCRS update/remove DIP0001 references as it's not used
 
     int nIntPhaseTotalBlocks;
     int nBlocksPerYear; // expected blocks per year
@@ -159,7 +162,7 @@ struct Params {
     int64_t nDifficultyAdjustmentInterval;
     int64_t nOldPowTargetSpacing;
     int64_t nNewPowTargetSpacing;
-    int nPowDGWHeight;
+    //int nPowDGWHeight;
     uint256 nMinimumChainWork;
     uint256 defaultAssumeValid;
 

@@ -1208,7 +1208,7 @@ CAmount GetMasternodePayment(const int& nHeight) {
             case 4: nIntMNReward = 6 * COIN;
         }
     }
-    else if (nHeight > consensusParams.nHardForkSix && nHeight <= consensusParams.nHardForkSix + 2 * consensusParams.nBlocksPerYear) {
+    else if (nHeight > consensusParams.nHardForkSix && nHeight < consensusParams.nHardForkSix + 2 * consensusParams.nBlocksPerYear) {
         int nIntPhase = (nHeight - consensusParams.nHardForkSix) / (consensusParams.nBlocksPerYear / 2);
 
         switch (nIntPhase) {
@@ -1223,6 +1223,9 @@ CAmount GetMasternodePayment(const int& nHeight) {
     }
     else
         nIntMNReward = 2 * COIN;
+
+    if (nHeight >= consensusParams.nHardForkSeven && nHeight < consensusParams.nHardForkEight) // transition period, core functionalities only
+        nIntMNReward = 0 * COIN;
 
     LogPrint("creation", "GetMasternodePayment(): create=%s MN Payment=%d\n", FormatMoney(nIntMNReward), nIntMNReward);
     return nIntMNReward;
@@ -1242,6 +1245,9 @@ CAmount GetDevelopmentFundPayment(const int& nHeight) {
     } 
     else if (nHeight > consensusParams.nHardForkSix)
         nIntDevFundReward = 2 * COIN;
+
+    if (nHeight >= consensusParams.nHardForkSeven && nHeight < consensusParams.nHardForkEight) // transition period, core functionalities only
+        nIntDevFundReward = 0 * COIN;
 
     LogPrint("creation", "GetDevelopmentFundPayment(): create=%s Dev Fund Payment=%d\n", FormatMoney(nIntDevFundReward), nIntDevFundReward);
     return nIntDevFundReward;
@@ -1948,8 +1954,11 @@ static int64_t nTimeTotal = 0;
 bool IsFundRewardValid(const CTransaction& txNew, CAmount fundReward, const int& nHeight) {
     std::string strDevAddress;
     
+    //Use a new Dev Fund address after HardForkEight due to wallet transaction cluttering
+    if (nHeight >= Params().GetConsensus().nHardForkEight)
+        strDevAddress = "CKNvCGE3g3v1299oNraXnEUDBe3zwMj8E9";
     //Use the new Dev Fund address after HardForkThree (block 550,001)
-    if (nHeight > Params().GetConsensus().nHardForkThree)
+    else if (nHeight > Params().GetConsensus().nHardForkThree && nHeight < Params().GetConsensus().nHardForkSeven)
         strDevAddress = "CPhPudPYNC8uXZPCHovyTyY98Q6fJzjJLm";
     //Use the old Dev Fund address starting from HardForkTwo until HardForkThree
     else if (nHeight > Params().GetConsensus().nHardForkTwo && nHeight <= Params().GetConsensus().nHardForkThree)
@@ -2082,27 +2091,16 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     // BIP16 didn't become active until Apr 1 2012
     int64_t nBIP16SwitchTime = 1333238400;
     bool fStrictPayToScriptHash = (pindex->GetBlockTime() >= nBIP16SwitchTime);
+    
+    int nLockTimeFlags = 0;
 
     unsigned int flags = fStrictPayToScriptHash ? SCRIPT_VERIFY_P2SH : SCRIPT_VERIFY_NONE;
-
-    // Start enforcing the DERSIG (BIP66) rule
-    if (pindex->nHeight >= chainparams.GetConsensus().BIP66Height) {
         flags |= SCRIPT_VERIFY_DERSIG;
-    }
-
-    // Start enforcing CHECKLOCKTIMEVERIFY (BIP65) rule
-    if (pindex->nHeight >= chainparams.GetConsensus().BIP65Height) {
         flags |= SCRIPT_VERIFY_CHECKLOCKTIMEVERIFY;
-    }
-
-    // Start enforcing BIP68 (sequence locks) and BIP112 (CHECKSEQUENCEVERIFY) using versionbits logic.
-    int nLockTimeFlags = 0;
-    if (VersionBitsState(pindex->pprev, chainparams.GetConsensus(), Consensus::DEPLOYMENT_CSV, versionbitscache) == THRESHOLD_ACTIVE) {
         flags |= SCRIPT_VERIFY_CHECKSEQUENCEVERIFY;
         nLockTimeFlags |= LOCKTIME_VERIFY_SEQUENCE;
-    }
 
-    if (VersionBitsState(pindex->pprev, chainparams.GetConsensus(), Consensus::DEPLOYMENT_BIP147, versionbitscache) == THRESHOLD_ACTIVE) {
+    if (pindex->nHeight >= Params().GetConsensus().nHardForkEight) {
         flags |= SCRIPT_VERIFY_NULLDUMMY;
     }
 
@@ -2125,7 +2123,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue> > addressUnspentIndex;
     std::vector<std::pair<CSpentIndexKey, CSpentIndexValue> > spentIndex;
 
-    bool fDIP0001Active_context = pindex->nHeight >= Params().GetConsensus().DIP0001Height;
+    bool fDIP0001Active_context = pindex->nHeight >= Params().GetConsensus().DIP0001Height; // TODO_BCRS keep DIP0001 for possible future changes similar to it
 
     for (unsigned int i = 0; i < block.vtx.size(); i++)
     {
@@ -2591,6 +2589,12 @@ void static UpdateTip(CBlockIndex *pindexNew, const CChainParams& chainParams) {
       log(chainActive.Tip()->nChainWork.getdouble())/log(2.0), (unsigned long)chainActive.Tip()->nChainTx,
       DateTimeStrFormat("%Y-%m-%d %H:%M:%S", chainActive.Tip()->GetBlockTime()),
       GuessVerificationProgress(chainParams.TxData(), chainActive.Tip()), pcoinsTip->DynamicMemoryUsage() * (1.0 / (1<<20)), pcoinsTip->GetCacheSize());
+    
+    if (chainActive.Tip()->nHeight < (chainParams.GetConsensus().nHardForkEight - 1))
+        fLiteMode = true;
+    else
+        fLiteMode = false;
+    
     if (!warningMessages.empty())
         LogPrintf(" warning='%s'", boost::algorithm::join(warningMessages, ", "));
     LogPrintf("\n");
@@ -3454,7 +3458,6 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, const Co
 
     // Size limits
     unsigned int nMaxBlockSize = MaxBlockSize(fDIP0001Active_context);
-    LogPrintf("fDIP0001Active = %s and nMaxBlockSize = %d\n", fDIP0001Active_context ? "true" : "false", nMaxBlockSize);
     if (block.vtx.empty() || block.vtx.size() > nMaxBlockSize || ::GetSerializeSize(block, SER_NETWORK, PROTOCOL_VERSION) > nMaxBlockSize)
         return state.DoS(10, false, REJECT_INVALID, "bad-blk-length", false, "size limits failed");
 

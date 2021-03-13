@@ -1662,6 +1662,10 @@ bool AppInitMain(boost::thread_group& threadGroup, CScheduler& scheduler)
 
     // lite mode disables all Dash-specific functionality
     fLiteMode = GetBoolArg("-litemode", false);
+
+    if (chainActive.Height() < (chainparams.GetConsensus().nHardForkEight - 1))
+        fLiteMode = true;
+    
     LogPrintf("fLiteMode %d\n", fLiteMode);
 
     if(fLiteMode) {
