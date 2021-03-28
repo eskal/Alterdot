@@ -576,7 +576,7 @@ bool ContextualCheckTransaction(const CTransaction& tx, CValidationState &state,
 {
     int nHeight = pindexPrev == NULL ? 0 : pindexPrev->nHeight + 1;
     bool fDIP0001Active_context = nHeight >= consensusParams.DIP0001Height;
-    bool fDIP0003Active_context = VersionBitsState(pindexPrev, consensusParams, Consensus::DEPLOYMENT_DIP0003, versionbitscache) == THRESHOLD_ACTIVE;
+    bool fDIP0003Active_context = chainActive.Height() > (consensusParams.nHardForkNine - 2400);
 
     if (fDIP0003Active_context) {
         // check version 3 transaction types
@@ -1653,7 +1653,7 @@ static DisconnectResult DisconnectBlock(const CBlock& block, CValidationState& s
 {
     assert(pindex->GetBlockHash() == view.GetBestBlock());
 
-    bool fDIP0003Active = VersionBitsState(pindex->pprev, Params().GetConsensus(), Consensus::DEPLOYMENT_DIP0003, versionbitscache) == THRESHOLD_ACTIVE;
+    bool fDIP0003Active = chainActive.Height() > (Params().GetConsensus().nHardForkNine - 2400);
     bool fHasBestBlock = evoDb->VerifyBestBlock(pindex->GetBlockHash());
 
     if (fDIP0003Active && !fHasBestBlock) {
@@ -1993,7 +1993,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     assert(hashPrevBlock == view.GetBestBlock());
 
     if (pindex->pprev) {
-        bool fDIP0003Active = VersionBitsState(pindex->pprev, Params().GetConsensus(), Consensus::DEPLOYMENT_DIP0003, versionbitscache) == THRESHOLD_ACTIVE;
+        bool fDIP0003Active = chainActive.Height() > (chainparams.GetConsensus().nHardForkNine - 2400);
         bool fHasBestBlock = evoDb->VerifyBestBlock(pindex->pprev->GetBlockHash());
 
         if (fDIP0003Active && !fHasBestBlock) {
@@ -3453,8 +3453,8 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, const Co
                               ? pindexPrev->GetMedianTimePast()
                               : block.GetBlockTime();
 
-    bool fDIP0001Active_context = nHeight >= Params().GetConsensus().DIP0001Height;
-    bool fDIP0003Active_context = VersionBitsState(pindexPrev, consensusParams, Consensus::DEPLOYMENT_DIP0003, versionbitscache) == THRESHOLD_ACTIVE;
+    bool fDIP0001Active_context = nHeight >= consensusParams.DIP0001Height;
+    bool fDIP0003Active_context = chainActive.Height() > (consensusParams.nHardForkNine - 2400);
 
     // Size limits
     unsigned int nMaxBlockSize = MaxBlockSize(fDIP0001Active_context);

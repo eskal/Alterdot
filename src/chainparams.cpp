@@ -183,8 +183,8 @@ public:
         consensus.nHardForkFour = 665000; //block
         consensus.nHardForkFive = 850000; //block
         consensus.nHardForkSix = 1000000; //block
-        consensus.nHardForkSeven = 1007964; // block
-        consensus.nHardForkEight = 1007990; // block
+        consensus.nHardForkSeven = 1011560; // block
+        consensus.nHardForkEight = 1011580; // block
         consensus.nHardForkNine = 1030000; // block
         consensus.nTempDevFundIncreaseEnd = 625000; //block
         consensus.nMasternodePaymentsStartBlock = 100; // Masternode Payments begin on block 100.
@@ -205,7 +205,7 @@ public:
         //consensus.BIP65Height = 619382; // 00000000000076d8fcea02ec0963de4abfd01e771fec0863f960c2c64fe6f357 TODO_BCRS implemented from genesis
         //consensus.BIP66Height = 245817; // 00000000000b1fa2dfa312863570e13fae9ca7b5566cb27e55422620b469aefa TODO_BCRS implemented from genesis
         consensus.DIP0001Height = 2000000; // TODO_BCRS
-        // TODO_BCRS after block nHardForkNine - 2-3000 enable deterministic MNs registrations
+        // TODO_BCRS after block nHardForkNine - 2-3000 enable deterministic MNs registrations, maybe 15 days would be enough so 3600 blocks
         consensus.powLimit = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20
         //consensus.nPowTargetTimespan = 24 * 60 * 60; // Dash: 1 day
         consensus.nDifficultyAdjustmentInterval = 576; // biggest time frame used by the DELTA retargeting algo, not used, just information
@@ -234,7 +234,7 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nWindowSize = 4032;
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 3226; // 80% of 4032
 
-        // Deployment of BIP147 TODO_BCRS activated at hard fork eight
+        // Deployment of BIP147 TODO_BCRS activates at hard fork eight, code in place
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].bit = 2;
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nStartTime = 1524477600; // Apr 23th, 2018
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nTimeout = 1556013600; // Apr 23th, 2019
