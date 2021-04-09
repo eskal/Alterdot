@@ -185,7 +185,7 @@ public:
         consensus.nHardForkSix = 1000000; //block
         consensus.nHardForkSeven = 1011560; // block
         consensus.nHardForkEight = 1011580; // block
-        consensus.nHardForkNine = 1030000; // block
+        consensus.nDetMNRegHeight = 1011600; // block
         consensus.nTempDevFundIncreaseEnd = 625000; //block
         consensus.nMasternodePaymentsStartBlock = 100; // Masternode Payments begin on block 100.
         consensus.nInstantSendConfirmationsRequired = 6;
@@ -241,7 +241,7 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nWindowSize = 4032;
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nThreshold = 3226; // 80% of 4032
 
-        // Deployment of DIP0003
+        // Deployment of DIP0003 TODO_BCRS activates 3600 blocks (15 days at 240 blocks per day) before hard fork nine
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].bit = 3;
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].nStartTime = 1546300800; // Jan 1st, 2019
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].nTimeout = 1577836800; // Jan 1st, 2020

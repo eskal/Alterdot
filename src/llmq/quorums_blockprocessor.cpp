@@ -109,7 +109,8 @@ bool CQuorumBlockProcessor::ProcessBlock(const CBlock& block, const CBlockIndex*
 {
     AssertLockHeld(cs_main);
 
-    bool fDIP0003Active = chainActive.Height() > (Params().GetConsensus().nHardForkNine - 2400);
+    bool fDIP0003Active = chainActive.Height() > Params().GetConsensus().nDetMNRegHeight;
+
     if (!fDIP0003Active) {
         return true;
     }
@@ -226,7 +227,7 @@ bool CQuorumBlockProcessor::GetCommitmentsFromBlock(const CBlock& block, const C
     AssertLockHeld(cs_main);
 
     auto& consensus = Params().GetConsensus();
-    bool fDIP0003Active = chainActive.Height() > (consensus.nHardForkNine - 2400);
+    bool fDIP0003Active = chainActive.Height() > Params().GetConsensus().nDetMNRegHeight;
 
     ret.clear();
 

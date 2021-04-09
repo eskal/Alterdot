@@ -134,7 +134,7 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
 
     LOCK2(cs_main, mempool.cs);
 
-    bool fDIP0003Active_context = chainActive.Height() > (chainparams.GetConsensus().nHardForkNine - 2400);
+    bool fDIP0003Active_context = chainActive.Height() > chainparams.GetConsensus().nDetMNRegHeight;
 
     CBlockIndex* pindexPrev = chainActive.Tip();
     nHeight = pindexPrev->nHeight + 1;
@@ -184,8 +184,8 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
     coinbaseTx.vout.resize(1);
     coinbaseTx.vout[0].scriptPubKey = scriptPubKeyIn;
 
-    // NOTE: unlike in bitcoin, we need to pass PREVIOUS block height here
-    CAmount blockReward = GetPoWBlockPayment(pindexPrev->nHeight, nFees); // TODO_BCRS this is the current height
+    // NOTE: unlike in bitcoin, we need to pass PREVIOUS block height here, in Bitcreds we go back to the current block height
+    CAmount blockReward = GetPoWBlockPayment(nHeight, nFees); // TODO_BCRS this is the current height
 
     // Compute regular coinbase transaction.
     coinbaseTx.vout[0].nValue = blockReward;

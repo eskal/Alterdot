@@ -113,7 +113,7 @@ struct Params {
     int nHardForkSix; // block
     int nHardForkSeven; // block, lite/core network mode
     int nHardForkEight; // block, exit core mode, reactivation of MNs and Dash-specific functionalities, BIP147
-    int nHardForkNine; // block, shouldn't really be a hard fork, activation of Determnisitic MNs, TODO_BCRS allow registration 2-3000 blocks before
+    int nDetMNRegHeight; // block, start allowing registration of determinisitc MNs
     int nTempDevFundIncreaseEnd; //block height for temporal Dev fund increase ending
     int nSubsidyHalvingInterval;
     int nMasternodePaymentsStartBlock;

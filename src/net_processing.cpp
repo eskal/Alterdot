@@ -1381,8 +1381,9 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
     bool fDIP0003Active;
     {
         LOCK(cs_main);
-        fDIP0003Active = VersionBitsState(chainActive.Tip(), chainparams.GetConsensus(), Consensus::DEPLOYMENT_DIP0003, versionbitscache) == THRESHOLD_ACTIVE;
+        fDIP0003Active = chainActive.Height() > Params().GetConsensus().nDetMNRegHeight;
     }
+
     // TODO delete this in next release after v13
     int nMinPeerProtoVersion = MIN_PEER_PROTO_VERSION;
     if (fDIP0003Active) {

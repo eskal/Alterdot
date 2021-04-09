@@ -94,7 +94,7 @@ bool fAlerts = DEFAULT_ALERTS;
 int64_t nMaxTipAge = DEFAULT_MAX_TIP_AGE;
 
 std::atomic<bool> fDIP0001ActiveAtTip{false};
-std::atomic<bool> fDIP0003ActiveAtTip{false};
+std::atomic<bool> fDIP0003ActiveAtTip{false}; // TODO_BCRS
 
 uint256 hashAssumeValid;
 
@@ -576,7 +576,7 @@ bool ContextualCheckTransaction(const CTransaction& tx, CValidationState &state,
 {
     int nHeight = pindexPrev == NULL ? 0 : pindexPrev->nHeight + 1;
     bool fDIP0001Active_context = nHeight >= consensusParams.DIP0001Height;
-    bool fDIP0003Active_context = chainActive.Height() > (consensusParams.nHardForkNine - 2400);
+    bool fDIP0003Active_context = chainActive.Height() > Params().GetConsensus().nDetMNRegHeight;
 
     if (fDIP0003Active_context) {
         // check version 3 transaction types
@@ -597,7 +597,7 @@ bool ContextualCheckTransaction(const CTransaction& tx, CValidationState &state,
         }
     }
 
-    // Size limits
+    // Size limits TODO_BCRS
     if (fDIP0001Active_context && ::GetSerializeSize(tx, SER_NETWORK, PROTOCOL_VERSION) > MAX_STANDARD_TX_SIZE)
         return state.DoS(100, false, REJECT_INVALID, "bad-txns-oversize");
 
@@ -1653,7 +1653,7 @@ static DisconnectResult DisconnectBlock(const CBlock& block, CValidationState& s
 {
     assert(pindex->GetBlockHash() == view.GetBestBlock());
 
-    bool fDIP0003Active = chainActive.Height() > (Params().GetConsensus().nHardForkNine - 2400);
+    bool fDIP0003Active = chainActive.Height() > Params().GetConsensus().nDetMNRegHeight;
     bool fHasBestBlock = evoDb->VerifyBestBlock(pindex->GetBlockHash());
 
     if (fDIP0003Active && !fHasBestBlock) {
@@ -1814,8 +1814,7 @@ static DisconnectResult DisconnectBlock(const CBlock& block, CValidationState& s
 
     // make sure the flag is reset in case of a chain reorg
     // (we reused the DIP3 deployment)
-    instantsend.isAutoLockBip9Active =
-            (VersionBitsState(pindex->pprev, Params().GetConsensus(), Consensus::DEPLOYMENT_DIP0003, versionbitscache) == THRESHOLD_ACTIVE);
+    instantsend.isAutoLockBip9Active = chainActive.Height() > Params().GetConsensus().nDetMNRegHeight;
 
     evoDb->WriteBestBlock(pindex->pprev->GetBlockHash());
 
@@ -1993,7 +1992,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     assert(hashPrevBlock == view.GetBestBlock());
 
     if (pindex->pprev) {
-        bool fDIP0003Active = chainActive.Height() > (chainparams.GetConsensus().nHardForkNine - 2400);
+        bool fDIP0003Active = chainActive.Height() > Params().GetConsensus().nDetMNRegHeight;
         bool fHasBestBlock = evoDb->VerifyBestBlock(pindex->pprev->GetBlockHash());
 
         if (fDIP0003Active && !fHasBestBlock) {
@@ -2384,6 +2383,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     // add this block to the view's block chain
     view.SetBestBlock(pindex->GetBlockHash());
 
+    /*
     if (!fJustCheck) {
         // check if previous block had DIP3 disabled and the new block has it enabled
         if (VersionBitsState(pindex->pprev, chainparams.GetConsensus(), Consensus::DEPLOYMENT_DIP0003, versionbitscache) != THRESHOLD_ACTIVE &&
@@ -2391,6 +2391,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
             LogPrintf("%s -- DIP0003 got activated at height %d\n", __func__, pindex->nHeight);
         }
     }
+    */
 
     int64_t nTime6 = GetTimeMicros(); nTimeIndex += nTime6 - nTime5;
     LogPrint("bench", "    - Index writing: %.2fms [%.2fs]\n", 0.001 * (nTime6 - nTime5), nTimeIndex * 0.000001);
@@ -3454,7 +3455,7 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, const Co
                               : block.GetBlockTime();
 
     bool fDIP0001Active_context = nHeight >= consensusParams.DIP0001Height;
-    bool fDIP0003Active_context = chainActive.Height() > (consensusParams.nHardForkNine - 2400);
+    bool fDIP0003Active_context = chainActive.Height() > Params().GetConsensus().nDetMNRegHeight;
 
     // Size limits
     unsigned int nMaxBlockSize = MaxBlockSize(fDIP0001Active_context);

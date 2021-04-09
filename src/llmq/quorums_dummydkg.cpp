@@ -296,7 +296,7 @@ void CDummyDKG::UpdatedBlockTip(const CBlockIndex* pindex, bool fInitialDownload
         return;
     }
 
-    bool fDIP0003Active = chainActive.Height() > (Params().GetConsensus().nHardForkNine - 2400);
+    bool fDIP0003Active = chainActive.Height() > Params().GetConsensus().nDetMNRegHeight;
     if (!fDIP0003Active) {
         return;
     }

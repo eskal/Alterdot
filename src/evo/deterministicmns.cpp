@@ -449,7 +449,7 @@ bool CDeterministicMNManager::ProcessBlock(const CBlock& block, const CBlockInde
 {
     AssertLockHeld(cs_main);
 
-    bool fDIP0003Active = chainActive.Height() > (Params().GetConsensus().nHardForkNine - 2400);
+    bool fDIP0003Active = chainActive.Height() > Params().GetConsensus().nDetMNRegHeight;
     if (!fDIP0003Active) {
         return true;
     }
@@ -884,7 +884,7 @@ bool CDeterministicMNManager::IsDeterministicMNsSporkActive(int nHeight)
     }
 
     int64_t spork15Value = GetSpork15Value();
-    return nHeight >= spork15Value;
+    return nHeight > spork15Value;
 }
 
 void CDeterministicMNManager::CleanupCache(int nHeight)
