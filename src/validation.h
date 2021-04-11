@@ -74,7 +74,7 @@ static const unsigned int DEFAULT_DESCENDANT_SIZE_LIMIT = 101;
 /** Default for -mempoolexpiry, expiration time for mempool transactions in hours */
 static const unsigned int DEFAULT_MEMPOOL_EXPIRY = 72;
 /** The maximum size of a blk?????.dat file (since 0.8) */
-static const unsigned int MAX_BLOCKFILE_SIZE = 0x20000000; // 512 MiB TODO_BCRS might lower this
+static const unsigned int MAX_BLOCKFILE_SIZE = 0x20000000; // 512 MiB TODO_BCRS_FUTURE might lower this
 /** The pre-allocation chunk size for blk?????.dat files (since 0.8) */
 static const unsigned int BLOCKFILE_CHUNK_SIZE = 0x4000000; // 64 MiB
 /** The pre-allocation chunk size for rev?????.dat files (since 0.8) */

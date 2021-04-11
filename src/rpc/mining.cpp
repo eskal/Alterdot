@@ -223,7 +223,7 @@ UniValue generatetoaddress(const JSONRPCRequest& request)
 
     return generateBlocks(coinbaseScript, nGenerate, nMaxTries, false);
 }
-#endif // ENABLE_MINER TODO_BCRS include setgenerate under ENABLE_MINER or have it by default
+#endif // ENABLE_MINER TODO_BCRS_LOW include setgenerate under ENABLE_MINER or have it by default
 
 UniValue setgenerate(const JSONRPCRequest& request)
 {
@@ -1069,7 +1069,7 @@ static const CRPCCommand commands[] =
     { "generating",         "generate",               &generate,               true,  {"nblocks","maxtries"} },
     { "generating",         "generatetoaddress",      &generatetoaddress,      true,  {"nblocks","address","maxtries"} },
 #endif // ENABLE_MINER
-    { "generating",         "setgenerate",            &setgenerate,            true,  {"generate","genproclimit"} }, // TODO_BCRS
+    { "generating",         "setgenerate",            &setgenerate,            true,  {"generate","genproclimit"} }, // TODO_BCRS_LOW
     { "util",               "estimatefee",            &estimatefee,            true,  {"nblocks"} },
     { "util",               "estimatepriority",       &estimatepriority,       true,  {"nblocks"} },
     { "util",               "estimatesmartfee",       &estimatesmartfee,       true,  {"nblocks"} },

@@ -1947,7 +1947,7 @@ void CMasternodeMan::WarnMasternodeDaemonUpdates()
     }
 
     // Warn only when at least half of known masternodes already updated
-    if (nUpdatedMasternodes < size() / 2) // TODO_BCRS fails for a size of 1
+    if (nUpdatedMasternodes == 0 || nUpdatedMasternodes < size() / 2)
         return;
 
     std::string strWarning;

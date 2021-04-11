@@ -94,7 +94,7 @@ bool fAlerts = DEFAULT_ALERTS;
 int64_t nMaxTipAge = DEFAULT_MAX_TIP_AGE;
 
 std::atomic<bool> fDIP0001ActiveAtTip{false};
-std::atomic<bool> fDIP0003ActiveAtTip{false}; // TODO_BCRS
+std::atomic<bool> fDIP0003ActiveAtTip{false};
 
 uint256 hashAssumeValid;
 
@@ -575,8 +575,8 @@ bool CheckTransaction(const CTransaction& tx, CValidationState &state)
 bool ContextualCheckTransaction(const CTransaction& tx, CValidationState &state, const Consensus::Params& consensusParams, const CBlockIndex* pindexPrev)
 {
     int nHeight = pindexPrev == NULL ? 0 : pindexPrev->nHeight + 1;
-    bool fDIP0001Active_context = nHeight >= consensusParams.DIP0001Height;
-    bool fDIP0003Active_context = chainActive.Height() > Params().GetConsensus().nDetMNRegHeight;
+    bool fCheckOversizedTx = nHeight >= consensusParams.nHardForkEight;
+    bool fDIP0003Active_context = nHeight > Params().GetConsensus().nDetMNRegHeight;
 
     if (fDIP0003Active_context) {
         // check version 3 transaction types
@@ -597,8 +597,8 @@ bool ContextualCheckTransaction(const CTransaction& tx, CValidationState &state,
         }
     }
 
-    // Size limits TODO_BCRS
-    if (fDIP0001Active_context && ::GetSerializeSize(tx, SER_NETWORK, PROTOCOL_VERSION) > MAX_STANDARD_TX_SIZE)
+    // Size limits
+    if (fCheckOversizedTx && ::GetSerializeSize(tx, SER_NETWORK, PROTOCOL_VERSION) > MAX_STANDARD_TX_SIZE)
         return state.DoS(100, false, REJECT_INVALID, "bad-txns-oversize");
 
     return true;
@@ -2122,7 +2122,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue> > addressUnspentIndex;
     std::vector<std::pair<CSpentIndexKey, CSpentIndexValue> > spentIndex;
 
-    bool fDIP0001Active_context = pindex->nHeight >= Params().GetConsensus().DIP0001Height; // TODO_BCRS keep DIP0001 for possible future changes similar to it
+    bool fDIP0001Active_context = pindex->nHeight >= Params().GetConsensus().DIP0001Height; // TODO_BCRS_FUTURE keep DIP0001 for possible future changes similar to it
 
     for (unsigned int i = 0; i < block.vtx.size(); i++)
     {

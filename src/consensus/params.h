@@ -105,7 +105,7 @@ struct LLMQParams {
 struct Params {
     uint256 hashGenesisBlock;
     uint256 hashDevnetGenesisBlock;
-    int nHardForkOne; // block TODO_BCRS refactor hard forks into an array
+    int nHardForkOne; // block TODO_BCRS_FUTURE refactor hard forks into an array
     int nHardForkTwo; // block
     int nHardForkThree; //block
     int nHardForkFour; //block
@@ -138,7 +138,7 @@ struct Params {
     /** Block height at which BIP66 becomes active */
     //int BIP66Height;
     /** Block height at which DIP0001 becomes active */
-    int DIP0001Height; // TODO_BCRS update/remove DIP0001 references as it's not used
+    int DIP0001Height; // TODO_BCRS_FUTURE not used currently
 
     int nIntPhaseTotalBlocks;
     int nBlocksPerYear; // expected blocks per year

@@ -12,7 +12,7 @@ static const unsigned int MAX_DIP0001_BLOCK_SIZE = 2000000;
 inline unsigned int MaxBlockSize(bool fDIP0001Active /*= false */)
 {
     return MAX_LEGACY_BLOCK_SIZE;
-    //return fDIP0001Active ? MAX_DIP0001_BLOCK_SIZE : MAX_LEGACY_BLOCK_SIZE; // TODO_BCRS kept this in case of future switch
+    //return fDIP0001Active ? MAX_DIP0001_BLOCK_SIZE : MAX_LEGACY_BLOCK_SIZE; // TODO_BCRS_FUTURE kept this in case of future switch
 }
 /** The maximum allowed number of signature check operations in a block (network rule) */
 inline unsigned int MaxBlockSigOps(bool fDIP0001Active /*= false */)

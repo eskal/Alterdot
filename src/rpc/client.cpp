@@ -35,7 +35,7 @@ static const CRPCConvertParam vRPCConvertParams[] =
     { "generate", 1, "maxtries" },
     { "generatetoaddress", 0, "nblocks" },
     { "generatetoaddress", 2, "maxtries" },
-#endif // ENABLE_MINER TODO_BCRS
+#endif // ENABLE_MINER TODO_BCRS_LOW move setgenerate under ENABLE_MINER but setgen should be enabled by default
     { "setgenerate", 0, "generate" },
     { "setgenerate", 1, "genproclimit" },
     { "getnetworkhashps", 0, "nblocks" },

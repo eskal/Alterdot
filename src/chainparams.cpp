@@ -185,7 +185,7 @@ public:
         consensus.nHardForkSix = 1000000; //block
         consensus.nHardForkSeven = 1011560; // block
         consensus.nHardForkEight = 1011580; // block
-        consensus.nDetMNRegHeight = 1011600; // block
+        consensus.nDetMNRegHeight = 1011620; // block
         consensus.nTempDevFundIncreaseEnd = 625000; //block
         consensus.nMasternodePaymentsStartBlock = 100; // Masternode Payments begin on block 100.
         consensus.nInstantSendConfirmationsRequired = 6;
@@ -199,21 +199,20 @@ public:
         consensus.nGovernanceFilterElements = 20000;
         consensus.nOldMasternodeCollateral = 50000;
         consensus.nNewMasternodeCollateral = 10000;
-        consensus.nMasternodeMinimumConfirmations = 15; // TODO_BCRS
-        //consensus.BIP34Height = 951; TODO_BCRS implemented from genesis
+        consensus.nMasternodeMinimumConfirmations = 15; // TODO_BCRS_FUTURE
+        //consensus.BIP34Height = 951; TODO_BCRS_LOW implemented from genesis
         //consensus.BIP34Hash = uint256S("0x000001f35e70f7c5705f64c6c5cc3dea9449e74d5b5c7cf74dad1bcca14a8012");
-        //consensus.BIP65Height = 619382; // 00000000000076d8fcea02ec0963de4abfd01e771fec0863f960c2c64fe6f357 TODO_BCRS implemented from genesis
-        //consensus.BIP66Height = 245817; // 00000000000b1fa2dfa312863570e13fae9ca7b5566cb27e55422620b469aefa TODO_BCRS implemented from genesis
-        consensus.DIP0001Height = 2000000; // TODO_BCRS
-        // TODO_BCRS after block nHardForkNine - 2-3000 enable deterministic MNs registrations, maybe 15 days would be enough so 3600 blocks
+        //consensus.BIP65Height = 619382; // 00000000000076d8fcea02ec0963de4abfd01e771fec0863f960c2c64fe6f357 TODO_BCRS_LOW implemented from genesis
+        //consensus.BIP66Height = 245817; // 00000000000b1fa2dfa312863570e13fae9ca7b5566cb27e55422620b469aefa TODO_BCRS_LOW implemented from genesis
+        consensus.DIP0001Height = 5000000; // TODO_BCRS_LOW not currently used
         consensus.powLimit = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20
-        //consensus.nPowTargetTimespan = 24 * 60 * 60; // Dash: 1 day
+        //consensus.nPowTargetTimespan = 24 * 60 * 60; // Dash: 1 day, not used in Bitcreds
         consensus.nDifficultyAdjustmentInterval = 576; // biggest time frame used by the DELTA retargeting algo, not used, just information
         consensus.nOldPowTargetSpacing = 2 * 64; // old Bitcreds: 128 seconds
         consensus.nNewPowTargetSpacing = 6 * 60; // new Bitcreds: 360 seconds
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
-        //consensus.nPowDGWHeight = 1020000; // switch to Dark Gravity Wave difficulty retargeting algo TODO_BCRS Bitcreds will switch to LWMA
+        //consensus.nPowDGWHeight = 1020000; // switch to Dark Gravity Wave difficulty retargeting algo TODO_BCRS_LOW Bitcreds will switch to LWMA before this version
         consensus.nRuleChangeActivationThreshold = 321; // 95% of nMinerConfirmationWindow
         consensus.nMinerConfirmationWindow = 338; // in Bitcoin and Dash this was nPowTargetTimespan / nPowTargetSpacing; 
                                                   // should be updated as nPowTargetTimespan has been removed due to usage of DELTA algo
@@ -227,21 +226,21 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1486252800; // Feb 5th, 2017
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1517788800; // Feb 5th, 2018
 
-        // Deployment of DIP0001
+        // Deployment of DIP0001 TODO_BCRS_LOW not currently used
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].bit = 1;
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nStartTime = 1508025600; // Oct 15th, 2017
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nTimeout = 1539561600; // Oct 15th, 2018
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nWindowSize = 4032;
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 3226; // 80% of 4032
 
-        // Deployment of BIP147 TODO_BCRS activates at hard fork eight, code in place
+        // Deployment of BIP147 TODO_BCRS_LOW activates at hard fork eight, code in place
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].bit = 2;
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nStartTime = 1524477600; // Apr 23th, 2018
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nTimeout = 1556013600; // Apr 23th, 2019
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nWindowSize = 4032;
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nThreshold = 3226; // 80% of 4032
 
-        // Deployment of DIP0003 TODO_BCRS activates 3600 blocks (15 days at 240 blocks per day) before hard fork nine
+        // Deployment of DIP0003 TODO_BCRS_LOW not used in Bitcreds, nDetMNRegHeight used for start of registrations 
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].bit = 3;
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].nStartTime = 1546300800; // Jan 1st, 2019
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].nTimeout = 1577836800; // Jan 1st, 2020
@@ -290,7 +289,7 @@ public:
 
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
 
-        // long living quorum params
+        // long living quorum params TODO_BCRS_FUTURE
         consensus.llmqs[Consensus::LLMQ_50_60] = llmq50_60;
         consensus.llmqs[Consensus::LLMQ_400_60] = llmq400_60;
         consensus.llmqs[Consensus::LLMQ_400_85] = llmq400_85;

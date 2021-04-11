@@ -321,7 +321,7 @@ void CDummyDKG::UpdatedBlockTip(const CBlockIndex* pindex, bool fInitialDownload
 void CDummyDKG::CreateDummyContribution(Consensus::LLMQType llmqType, const CBlockIndex* pindex)
 {
     const auto& params = Params().GetConsensus().llmqs.at(llmqType);
-    int quorumHeight = pindex->nHeight - (pindex->nHeight % params.dkgInterval); // TODO_BCRS dkgInterval
+    int quorumHeight = pindex->nHeight - (pindex->nHeight % params.dkgInterval);
     const CBlockIndex* quorumIndex;
     {
         LOCK(cs_main);
