@@ -114,7 +114,7 @@ static Consensus::LLMQParams llmq10_60 = {
         .minSize = 6,
         .threshold = 6,
 
-        .dkgInterval = 24, // one DKG per hour
+        .dkgInterval = 24, // one DKG per hour TODO_BCRS_FUTURE update LLMQs in accordance with Bitcreds block times
         .dkgPhaseBlocks = 2,
         .dkgMiningWindowStart = 10, // dkgPhaseBlocks * 5 = after finalization
         .dkgMiningWindowEnd = 18,
@@ -183,9 +183,9 @@ public:
         consensus.nHardForkFour = 665000; //block
         consensus.nHardForkFive = 850000; //block
         consensus.nHardForkSix = 1000000; //block
-        consensus.nHardForkSeven = 1011560; // block
-        consensus.nHardForkEight = 1011580; // block
-        consensus.nDetMNRegHeight = 1011620; // block
+        consensus.nHardForkSeven = 1034000; // block core-mode network, LWMA switch
+        consensus.nHardForkEight = 1038000; // block Dash-rebase in effect, old Bitcreds rejected
+        consensus.nDetMNRegHeight = 1040000; // block start registration of Deterministic Masternodes, spork block activates them
         consensus.nTempDevFundIncreaseEnd = 625000; //block
         consensus.nMasternodePaymentsStartBlock = 100; // Masternode Payments begin on block 100.
         consensus.nInstantSendConfirmationsRequired = 6;
