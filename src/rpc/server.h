@@ -143,7 +143,7 @@ public:
 };
 
 /**
- * Dash RPC command dispatcher.
+ * Bitcreds RPC command dispatcher.
  */
 class CRPCTable
 {

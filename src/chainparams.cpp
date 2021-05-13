@@ -184,7 +184,7 @@ public:
         consensus.nHardForkFive = 850000; //block
         consensus.nHardForkSix = 1000000; //block
         consensus.nHardForkSeven = 1034000; // block core-mode network, LWMA switch
-        consensus.nHardForkEight = 1038000; // block Dash-rebase in effect, old Bitcreds rejected
+        consensus.nHardForkEight = 1038000; // block Bitcreds-rebase in effect, old Bitcreds rejected
         consensus.nDetMNRegHeight = 1040000; // block start registration of Deterministic Masternodes, spork block activates them
         consensus.nTempDevFundIncreaseEnd = 625000; //block
         consensus.nMasternodePaymentsStartBlock = 100; // Masternode Payments begin on block 100.
@@ -206,7 +206,7 @@ public:
         //consensus.BIP66Height = 245817; // 00000000000b1fa2dfa312863570e13fae9ca7b5566cb27e55422620b469aefa TODO_BCRS_LOW implemented from genesis
         consensus.DIP0001Height = 5000000; // TODO_BCRS_LOW not currently used
         consensus.powLimit = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20
-        //consensus.nPowTargetTimespan = 24 * 60 * 60; // Dash: 1 day, not used in Bitcreds
+        //consensus.nPowTargetTimespan = 24 * 60 * 60; // Bitcreds: 1 day, not used in Bitcreds
         consensus.nDifficultyAdjustmentInterval = 576; // biggest time frame used by the DELTA retargeting algo, not used, just information
         consensus.nOldPowTargetSpacing = 2 * 64; // old Bitcreds: 128 seconds
         consensus.nNewPowTargetSpacing = 6 * 60; // new Bitcreds: 360 seconds
@@ -214,7 +214,7 @@ public:
         consensus.fPowNoRetargeting = false;
         //consensus.nPowDGWHeight = 1020000; // switch to Dark Gravity Wave difficulty retargeting algo TODO_BCRS_LOW Bitcreds will switch to LWMA before this version
         consensus.nRuleChangeActivationThreshold = 321; // 95% of nMinerConfirmationWindow
-        consensus.nMinerConfirmationWindow = 338; // in Bitcoin and Dash this was nPowTargetTimespan / nPowTargetSpacing; 
+        consensus.nMinerConfirmationWindow = 338; // in Bitcoin and Bitcreds this was nPowTargetTimespan / nPowTargetSpacing; 
                                                   // should be updated as nPowTargetTimespan has been removed due to usage of DELTA algo
 
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
@@ -367,8 +367,8 @@ public:
         //consensus.BIP66Height = 2075; // 0000002acdd29a14583540cb72e1c5cc83783560e38fa7081495d474fe1671f7
         consensus.DIP0001Height = 5500;
         consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20
-        //consensus.nPowTargetTimespan = 24 * 60 * 60; // Dash: 1 day
-        //consensus.nPowTargetSpacing = 2.5 * 60; // Dash: 2.5 minutes
+        //consensus.nPowTargetTimespan = 24 * 60 * 60; // Bitcreds: 1 day
+        //consensus.nPowTargetSpacing = 2.5 * 60; // Bitcreds: 2.5 minutes
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
         //consensus.nPowKGWHeight = 4002; // nPowKGWHeight >= nPowDGWHeight means "no KGW"
@@ -429,21 +429,21 @@ public:
 
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.push_back(CDNSSeedData("dashdot.io",  "testnet-seed.dashdot.io"));
+        vSeeds.push_back(CDNSSeedData("bitcredsdot.io",  "testnet-seed.bitcredsdot.io"));
         vSeeds.push_back(CDNSSeedData("masternode.io", "test.dnsseed.masternode.io"));
 
-        // Testnet Dash addresses start with 'y'
+        // Testnet Bitcreds addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
-        // Testnet Dash script addresses start with '8' or '9'
+        // Testnet Bitcreds script addresses start with '8' or '9'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,19);
         // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        // Testnet Dash BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
+        // Testnet Bitcreds BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
-        // Testnet Dash BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
+        // Testnet Bitcreds BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
 
-        // Testnet Dash BIP44 coin type is '1' (All coin's testnet default)
+        // Testnet Bitcreds BIP44 coin type is '1' (All coin's testnet default)
         nExtCoinType = 1;
 
         // long living quorum params
@@ -512,8 +512,8 @@ public:
         //consensus.BIP66Height = 1; // BIP66 activated immediately on devnet
         consensus.DIP0001Height = 2; // DIP0001 activated immediately on devnet
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 1
-        //consensus.nPowTargetTimespan = 24 * 60 * 60; // Dash: 1 day
-        //consensus.nPowTargetSpacing = 2.5 * 60; // Dash: 2.5 minutes
+        //consensus.nPowTargetTimespan = 24 * 60 * 60; // Bitcreds: 1 day
+        //consensus.nPowTargetSpacing = 2.5 * 60; // Bitcreds: 2.5 minutes
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
         //consensus.nPowKGWHeight = 4001; // nPowKGWHeight >= nPowDGWHeight means "no KGW"
@@ -574,20 +574,20 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        //vSeeds.push_back(CDNSSeedData("dashevo.org",  "devnet-seed.dashevo.org"));
+        //vSeeds.push_back(CDNSSeedData("bitcredsevo.org",  "devnet-seed.bitcredsevo.org"));
 
-        // Testnet Dash addresses start with 'y'
+        // Testnet Bitcreds addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
-        // Testnet Dash script addresses start with '8' or '9'
+        // Testnet Bitcreds script addresses start with '8' or '9'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,19);
         // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        // Testnet Dash BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
+        // Testnet Bitcreds BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
-        // Testnet Dash BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
+        // Testnet Bitcreds BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
 
-        // Testnet Dash BIP44 coin type is '1' (All coin's testnet default)
+        // Testnet Bitcreds BIP44 coin type is '1' (All coin's testnet default)
         nExtCoinType = 1;
 
         // long living quorum params
@@ -662,8 +662,8 @@ public:
         //consensus.BIP66Height = 1251; // BIP66 activated on regtest (Used in rpc activation tests)
         consensus.DIP0001Height = 2000;
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 1
-        //consensus.nPowTargetTimespan = 24 * 60 * 60; // Dash: 1 day
-        //consensus.nPowTargetSpacing = 2.5 * 60; // Dash: 2.5 minutes
+        //consensus.nPowTargetTimespan = 24 * 60 * 60; // Bitcreds: 1 day
+        //consensus.nPowTargetSpacing = 2.5 * 60; // Bitcreds: 2.5 minutes
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = true;
         //consensus.nPowKGWHeight = 15200; // same as mainnet
@@ -735,18 +735,18 @@ public:
             0
         };
 
-        // Regtest Dash addresses start with 'y'
+        // Regtest Bitcreds addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
-        // Regtest Dash script addresses start with '8' or '9'
+        // Regtest Bitcreds script addresses start with '8' or '9'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,19);
         // Regtest private keys start with '9' or 'c' (Bitcoin defaults)
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        // Regtest Dash BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
+        // Regtest Bitcreds BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
-        // Regtest Dash BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
+        // Regtest Bitcreds BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
 
-        // Regtest Dash BIP44 coin type is '1' (All coin's testnet default)
+        // Regtest Bitcreds BIP44 coin type is '1' (All coin's testnet default)
         nExtCoinType = 1;
 
         // long living quorum params

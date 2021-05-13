@@ -43,7 +43,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// DashMiner
+// BitcredsMiner
 //
 
 //
@@ -184,7 +184,7 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
     coinbaseTx.vout.resize(1);
     coinbaseTx.vout[0].scriptPubKey = scriptPubKeyIn;
 
-    // NOTE: unlike in bitcoin, we need to pass PREVIOUS block height here (Dash), in Bitcreds we got back to the current block height
+    // NOTE: unlike in bitcoin, we need to pass PREVIOUS block height here (Bitcreds), in Bitcreds we got back to the current block height
     CAmount blockReward = GetPoWBlockPayment(nHeight, nFees);
 
     // Compute regular coinbase transaction.

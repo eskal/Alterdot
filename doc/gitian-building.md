@@ -1,9 +1,9 @@
 Gitian building
 ================
 
-*Setup instructions for a Gitian build of Dash Core using a Debian VM or physical system.*
+*Setup instructions for a Gitian build of Bitcreds using a Debian VM or physical system.*
 
-Gitian is the deterministic build process that is used to build the Dash
+Gitian is the deterministic build process that is used to build the Bitcreds
 Core executables. It provides a way to be reasonably sure that the
 executables are really built from the source on GitHub. It also makes sure that
 the same, tested dependencies are used and statically built into the executable.
@@ -11,7 +11,7 @@ the same, tested dependencies are used and statically built into the executable.
 Multiple developers build the source code by following a specific descriptor
 ("recipe"), cryptographically sign the result, and upload the resulting signature.
 These results are compared and only if they match, the build is accepted and uploaded
-to dash.org.
+to bitcreds.org.
 
 More independent Gitian builders are needed, which is why this guide exists.
 It is preferred you follow these steps yourself instead of using someone else's
@@ -26,7 +26,7 @@ Table of Contents
 - [Installing Gitian](#installing-gitian)
 - [Setting up the Gitian image](#setting-up-the-gitian-image)
 - [Getting and building the inputs](#getting-and-building-the-inputs)
-- [Building Dash Core](#building-dash-core)
+- [Building Bitcreds](#building-bitcreds)
 - [Building an alternative repository](#building-an-alternative-repository)
 - [Signing externally](#signing-externally)
 - [Uploading signatures](#uploading-signatures)
@@ -305,11 +305,11 @@ cd ..
 
 **Note**: When sudo asks for a password, enter the password for the user *debian* not for *root*.
 
-Clone the git repositories for Dash Core and Gitian.
+Clone the git repositories for Bitcreds and Gitian.
 
 ```bash
 git clone https://github.com/devrandom/gitian-builder.git
-git clone https://github.com/dashpay/dash
+git clone https://github.com/dashpay/bitcreds
 git clone https://github.com/dashpay/gitian.sigs.git
 ```
 
@@ -347,16 +347,16 @@ Getting and building the inputs
 At this point you have two options, you can either use the automated script (found in [contrib/gitian-build.py](/contrib/gitian-build.py)) or you could manually do everything by following this guide. If you're using the automated script, then run it with the "--setup" command. Afterwards, run it with the "--build" command (example: "contrib/gitian-building.sh -b signer 0.13.0"). Otherwise ignore this.
 
 Follow the instructions in [doc/release-process.md](release-process.md#fetch-and-create-inputs-first-time-or-when-dependency-versions-change)
-in the Dash Core repository under 'Fetch and create inputs' to install sources which require
+in the Bitcreds repository under 'Fetch and create inputs' to install sources which require
 manual intervention. Also optionally follow the next step: 'Seed the Gitian sources cache
 and offline git repositories' which will fetch the remaining files required for building
 offline.
 
-Building Dash Core
+Building Bitcreds
 ----------------
 
-To build Dash Core (for Linux, OS X and Windows) just follow the steps under 'perform
-Gitian builds' in [doc/release-process.md](release-process.md#perform-gitian-builds) in the Dash Core repository.
+To build Bitcreds (for Linux, OS X and Windows) just follow the steps under 'perform
+Gitian builds' in [doc/release-process.md](release-process.md#perform-gitian-builds) in the Bitcreds repository.
 
 This may take some time as it will build all the dependencies needed for each descriptor.
 These dependencies will be cached after a successful build to avoid rebuilding them when possible.
@@ -376,7 +376,7 @@ Output from `gbuild` will look something like
     remote: Total 57959 (delta 0), reused 0 (delta 0), pack-reused 57958
     Receiving objects: 100% (57959/57959), 53.76 MiB | 484.00 KiB/s, done.
     Resolving deltas: 100% (41590/41590), done.
-    From https://github.com/dashpay/dash
+    From https://github.com/dashpay/bitcreds
     ... (new tags, new branch etc)
     --- Building for bionic amd64 ---
     Stopping target if it is up
@@ -402,18 +402,18 @@ and inputs.
 
 For example:
 ```bash
-URL=https://github.com/crowning-/dash.git
+URL=https://github.com/crowning-/bitcreds.git
 COMMIT=b616fb8ef0d49a919b72b0388b091aaec5849b96
-./bin/gbuild --commit dash=${COMMIT} --url dash=${URL} ../dash/contrib/gitian-descriptors/gitian-linux.yml
-./bin/gbuild --commit dash=${COMMIT} --url dash=${URL} ../dash/contrib/gitian-descriptors/gitian-win.yml
-./bin/gbuild --commit dash=${COMMIT} --url dash=${URL} ../dash/contrib/gitian-descriptors/gitian-osx.yml
+./bin/gbuild --commit bitcreds=${COMMIT} --url bitcreds=${URL} ../dash/contrib/gitian-descriptors/gitian-linux.yml
+./bin/gbuild --commit bitcreds=${COMMIT} --url bitcreds=${URL} ../dash/contrib/gitian-descriptors/gitian-win.yml
+./bin/gbuild --commit bitcreds=${COMMIT} --url bitcreds=${URL} ../dash/contrib/gitian-descriptors/gitian-osx.yml
 ```
 
 Building fully offline
 -----------------------
 
 For building fully offline including attaching signatures to unsigned builds, the detached-sigs repository
-and the dash git repository with the desired tag must both be available locally, and then gbuild must be
+and the bitcreds git repository with the desired tag must both be available locally, and then gbuild must be
 told where to find them. It also requires an apt-cacher-ng which is fully-populated but set to offline mode, or
 manually disabling gitian-builder's use of apt-get to update the VM build environment.
 
@@ -452,12 +452,12 @@ Then when building, override the remote URLs that gbuild would otherwise pull fr
 ```bash
 
 cd /some/root/path/
-git clone https://github.com/dashpay/dash-detached-sigs.git
+git clone https://github.com/dashpay/bitcreds-detached-sigs.git
 
-BTCPATH=/some/root/path/dash
-SIGPATH=/some/root/path/dash-detached-sigs
+BTCPATH=/some/root/path/bitcreds
+SIGPATH=/some/root/path/bitcreds-detached-sigs
 
-./bin/gbuild --url dash=${BTCPATH},signature=${SIGPATH} ../dash/contrib/gitian-descriptors/gitian-win-signer.yml
+./bin/gbuild --url bitcreds=${BTCPATH},signature=${SIGPATH} ../dash/contrib/gitian-descriptors/gitian-win-signer.yml
 ```
 
 Signing externally
@@ -472,9 +472,9 @@ When you execute `gsign` you will get an error from GPG, which can be ignored. C
 in `gitian.sigs` to your signing machine and do
 
 ```bash
-    gpg --detach-sign ${VERSION}-linux/${SIGNER}/dash-linux-build.assert
-    gpg --detach-sign ${VERSION}-win/${SIGNER}/dash-win-build.assert
-    gpg --detach-sign ${VERSION}-osx-unsigned/${SIGNER}/dash-osx-build.assert
+    gpg --detach-sign ${VERSION}-linux/${SIGNER}/bitcreds-linux-build.assert
+    gpg --detach-sign ${VERSION}-win/${SIGNER}/bitcreds-win-build.assert
+    gpg --detach-sign ${VERSION}-osx-unsigned/${SIGNER}/bitcreds-osx-build.assert
 ```
 
 This will create the `.sig` files that can be committed together with the `.assert` files to assert your

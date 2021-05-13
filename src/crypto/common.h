@@ -5,11 +5,10 @@
 #ifndef BITCREDS_CRYPTO_COMMON_H
 #define BITCREDS_CRYPTO_COMMON_H
 
-/*
 #if defined(HAVE_CONFIG_H)
-#include "bitcreds-config.h"
-#endif  TODO_BCRS
-*/ 
+#include "config/bitcreds-config.h"
+#endif
+
 #include <stdint.h>
 
 #include "compat/endian.h"

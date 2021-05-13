@@ -1,11 +1,11 @@
 Sample configuration files for:
 
-SystemD: dashd.service
-Upstart: dashd.conf
-OpenRC:  dashd.openrc
-         dashd.openrcconf
-CentOS:  dashd.init
-OS X:    org.dash.dashd.plist
+SystemD: bitcredsd.service
+Upstart: bitcredsd.conf
+OpenRC:  bitcredsd.openrc
+         bitcredsd.openrcconf
+CentOS:  bitcredsd.init
+OS X:    org.bitcreds.bitcredsd.plist
 
 have been made available to assist packagers in creating node packages here.
 

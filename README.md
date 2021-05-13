@@ -1,28 +1,28 @@
-Dash Core staging tree 0.13.0
+Bitcreds staging tree 0.13.0
 ===============================
 
-`master:` [![Build Status](https://travis-ci.org/dashpay/dash.svg?branch=master)](https://travis-ci.org/dashpay/dash) `develop:` [![Build Status](https://travis-ci.org/dashpay/dash.svg?branch=develop)](https://travis-ci.org/dashpay/dash/branches)
+`master:` [![Build Status](https://travis-ci.org/Bitcreds/bitcreds.svg?branch=master)](https://travis-ci.org/Bitcreds/Bitcreds) `develop:` [![Build Status](https://travis-ci.org/Bitcreds/bitcreds.svg?branch=develop)](https://travis-ci.org/Bitcreds/Bitcreds/branches)
 
-https://www.dash.org
+https://www.bitcreds.org
 
 
-What is Dash?
+What is Bitcreds?
 ----------------
 
-Dash is an experimental digital currency that enables anonymous, instant
-payments to anyone, anywhere in the world. Dash uses peer-to-peer technology
+Bitcreds is an experimental digital currency that enables anonymous, instant
+payments to anyone, anywhere in the world. Bitcreds uses peer-to-peer technology
 to operate with no central authority: managing transactions and issuing money
-are carried out collectively by the network. Dash Core is the name of the open
+are carried out collectively by the network. Bitcreds is the name of the open
 source software which enables the use of this currency.
 
 For more information, as well as an immediately useable, binary version of
-the Dash Core software, see https://www.dash.org/get-dash/.
+the Bitcreds software, see https://www.bitcreds.org.
 
 
 License
 -------
 
-Dash Core is released under the terms of the MIT license. See [COPYING](COPYING) for more
+Bitcreds is released under the terms of the MIT license. See [COPYING](COPYING) for more
 information or see https://opensource.org/licenses/MIT.
 
 Development Process
@@ -30,7 +30,7 @@ Development Process
 
 The `master` branch is meant to be stable. Development is normally done in separate branches.
 [Tags](https://github.com/dashpay/dash/tags) are created to indicate new official,
-stable release versions of Dash Core.
+stable release versions of Bitcreds.
 
 The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md).
 
@@ -66,7 +66,7 @@ Translations
 ------------
 
 Changes to translations as well as new translations can be submitted to
-[Dash Core's Transifex page](https://www.transifex.com/projects/p/dash/).
+[Bitcreds's Transifex page](https://www.transifex.com/projects/p/dash/).
 
 Translations are periodically pulled from Transifex and merged into the git repository. See the
 [translation process](doc/translation_process.md) for details on how this works.
@@ -74,4 +74,4 @@ Translations are periodically pulled from Transifex and merged into the git repo
 **Important**: We do not accept translation changes as GitHub pull requests because the next
 pull from Transifex would automatically overwrite them again.
 
-Translators should also follow the [forum](https://www.dash.org/forum/topic/dash-worldwide-collaboration.88/).
+Translators should also follow the [forum](https://www.bitcreds.org/forum/topic/bitcreds-worldwide-collaboration.88/).

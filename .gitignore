@@ -7,13 +7,13 @@ reset-files.bash
 *.tar.gz
 
 *.exe
-src/dash
-src/dashd
-src/dash-cli
-src/dash-tx
-src/test/test_dash
-src/qt/test/test_dash-qt
-src/bench/bench_dash
+src/bitcreds
+src/bitcredsd
+src/bitcreds-cli
+src/bitcreds-tx
+src/test/test_bitcreds
+src/qt/test/test_bitcreds-qt
+src/bench/bench_bitcreds
 
 # autoreconf
 Makefile.in
@@ -36,8 +36,8 @@ config.log
 config.status
 configure
 libtool
-src/config/dash-config.h
-src/config/dash-config.h.in
+src/config/bitcreds-config.h
+src/config/bitcreds-config.h.in
 src/config/stamp-h1
 share/setup.nsi
 share/qt/Info.plist
@@ -82,12 +82,12 @@ libconftest.dylib*
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-dash-qt
-Dash-Qt.app
+bitcreds-qt
+Bitcreds-Qt.app
 
 # Unit-tests
 Makefile.test
-dash-qt_test
+bitcreds-qt_test
 src/test/buildenv.py
 
 # Resources cpp
@@ -101,7 +101,7 @@ build
 *.gcno
 *.gcda
 /*.info
-test_dash.coverage/
+test_bitcreds.coverage/
 total.coverage/
 coverage_percent.txt
 
@@ -119,15 +119,15 @@ qa/cache/*
 .autotools
 /doc/doxygen/
 
-libdashconsensus.pc
+libbitcredsconsensus.pc
 contrib/devtools/split-debug.sh
-src/qt/dash-qt.bash
+src/qt/bitcreds-qt.bash
 qa/pull-tester/tests-config.sh
 
 #development symlinks
-dash-cli
-dashd
-dash-qt
+bitcreds-cli
+bitcredsd
+bitcreds-qt
 make
 
 /docker/bin

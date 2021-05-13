@@ -2,8 +2,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef DASH_QUORUMS_DUMMYDKG_H
-#define DASH_QUORUMS_DUMMYDKG_H
+#ifndef BCRS_QUORUMS_DUMMYDKG_H
+#define BCRS_QUORUMS_DUMMYDKG_H
 
 #include "llmq/quorums_commitment.h"
 
@@ -154,4 +154,4 @@ extern CDummyDKG* quorumDummyDKG;
 
 }
 
-#endif//DASH_QUORUMS_DUMMYDKG_H
+#endif//BCRS_QUORUMS_DUMMYDKG_H

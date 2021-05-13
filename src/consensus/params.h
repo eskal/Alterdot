@@ -112,7 +112,7 @@ struct Params {
     int nHardForkFive; //block
     int nHardForkSix; // block
     int nHardForkSeven; // block, lite/core network mode
-    int nHardForkEight; // block, exit core mode, reactivation of MNs and Dash-specific functionalities, BIP147
+    int nHardForkEight; // block, exit core mode, reactivation of MNs and Bitcreds-specific functionalities, BIP147
     int nDetMNRegHeight; // block, start allowing registration of determinisitc MNs
     int nTempDevFundIncreaseEnd; //block height for temporal Dev fund increase ending
     int nSubsidyHalvingInterval;

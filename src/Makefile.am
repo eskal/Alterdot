@@ -1,5 +1,5 @@
 # Copyright (c) 2013-2016 The Bitcoin Core developers
-# Copyright (c) 2014-2018 The Dash Core developers
+# Copyright (c) 2014-2018 The Bitcreds developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -27,23 +27,23 @@ BITCOIN_INCLUDES += $(UNIVALUE_CFLAGS)
 
 BLS_LIBS=-lchiabls -lgmp
 
-LIBBITCOIN_SERVER=libdash_server.a
-LIBBITCOIN_COMMON=libdash_common.a
-LIBBITCOIN_CONSENSUS=libdash_consensus.a
-LIBBITCOIN_CLI=libdash_cli.a
-LIBBITCOIN_UTIL=libdash_util.a
-LIBBITCOIN_CRYPTO=crypto/libdash_crypto.a
-LIBBITCOINQT=qt/libdashqt.a
+LIBBITCOIN_SERVER=libbitcreds_server.a
+LIBBITCOIN_COMMON=libbitcreds_common.a
+LIBBITCOIN_CONSENSUS=libbitcreds_consensus.a
+LIBBITCOIN_CLI=libbitcreds_cli.a
+LIBBITCOIN_UTIL=libbitcreds_util.a
+LIBBITCOIN_CRYPTO=crypto/libbitcreds_crypto.a
+LIBBITCOINQT=qt/libbitcredsqt.a
 LIBSECP256K1=secp256k1/libsecp256k1.la
 
 if ENABLE_ZMQ
-LIBBITCOIN_ZMQ=libdash_zmq.a
+LIBBITCOIN_ZMQ=libbitcreds_zmq.a
 endif
 if BUILD_BITCOIN_LIBS
-LIBBITCOINCONSENSUS=libdashconsensus.la
+LIBBITCOINCONSENSUS=libbitcredsconsensus.la
 endif
 if ENABLE_WALLET
-LIBBITCOIN_WALLET=libdash_wallet.a
+LIBBITCOIN_WALLET=libbitcreds_wallet.a
 endif
 
 $(LIBSECP256K1): $(wildcard secp256k1/src/*) $(wildcard secp256k1/include/*)
@@ -68,15 +68,15 @@ TESTS =
 BENCHMARKS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += dashd
+  bin_PROGRAMS += bitcredsd
 endif
 
 if BUILD_BITCOIN_UTILS
-  bin_PROGRAMS += dash-cli dash-tx
+  bin_PROGRAMS += bitcreds-cli bitcreds-tx
 endif
 
 .PHONY: FORCE check-symbols check-security
-# dash core #
+# bitcreds #
 BITCOIN_CORE_H = \
   addrdb.h \
   activemasternode.h \
@@ -216,12 +216,12 @@ obj/build.h: FORCE
 	@$(MKDIR_P) $(builddir)/obj
 	@$(top_srcdir)/share/genbuild.sh $(abs_top_builddir)/src/obj/build.h \
 	  $(abs_top_srcdir)
-libdash_util_a-clientversion.$(OBJEXT): obj/build.h
+libbitcreds_util_a-clientversion.$(OBJEXT): obj/build.h
 
-# server: shared between dashd and dash-qt
-libdash_server_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
-libdash_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libdash_server_a_SOURCES = \
+# server: shared between bitcredsd and bitcreds-qt
+libbitcreds_server_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
+libbitcreds_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libbitcreds_server_a_SOURCES = \
   activemasternode.cpp \
   addrman.cpp \
   addrdb.cpp \
@@ -295,20 +295,20 @@ libdash_server_a_SOURCES = \
   $(BITCOIN_CORE_H)
 
 if ENABLE_ZMQ
-libdash_zmq_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(ZMQ_CFLAGS)
-libdash_zmq_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libdash_zmq_a_SOURCES = \
+libbitcreds_zmq_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(ZMQ_CFLAGS)
+libbitcreds_zmq_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libbitcreds_zmq_a_SOURCES = \
   zmq/zmqabstractnotifier.cpp \
   zmq/zmqnotificationinterface.cpp \
   zmq/zmqpublishnotifier.cpp
 endif
 
 
-# wallet: shared between dashd and dash-qt, but only linked
+# wallet: shared between bitcredsd and bitcreds-qt, but only linked
 # when wallet enabled
-libdash_wallet_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libdash_wallet_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libdash_wallet_a_SOURCES = \
+libbitcreds_wallet_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libbitcreds_wallet_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libbitcreds_wallet_a_SOURCES = \
   keepass.cpp \
   privatesend-client.cpp \
   privatesend-util.cpp \
@@ -321,9 +321,9 @@ libdash_wallet_a_SOURCES = \
   $(BITCOIN_CORE_H)
 
 # crypto primitives library
-crypto_libdash_crypto_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_CONFIG_INCLUDES) $(PIC_FLAGS)
-crypto_libdash_crypto_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS) $(PIC_FLAGS)
-crypto_libdash_crypto_a_SOURCES = \
+crypto_libbitcreds_crypto_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_CONFIG_INCLUDES) $(PIC_FLAGS)
+crypto_libbitcreds_crypto_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS) $(PIC_FLAGS)
+crypto_libbitcreds_crypto_a_SOURCES = \
   crypto/aes.cpp \
   crypto/aes.h \
   crypto/common.h \
@@ -342,7 +342,7 @@ crypto_libdash_crypto_a_SOURCES = \
   crypto/sha512.h
 
 # Argon2d
-crypto_libdash_crypto_a_SOURCES += \
+crypto_libbitcreds_crypto_a_SOURCES += \
   crypto/argon2d/argon2.h \
   crypto/argon2d/core.h \
   crypto/argon2d/encoding.h \
@@ -360,9 +360,9 @@ crypto_libdash_crypto_a_SOURCES += \
   crypto/sph_types.h
 
 # consensus: shared between all executables that validate any consensus rules.
-libdash_consensus_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libdash_consensus_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libdash_consensus_a_SOURCES = \
+libbitcreds_consensus_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libbitcreds_consensus_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libbitcreds_consensus_a_SOURCES = \
   amount.h \
   arith_uint256.cpp \
   arith_uint256.h \
@@ -381,7 +381,7 @@ libdash_consensus_a_SOURCES = \
   primitives/transaction.h \
   pubkey.cpp \
   pubkey.h \
-  script/dashconsensus.cpp \
+  script/bitcredsconsensus.cpp \
   script/interpreter.cpp \
   script/interpreter.h \
   script/script.cpp \
@@ -397,10 +397,10 @@ libdash_consensus_a_SOURCES = \
   utilstrencodings.h \
   version.h
 
-# common: shared between dashd, and dash-qt and non-server tools
-libdash_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libdash_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libdash_common_a_SOURCES = \
+# common: shared between bitcredsd, and bitcreds-qt and non-server tools
+libbitcreds_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libbitcreds_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libbitcreds_common_a_SOURCES = \
   amount.cpp \
   base58.cpp \
   bip39.cpp \
@@ -424,9 +424,9 @@ libdash_common_a_SOURCES = \
 # util: shared between all executables.
 # This library *must* be included to make sure that the glibc
 # backward-compatibility objects and their sanity checks are linked.
-libdash_util_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libdash_util_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libdash_util_a_SOURCES = \
+libbitcreds_util_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libbitcreds_util_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libbitcreds_util_a_SOURCES = \
   bls/bls_ies.cpp \
   bls/bls_ies.h \
   bls/bls_worker.cpp \
@@ -449,31 +449,31 @@ libdash_util_a_SOURCES = \
   $(BITCOIN_CORE_H)
 
 if GLIBC_BACK_COMPAT
-libdash_util_a_SOURCES += compat/glibc_compat.cpp
+libbitcreds_util_a_SOURCES += compat/glibc_compat.cpp
 AM_LDFLAGS += -Wl,--wrap=log2f -Wl,--wrap=__divmoddi4
 endif
 
-# cli: shared between dash-cli and dash-qt
-libdash_cli_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libdash_cli_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libdash_cli_a_SOURCES = \
+# cli: shared between bitcreds-cli and bitcreds-qt
+libbitcreds_cli_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libbitcreds_cli_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libbitcreds_cli_a_SOURCES = \
   rpc/client.cpp \
   $(BITCOIN_CORE_H)
 
-nodist_libdash_util_a_SOURCES = $(srcdir)/obj/build.h
+nodist_libbitcreds_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
-# dashd binary #
-dashd_SOURCES = dashd.cpp
-dashd_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-dashd_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-dashd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# bitcredsd binary #
+bitcredsd_SOURCES = bitcredsd.cpp
+bitcredsd_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+bitcredsd_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+bitcredsd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-dashd_SOURCES += dashd-res.rc
+bitcredsd_SOURCES += bitcredsd-res.rc
 endif
 
-dashd_LDADD = \
+bitcredsd_LDADD = \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_COMMON) \
   $(LIBUNIVALUE) \
@@ -486,37 +486,37 @@ dashd_LDADD = \
   $(LIBMEMENV) \
   $(LIBSECP256K1)
 
-dashd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS) $(BLS_LIBS)
+bitcredsd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS) $(BLS_LIBS)
 
-# dash-cli binary #
-dash_cli_SOURCES = dash-cli.cpp
-dash_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
-dash_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-dash_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# bitcreds-cli binary #
+bitcreds_cli_SOURCES = bitcreds-cli.cpp
+bitcreds_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
+bitcreds_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+bitcreds_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-dash_cli_SOURCES += dash-cli-res.rc
+bitcreds_cli_SOURCES += bitcreds-cli-res.rc
 endif
 
-dash_cli_LDADD = \
+bitcreds_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_CRYPTO)
-dash_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS) $(BLS_LIBS)
+bitcreds_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS) $(BLS_LIBS)
 #
 
-# dash-tx binary #
-dash_tx_SOURCES = dash-tx.cpp
-dash_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-dash_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-dash_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# bitcreds-tx binary #
+bitcreds_tx_SOURCES = bitcreds-tx.cpp
+bitcreds_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+bitcreds_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+bitcreds_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-dash_tx_SOURCES += dash-tx-res.rc
+bitcreds_tx_SOURCES += bitcreds-tx-res.rc
 endif
 
-dash_tx_LDADD = \
+bitcreds_tx_LDADD = \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UTIL) \
@@ -524,22 +524,22 @@ dash_tx_LDADD = \
   $(LIBBITCOIN_CRYPTO) \
   $(LIBSECP256K1)
 
-dash_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS) $(BLS_LIBS)
+bitcreds_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS) $(BLS_LIBS)
 #
 
-# dashconsensus library #
+# bitcredsconsensus library #
 if BUILD_BITCOIN_LIBS
-include_HEADERS = script/dashconsensus.h
-libdashconsensus_la_SOURCES = $(crypto_libdash_crypto_a_SOURCES) $(libdash_consensus_a_SOURCES)
+include_HEADERS = script/bitcredsconsensus.h
+libbitcredsconsensus_la_SOURCES = $(crypto_libbitcreds_crypto_a_SOURCES) $(libbitcreds_consensus_a_SOURCES)
 
 if GLIBC_BACK_COMPAT
-  libdashconsensus_la_SOURCES += compat/glibc_compat.cpp
+  libbitcredsconsensus_la_SOURCES += compat/glibc_compat.cpp
 endif
 
-libdashconsensus_la_LDFLAGS = $(AM_LDFLAGS) -no-undefined $(RELDFLAGS)
-libdashconsensus_la_LIBADD = $(LIBSECP256K1) $(BLS_LIBS)
-libdashconsensus_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(builddir)/obj -I$(srcdir)/secp256k1/include -DBUILD_BITCOIN_INTERNAL
-libdashconsensus_la_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libbitcredsconsensus_la_LDFLAGS = $(AM_LDFLAGS) -no-undefined $(RELDFLAGS)
+libbitcredsconsensus_la_LIBADD = $(LIBSECP256K1) $(BLS_LIBS)
+libbitcredsconsensus_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(builddir)/obj -I$(srcdir)/secp256k1/include -DBUILD_BITCOIN_INTERNAL
+libbitcredsconsensus_la_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 
 endif
 #
@@ -573,12 +573,12 @@ EXTRA_DIST = $(CTAES_DIST)
 EXTRA_DIST += $(IMMER_DIST)
 
 
-config/dash-config.h: config/stamp-h1
+config/bitcreds-config.h: config/stamp-h1
 	@$(MAKE) -C $(top_builddir) $(subdir)/$(@)
-config/stamp-h1: $(top_srcdir)/$(subdir)/config/dash-config.h.in $(top_builddir)/config.status
+config/stamp-h1: $(top_srcdir)/$(subdir)/config/bitcreds-config.h.in $(top_builddir)/config.status
 	$(AM_V_at)$(MAKE) -C $(top_builddir) $(subdir)/$(@)
-$(top_srcdir)/$(subdir)/config/dash-config.h.in:  $(am__configure_deps)
-	$(AM_V_at)$(MAKE) -C $(top_srcdir) $(subdir)/config/dash-config.h.in
+$(top_srcdir)/$(subdir)/config/bitcreds-config.h.in:  $(am__configure_deps)
+	$(AM_V_at)$(MAKE) -C $(top_srcdir) $(subdir)/config/bitcreds-config.h.in
 
 clean-local:
 	-$(MAKE) -C secp256k1 clean
