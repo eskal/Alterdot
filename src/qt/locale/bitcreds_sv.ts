@@ -2128,8 +2128,7 @@ https://www.transifex.com/projects/p/dash/</translation>
     <name>SplashScreen</name>
     <message>
         <source>Bitcreds</source>
-        <translation>Bitcreds
-</translation>
+        <translation>Bitcreds</translation>
     </message>
     <message>
         <source>Version %1</source>
