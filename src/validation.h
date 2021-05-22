@@ -19,6 +19,7 @@
 #include "sync.h"
 #include "versionbits.h"
 #include "spentindex.h"
+#include "bdnsdb.h"
 
 #include <algorithm>
 #include <exception>
@@ -36,6 +37,7 @@
 
 class CBlockIndex;
 class CBlockTreeDB;
+class CBDNSDB;
 class CBloomFilter;
 class CChainParams;
 class CCoinsViewDB;
@@ -219,6 +221,9 @@ static const unsigned int DEFAULT_CHECKLEVEL = 3;
 // one 128MB block file + added 15% undo data = 147MB greater for a total of 941MB
 // Setting the target to > than 945MB will make it likely we can respect the target.
 static const uint64_t MIN_DISK_SPACE_FOR_BLOCK_FILES = 945 * 1024 * 1024;
+
+// processes BDNS records after accepting an incoming block ranging from registrations and updates to bans and expirations
+void ProcessBDNSTransactions(const CBlock& block);
 
 /** 
  * Process an incoming block. This only returns after the best known valid
@@ -495,6 +500,14 @@ void ReprocessBlocks(int nBlocks);
 bool CheckBlockHeader(const CBlockHeader& block, CValidationState& state, const Consensus::Params& consensusParams, bool fCheckPOW = true);
 bool CheckBlock(const CBlock& block, CValidationState& state, const Consensus::Params& consensusParams, bool fCheckPOW = true, bool fCheckMerkleRoot = true);
 
+/** Processing of BDNS-IPFS registrations*/
+bool ExtractBdnsIpfsFromScript(const CScript& scriptPubKey, std::string& dtpAddress, std::string& ipfsHash);
+bool ExtractBdnsBanFromScript(const CScript& scriptPubKey, std::string& bdnsName);
+void ProcessPossibleBdnsIpfsRegistration(const CScript& scriptPubKey, const int& nHeight, const int& nTxIndex);
+void ProcessPossibleBdnsIpfsUpdate(const CTransaction& updateTx, const CTransaction& inputTx);
+void ProcessPossibleBdnsIpfsBan(const CScript& scriptPubKey);
+void ProcessExpiredBdnsIpfsRegistrations(const int& nHeight);
+
 /** Context-dependent validity checks.
  *  By "context", we mean only the previous block headers, but not the UTXO
  *  set; UTXO-related validity checks are done in ConnectBlock(). */
@@ -535,6 +548,9 @@ extern CCoinsViewCache *pcoinsTip;
 
 /** Global variable that points to the active block tree (protected by cs_main) */
 extern CBlockTreeDB *pblocktree;
+
+/** Global variable that points to the active BDNS-IPFS database (protected by cs_main) */
+extern CBDNSDB *pbdnsdb;
 
 /**
  * Return the spend height, which is one more than the inputs.GetBestBlock().

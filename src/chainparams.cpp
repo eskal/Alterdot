@@ -183,9 +183,9 @@ public:
         consensus.nHardForkFour = 665000; //block
         consensus.nHardForkFive = 850000; //block
         consensus.nHardForkSix = 1000000; //block
-        consensus.nHardForkSeven = 1034000; // block core-mode network, LWMA switch
-        consensus.nHardForkEight = 1038000; // block Bitcreds-rebase in effect, old Bitcreds rejected
-        consensus.nDetMNRegHeight = 1040000; // block start registration of Deterministic Masternodes, spork block activates them
+        consensus.nHardForkSeven = 1011560; // block core-mode network, LWMA switch
+        consensus.nHardForkEight = 1011580; // block Bitcreds-rebase in effect, old Bitcreds rejected
+        consensus.nDetMNRegHeight = 1011620; // block start registration of Deterministic Masternodes, spork block activates them
         consensus.nTempDevFundIncreaseEnd = 625000; //block
         consensus.nMasternodePaymentsStartBlock = 100; // Masternode Payments begin on block 100.
         consensus.nInstantSendConfirmationsRequired = 6;

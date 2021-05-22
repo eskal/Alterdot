@@ -85,6 +85,7 @@ BITCOIN_CORE_H = \
   addrman.h \
   alert.h \
   base58.h \
+  bdnsdb.h \
   bip39.h \
   bip39_english.h \
   blockencodings.h \
@@ -403,6 +404,7 @@ libbitcreds_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libbitcreds_common_a_SOURCES = \
   amount.cpp \
   base58.cpp \
+  bdnsdb.cpp \
   bip39.cpp \
   chainparams.cpp \
   coins.cpp \
