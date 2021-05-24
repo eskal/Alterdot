@@ -772,7 +772,7 @@ void MasternodeList::extraInfoDIP3_clicked()
     dmn->ToJson(json);
 
     // Title of popup window
-    QString strWindowtitle = tr("Additional information for DIP3 Masternode %1").arg(QString::fromStdString(dmn->proTxHash.ToString()));
+    QString strWindowtitle = tr("Additional information for Deterministic Masternode %1").arg(QString::fromStdString(dmn->proTxHash.ToString()));
     QString strText = QString::fromStdString(json.write(2));
 
     QMessageBox::information(this, strWindowtitle, strText);

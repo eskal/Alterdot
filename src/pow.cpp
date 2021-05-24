@@ -197,7 +197,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
     }
 
     // Most recent algo first
-    if (pindexLast->nHeight + 1 >= params.nHardForkSeven) {
+    if (pindexLast->nHeight + 1 >= 1011608) {
         return DeriveNextWorkRequiredLWMA(pindexLast, pblock, params);
     } else {
         return DeriveNextWorkRequiredDELTA(pindexLast, pblock, params);

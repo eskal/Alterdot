@@ -1113,8 +1113,8 @@
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Not: Bu liste eski ve deterministik olmayan ana düğüm listesini gösterir. Bu liste sadece DIP3 tamamen etkinleştirilene kadar etkin olacaktır. SPORK15 etkinleştirmesinden sonra bu liste boş kalacaktır.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>DIP3 Masternodes</source>
-        <translation>DIP3 Ana Düğümleri</translation>
+        <source>Deterministic Masternodes</source>
+        <translation>Deterministic Ana Düğümleri</translation>
     </message>
     <message>
         <source>PoSe Score</source>
@@ -1245,7 +1245,7 @@
         <translation>Sentinel</translation>
     </message>
     <message>
-        <source>Additional information for DIP3 Masternode %1</source>
+        <source>Additional information for Deterministic Masternode %1</source>
         <translation>DIP3 Ana Düğümü %1 için ek bilgi</translation>
     </message>
 </context>

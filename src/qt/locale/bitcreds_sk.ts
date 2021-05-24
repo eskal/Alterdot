@@ -1113,8 +1113,8 @@
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Poznámka: Tento zoznam predstavuje starší a nedeterministický zoznam masternódov. Je aktívny iba pokým DIP3 nebol plne aktivovaný. Po aktivácii SPORK15 bude tento zoznam prázdny.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>DIP3 Masternodes</source>
-        <translation>DIP3 Masternódy</translation>
+        <source>Deterministic Masternodes</source>
+        <translation>Deterministic Masternódy</translation>
     </message>
     <message>
         <source>PoSe Score</source>
@@ -1245,8 +1245,8 @@
         <translation>Strážca</translation>
     </message>
     <message>
-        <source>Additional information for DIP3 Masternode %1</source>
-        <translation>Ďalšie informácie pre DIP3 Masternode %1</translation>
+        <source>Additional information for Deterministic Masternode %1</source>
+        <translation>Ďalšie informácie pre Deterministic Masternode %1</translation>
     </message>
 </context>
 <context>

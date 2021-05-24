@@ -3815,8 +3815,8 @@ static bool AcceptBlock(const std::shared_ptr<const CBlock>& pblock, CValidation
                 AbortNode(state, "Failed to write block");
         if (!ReceivedBlockTransactions(block, state, pindex, blockPos))
             return error("AcceptBlock(): ReceivedBlockTransactions failed");
-
-        ProcessBDNSTransactions(block);
+        if (nHeight > chainparams.GetConsensus().nHardForkSeven)
+            ProcessBDNSTransactions(block);
     } catch (const std::runtime_error& e) {
         return AbortNode(state, std::string("System error: ") + e.what());
     }
@@ -3871,7 +3871,7 @@ void ProcessBDNSTransactions(const CBlock& block)
         }
     }
 
-    ProcessExpiredBdnsIpfsRegistrations(chainActive.Height() + 1 - 2);
+    ProcessExpiredBdnsIpfsRegistrations(chainActive.Height() + 1 - 2); // TODO_BCRS_LOW maybe move this as it doesn't use the block itself
     //ProcessExpiredBdnsIpfsRegistrations(chainActive.Height() + 1 - Params().GetConsensus().nBlocksPerYear);
 }
 

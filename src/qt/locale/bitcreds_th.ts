@@ -1113,8 +1113,8 @@
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;หมายเหตุ: รายการนี้แสดงทรัพย์สินและรายการ masternode แบบไม่กำหนดค่า มันเปิดใช้งานได้ตราบใดที่ DIP3 ยังไม่ได้เปิดใช้งานอย่างสมบูรณ์  หลังจากเปิดใช้งาน SPORK15 รายการนี้จะว่างเปล่า &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>DIP3 Masternodes</source>
-        <translation>DIP3 Masternodes</translation>
+        <source>Deterministic Masternodes</source>
+        <translation>Deterministic Masternodes</translation>
     </message>
     <message>
         <source>PoSe Score</source>
@@ -1245,8 +1245,8 @@
         <translation>Sentinel</translation>
     </message>
     <message>
-        <source>Additional information for DIP3 Masternode %1</source>
-        <translation>ข้อมูลเพิ่มเติมสำหรับ DIP3 Masternode %1</translation>
+        <source>Additional information for Deterministic Masternode %1</source>
+        <translation>ข้อมูลเพิ่มเติมสำหรับ Deterministic Masternode %1</translation>
     </message>
 </context>
 <context>

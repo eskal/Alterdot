@@ -1113,8 +1113,8 @@
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Huomio: Tämä lista edustaa perinteistä ja ei-determinististä masternode listaa. Tämä on näkyvissä ainoastaan niin kauan kun DIP3 on aktivoimatta. Kun SPORK15 on aktivoitu, tämä lista on tyhjä.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>DIP3 Masternodes</source>
-        <translation>DIP3 Masternodet</translation>
+        <source>Deterministic Masternodes</source>
+        <translation>Deterministic Masternodet</translation>
     </message>
     <message>
         <source>PoSe Score</source>
@@ -1245,7 +1245,7 @@
         <translation>Sentinel</translation>
     </message>
     <message>
-        <source>Additional information for DIP3 Masternode %1</source>
+        <source>Additional information for Deterministic Masternode %1</source>
         <translation>Masternode DIP3 lisätietoja %1</translation>
     </message>
 </context>

@@ -1113,8 +1113,8 @@
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Chú ý: Danh sách này liệt kê danh sách các masternode và không phải loại xác định trước. Nó chỉ hoạt động khi mà DIP3 không được kích hoạt một cách đầy đủ. Sau khi SPORK15 được kích hoạt, danh sách này sẽ bị trống.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>DIP3 Masternodes</source>
-        <translation>DIP3 Masternodes</translation>
+        <source>Deterministic Masternodes</source>
+        <translation>Deterministic Masternodes</translation>
     </message>
     <message>
         <source>PoSe Score</source>
@@ -1245,8 +1245,8 @@
         <translation>Lính canh</translation>
     </message>
     <message>
-        <source>Additional information for DIP3 Masternode %1</source>
-        <translation>Thông tin thêm về DIP3 Masternode %1</translation>
+        <source>Additional information for Deterministic Masternode %1</source>
+        <translation>Thông tin thêm về Deterministic Masternode %1</translation>
     </message>
 </context>
 <context>

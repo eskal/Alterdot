@@ -1114,8 +1114,8 @@ Der Mixing-Prozeß läuft nach dem Start vollständig im Hintergrund, d.h. es is
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Hinweis: Diese Liste stellt eine traditionelle und keine nicht-deterministische Masternode-Liste dar. Sie bleibt nur bis zur vollständigen Aktivierung von DIP3 aktiv. Nachdem SPORK15 aktiviert wurde, wird diese Liste keinen Inhalt mehr haben.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>DIP3 Masternodes</source>
-        <translation>DIP3 Masternodes</translation>
+        <source>Deterministic Masternodes</source>
+        <translation>Deterministic Masternodes</translation>
     </message>
     <message>
         <source>PoSe Score</source>
@@ -1246,8 +1246,8 @@ Der Mixing-Prozeß läuft nach dem Start vollständig im Hintergrund, d.h. es is
         <translation>Sentinel</translation>
     </message>
     <message>
-        <source>Additional information for DIP3 Masternode %1</source>
-        <translation>Zusätzliche Informationen für DIP3 Masternode %1</translation>
+        <source>Additional information for Deterministic Masternode %1</source>
+        <translation>Zusätzliche Informationen für Deterministic Masternode %1</translation>
     </message>
 </context>
 <context>

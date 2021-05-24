@@ -1423,8 +1423,8 @@
     </message>
     <message>
         <location line="+14"/>
-        <source>DIP3 Masternodes</source>
-        <translation>DIP3 Masternodes</translation>
+        <source>Deterministic Masternodes</source>
+        <translation>Deterministic Masternodes</translation>
     </message>
     <message>
         <location line="+83"/>
@@ -1591,8 +1591,8 @@
     </message>
     <message>
         <location line="+49"/>
-        <source>Additional information for DIP3 Masternode %1</source>
-        <translation>Additional information for DIP3 Masternode %1</translation>
+        <source>Additional information for Deterministic Masternode %1</source>
+        <translation>Additional information for Deterministic Masternode %1</translation>
     </message>
 </context>
 <context>

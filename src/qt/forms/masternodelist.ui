@@ -334,7 +334,7 @@
        </widget>
        <widget class="QWidget" name="tabDIP3Masternodes">
         <attribute name="title">
-         <string>DIP3 Masternodes</string>
+         <string>Deterministic Masternodes</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_3">
          <item row="1" column="0">

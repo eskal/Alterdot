@@ -1113,8 +1113,8 @@
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Uwaga: Ta lista jest starszą niedeterministyczną listą masternodów. Jest ona aktywna tylko dopóki DIP3 nie zostanie w pełni aktywowany. Jak tylko SPORK15 zostanie włączony, llista ta będzie pusta. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>DIP3 Masternodes</source>
-        <translation>DIP3 Masternody</translation>
+        <source>Deterministic Masternodes</source>
+        <translation>Deterministic Masternody</translation>
     </message>
     <message>
         <source>PoSe Score</source>
@@ -1245,8 +1245,8 @@
         <translation>Sentinel</translation>
     </message>
     <message>
-        <source>Additional information for DIP3 Masternode %1</source>
-        <translation>Dodatkowe informacje dla DIP3 Masternode %1</translation>
+        <source>Additional information for Deterministic Masternode %1</source>
+        <translation>Dodatkowe informacje dla Deterministic Masternode %1</translation>
     </message>
 </context>
 <context>

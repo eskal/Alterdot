@@ -1113,8 +1113,8 @@
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Примечание: Этот список показывает старые недетерминированные мастерноды. Он будет активным до тех пор, пока DIP3 не будет полностью активирован. После активации SPORK15 этот список будет обнулен.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>DIP3 Masternodes</source>
-        <translation>DIP3 мастерноды</translation>
+        <source>Deterministic Masternodes</source>
+        <translation>Deterministic мастерноды</translation>
     </message>
     <message>
         <source>PoSe Score</source>
@@ -1245,7 +1245,7 @@
         <translation>Sentinel</translation>
     </message>
     <message>
-        <source>Additional information for DIP3 Masternode %1</source>
+        <source>Additional information for Deterministic Masternode %1</source>
         <translation>Дополнительная информация для DIP3 мастерноды %1</translation>
     </message>
 </context>

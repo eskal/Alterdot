@@ -1113,8 +1113,8 @@
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Nota: Esta lista representa la lista de masternodes heredada y no determinista. Solo está activoa mientras DIP3 no se haya activado completamente. Después de la activación de SPORK15, esta lista estará vacía.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>DIP3 Masternodes</source>
-        <translation>DIP3 Masternodes</translation>
+        <source>Deterministic Masternodes</source>
+        <translation>Deterministic Masternodes</translation>
     </message>
     <message>
         <source>PoSe Score</source>
@@ -1245,7 +1245,7 @@
         <translation>Centinela</translation>
     </message>
     <message>
-        <source>Additional information for DIP3 Masternode %1</source>
+        <source>Additional information for Deterministic Masternode %1</source>
         <translation>Información adicional para Masternode DIP3 %1</translation>
     </message>
 </context>

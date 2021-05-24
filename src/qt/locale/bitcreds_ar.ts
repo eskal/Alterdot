@@ -1113,8 +1113,8 @@
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;ملاحظة: تمثل هذه القائمة قائمة ماسترنود القديمة وغير المحددة. وهو نشط فقط طالما أن DIP3 لم يتم تنشيطه بالكامل. بعد تنشيط SPORK15 ، ستكون هذه القائمة فارغة.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>DIP3 Masternodes</source>
-        <translation>DIP3 ماسترنود</translation>
+        <source>Deterministic Masternodes</source>
+        <translation>Deterministic ماسترنود</translation>
     </message>
     <message>
         <source>PoSe Score</source>
@@ -1241,7 +1241,7 @@
         <translation>الحارس</translation>
     </message>
     <message>
-        <source>Additional information for DIP3 Masternode %1</source>
+        <source>Additional information for Deterministic Masternode %1</source>
         <translation>معلومات إضافية عن DIP3 ماسترنود %1</translation>
     </message>
 </context>

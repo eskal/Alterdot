@@ -1113,8 +1113,8 @@
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;注意: 此列表顯示遺留和非確定性的主節點列表。 這只有DIP3尚未完全激活時才會被激活。 在SPORK15激活後，此列表將變為空白。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>DIP3 Masternodes</source>
-        <translation>DIP3 主節點</translation>
+        <source>Deterministic Masternodes</source>
+        <translation>Deterministic 主節點</translation>
     </message>
     <message>
         <source>PoSe Score</source>
@@ -1245,7 +1245,7 @@
         <translation>哨兵</translation>
     </message>
     <message>
-        <source>Additional information for DIP3 Masternode %1</source>
+        <source>Additional information for Deterministic Masternode %1</source>
         <translation>關於DIP3主節點%1 的附加信息</translation>
     </message>
 </context>

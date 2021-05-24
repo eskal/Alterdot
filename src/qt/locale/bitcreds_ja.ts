@@ -1114,8 +1114,8 @@
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;注：このリストは、従来の非決定論的マスターノードリストを表します。 DIP3が完全にアクティブ化されていない限り有効です。 SPORK15の有効化後、このリストは空になります。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>DIP3 Masternodes</source>
-        <translation>DIP3マスターノード</translation>
+        <source>Deterministic Masternodes</source>
+        <translation>Deterministicマスターノード</translation>
     </message>
     <message>
         <source>PoSe Score</source>
@@ -1246,8 +1246,8 @@
         <translation>センチネル</translation>
     </message>
     <message>
-        <source>Additional information for DIP3 Masternode %1</source>
-        <translation>DIP3 Masternode %1の追加情報</translation>
+        <source>Additional information for Deterministic Masternode %1</source>
+        <translation>Deterministic Masternode %1の追加情報</translation>
     </message>
 </context>
 <context>

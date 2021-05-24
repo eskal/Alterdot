@@ -1113,8 +1113,8 @@
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;주의: 이 리스트는 레거시와 비결정론적 마스터노드 리스트를 나타냅니다. 이는 DIP3가 완전히 활성화되지 않은 경우에만 활성화됩니다. SPORK15 활성화 후에 이 리스트는 비워집니다.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <source>DIP3 Masternodes</source>
-        <translation>DIP3 마스터노드</translation>
+        <source>Deterministic Masternodes</source>
+        <translation>Deterministic 마스터노드</translation>
     </message>
     <message>
         <source>PoSe Score</source>
@@ -1245,7 +1245,7 @@
         <translation>센티넬</translation>
     </message>
     <message>
-        <source>Additional information for DIP3 Masternode %1</source>
+        <source>Additional information for Deterministic Masternode %1</source>
         <translation>DIP3 마스터노드 %1에 대한 추가 정보</translation>
     </message>
 </context>
