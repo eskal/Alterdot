@@ -7,7 +7,7 @@
 #define BITCOIN_COMPAT_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcreds-config.h"
+#include "config/alterdot-config.h"
 #endif
 
 #ifdef WIN32

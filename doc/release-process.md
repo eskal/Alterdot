@@ -19,7 +19,7 @@ Before every minor and major release:
 
 Before every major release:
 
-* Update hardcoded [seeds](/contrib/seeds/README.md). TODO: Give example PR for Bitcreds
+* Update hardcoded [seeds](/contrib/seeds/README.md). TODO: Give example PR for Alterdot
 * Update [`BLOCK_CHAIN_SIZE`](/src/qt/intro.cpp) to the current size plus some overhead.
 
 ### First time / New builders
@@ -30,11 +30,11 @@ Check out the source code in the following directory hierarchy.
 
 	cd /path/to/your/toplevel/build
 	git clone https://github.com/dashpay/gitian.sigs.git
-	git clone https://github.com/dashpay/bitcreds-detached-sigs.git
+	git clone https://github.com/dashpay/alterdot-detached-sigs.git
 	git clone https://github.com/devrandom/gitian-builder.git
-	git clone https://github.com/dashpay/bitcreds.git
+	git clone https://github.com/dashpay/alterdot.git
 
-### Bitcreds maintainers/release engineers, update (commit) version in sources
+### Alterdot maintainers/release engineers, update (commit) version in sources
 
 - `configure.ac`:
     - `_CLIENT_VERSION_MAJOR`
@@ -68,7 +68,7 @@ If you're using the automated script (found in [contrib/gitian-build.py](/contri
 
 Setup Gitian descriptors:
 
-    pushd ./bitcreds
+    pushd ./alterdot
     export SIGNER=(your Gitian key, ie bluematt, sipa, etc)
     export VERSION=(new version, e.g. 0.12.3)
     git fetch
@@ -111,42 +111,42 @@ Only missing files will be fetched, so this is safe to re-run for each build.
 NOTE: Offline builds must use the --url flag to ensure Gitian fetches only from local URLs. For example:
 
     pushd ./gitian-builder
-    ./bin/gbuild --url bitcreds=/path/to/bitcreds,signature=/path/to/sigs {rest of arguments}
+    ./bin/gbuild --url alterdot=/path/to/alterdot,signature=/path/to/sigs {rest of arguments}
     popd
 
 The gbuild invocations below <b>DO NOT DO THIS</b> by default.
 
-### Build and sign Bitcreds for Linux, Windows, and OS X:
+### Build and sign Alterdot for Linux, Windows, and OS X:
 
     pushd ./gitian-builder
-    ./bin/gbuild --memory 3000 --commit bitcreds=v${VERSION} ../dash/contrib/gitian-descriptors/gitian-linux.yml
+    ./bin/gbuild --memory 3000 --commit alterdot=v${VERSION} ../dash/contrib/gitian-descriptors/gitian-linux.yml
     ./bin/gsign --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../dash/contrib/gitian-descriptors/gitian-linux.yml
-    mv build/out/bitcreds-*.tar.gz build/out/src/bitcreds-*.tar.gz ../
+    mv build/out/alterdot-*.tar.gz build/out/src/alterdot-*.tar.gz ../
 
-    ./bin/gbuild --memory 3000 --commit bitcreds=v${VERSION} ../dash/contrib/gitian-descriptors/gitian-win.yml
+    ./bin/gbuild --memory 3000 --commit alterdot=v${VERSION} ../dash/contrib/gitian-descriptors/gitian-win.yml
     ./bin/gsign --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../dash/contrib/gitian-descriptors/gitian-win.yml
-    mv build/out/bitcreds-*-win-unsigned.tar.gz inputs/bitcreds-win-unsigned.tar.gz
-    mv build/out/bitcreds-*.zip build/out/bitcreds-*.exe ../
+    mv build/out/alterdot-*-win-unsigned.tar.gz inputs/alterdot-win-unsigned.tar.gz
+    mv build/out/alterdot-*.zip build/out/alterdot-*.exe ../
 
-    ./bin/gbuild --memory 3000 --commit bitcreds=v${VERSION} ../dash/contrib/gitian-descriptors/gitian-osx.yml
+    ./bin/gbuild --memory 3000 --commit alterdot=v${VERSION} ../dash/contrib/gitian-descriptors/gitian-osx.yml
     ./bin/gsign --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../dash/contrib/gitian-descriptors/gitian-osx.yml
-    mv build/out/bitcreds-*-osx-unsigned.tar.gz inputs/bitcreds-osx-unsigned.tar.gz
-    mv build/out/bitcreds-*.tar.gz build/out/bitcreds-*.dmg ../
+    mv build/out/alterdot-*-osx-unsigned.tar.gz inputs/alterdot-osx-unsigned.tar.gz
+    mv build/out/alterdot-*.tar.gz build/out/alterdot-*.dmg ../
     popd
 
 Build output expected:
 
-  1. source tarball (`bitcreds-${VERSION}.tar.gz`)
-  2. linux 32-bit and 64-bit dist tarballs (`bitcreds-${VERSION}-linux[32|64].tar.gz`)
-  3. windows 32-bit and 64-bit unsigned installers and dist zips (`bitcreds-${VERSION}-win[32|64]-setup-unsigned.exe`, `bitcreds-${VERSION}-win[32|64].zip`)
-  4. OS X unsigned installer and dist tarball (`bitcreds-${VERSION}-osx-unsigned.dmg`, `bitcreds-${VERSION}-osx64.tar.gz`)
+  1. source tarball (`alterdot-${VERSION}.tar.gz`)
+  2. linux 32-bit and 64-bit dist tarballs (`alterdot-${VERSION}-linux[32|64].tar.gz`)
+  3. windows 32-bit and 64-bit unsigned installers and dist zips (`alterdot-${VERSION}-win[32|64]-setup-unsigned.exe`, `alterdot-${VERSION}-win[32|64].zip`)
+  4. OS X unsigned installer and dist tarball (`alterdot-${VERSION}-osx-unsigned.dmg`, `alterdot-${VERSION}-osx64.tar.gz`)
   5. Gitian signatures (in `gitian.sigs/${VERSION}-<linux|{win,osx}-unsigned>/(your Gitian key)/`)
 
 ### Verify other gitian builders signatures to your own. (Optional)
 
 Add other gitian builders keys to your gpg keyring, and/or refresh keys.
 
-    gpg --import bitcreds/contrib/gitian-keys/*.pgp
+    gpg --import alterdot/contrib/gitian-keys/*.pgp
     gpg --refresh-keys
 
 Verify the signatures
@@ -172,7 +172,7 @@ Commit your signature to gitian.sigs:
 Wait for Windows/OS X detached signatures:
 
 - Once the Windows/OS X builds each have 3 matching signatures, they will be signed with their respective release keys.
-- Detached signatures will then be committed to the [bitcreds-detached-sigs](https://github.com/dashpay/bitcreds-detached-sigs) repository, which can be combined with the unsigned apps to create signed binaries.
+- Detached signatures will then be committed to the [alterdot-detached-sigs](https://github.com/dashpay/alterdot-detached-sigs) repository, which can be combined with the unsigned apps to create signed binaries.
 
 Create (and optionally verify) the signed OS X binary:
 
@@ -180,7 +180,7 @@ Create (and optionally verify) the signed OS X binary:
     ./bin/gbuild -i --commit signature=v${VERSION} ../dash/contrib/gitian-descriptors/gitian-osx-signer.yml
     ./bin/gsign --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs/ ../dash/contrib/gitian-descriptors/gitian-osx-signer.yml
     ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-osx-signed ../dash/contrib/gitian-descriptors/gitian-osx-signer.yml
-    mv build/out/bitcreds-osx-signed.dmg ../bitcreds-${VERSION}-osx.dmg
+    mv build/out/alterdot-osx-signed.dmg ../alterdot-${VERSION}-osx.dmg
     popd
 
 Create (and optionally verify) the signed Windows binaries:
@@ -189,8 +189,8 @@ Create (and optionally verify) the signed Windows binaries:
     ./bin/gbuild -i --commit signature=v${VERSION} ../dash/contrib/gitian-descriptors/gitian-win-signer.yml
     ./bin/gsign --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs/ ../dash/contrib/gitian-descriptors/gitian-win-signer.yml
     ./bin/gverify -v -d ../gitian.sigs/ -r ${VERSION}-win-signed ../dash/contrib/gitian-descriptors/gitian-win-signer.yml
-    mv build/out/bitcreds-*win64-setup.exe ../bitcreds-${VERSION}-win64-setup.exe
-    mv build/out/bitcreds-*win32-setup.exe ../bitcreds-${VERSION}-win32-setup.exe
+    mv build/out/alterdot-*win64-setup.exe ../alterdot-${VERSION}-win64-setup.exe
+    mv build/out/alterdot-*win32-setup.exe ../alterdot-${VERSION}-win32-setup.exe
     popd
 
 Commit your signature for the signed OS X/Windows binaries:
@@ -212,23 +212,23 @@ sha256sum * > SHA256SUMS
 
 The list of files should be:
 ```
-bitcreds-${VERSION}-aarch64-linux-gnu.tar.gz
-bitcreds-${VERSION}-arm-linux-gnueabihf.tar.gz
-bitcreds-${VERSION}-i686-pc-linux-gnu.tar.gz
-bitcreds-${VERSION}-x86_64-linux-gnu.tar.gz
-bitcreds-${VERSION}-osx64.tar.gz
-bitcreds-${VERSION}-osx.dmg
-bitcreds-${VERSION}.tar.gz
-bitcreds-${VERSION}-win32-setup.exe
-bitcreds-${VERSION}-win32.zip
-bitcreds-${VERSION}-win64-setup.exe
-bitcreds-${VERSION}-win64.zip
+alterdot-${VERSION}-aarch64-linux-gnu.tar.gz
+alterdot-${VERSION}-arm-linux-gnueabihf.tar.gz
+alterdot-${VERSION}-i686-pc-linux-gnu.tar.gz
+alterdot-${VERSION}-x86_64-linux-gnu.tar.gz
+alterdot-${VERSION}-osx64.tar.gz
+alterdot-${VERSION}-osx.dmg
+alterdot-${VERSION}.tar.gz
+alterdot-${VERSION}-win32-setup.exe
+alterdot-${VERSION}-win32.zip
+alterdot-${VERSION}-win64-setup.exe
+alterdot-${VERSION}-win64.zip
 ```
 The `*-debug*` files generated by the gitian build contain debug symbols
 for troubleshooting by developers. It is assumed that anyone that is interested
 in debugging can run gitian to generate the files for themselves. To avoid
 end-user confusion about which file to pick, as well as save storage
-space *do not upload these to the bitcreds.org server*.
+space *do not upload these to the alterdot.org server*.
 
 - GPG-sign it, delete the unsigned file:
 ```
@@ -238,17 +238,17 @@ rm SHA256SUMS
 (the digest algorithm is forced to sha256 to avoid confusion of the `Hash:` header that GPG adds with the SHA256 used for the files)
 Note: check that SHA256SUMS itself doesn't end up in SHA256SUMS, which is a spurious/nonsensical entry.
 
-- Upload zips and installers, as well as `SHA256SUMS.asc` from last step, to the bitcreds.org server
+- Upload zips and installers, as well as `SHA256SUMS.asc` from last step, to the alterdot.org server
 
-- Update bitcreds.org
+- Update alterdot.org
 
 - Announce the release:
 
-  - Release on Bitcreds forum: https://www.bitcreds.org/forum/topic/official-announcements.54/
+  - Release on Alterdot forum: https://www.alterdot.org/forum/topic/official-announcements.54/
 
-  - Optionally Discord, twitter, reddit /r/Bitcredspay, ... but this will usually sort out itself
+  - Optionally Discord, twitter, reddit /r/Alterdotpay, ... but this will usually sort out itself
 
-  - Notify flare so that he can start building [the PPAs](https://launchpad.net/~bitcreds.org/+archive/ubuntu/bitcreds)
+  - Notify flare so that he can start building [the PPAs](https://launchpad.net/~alterdot.org/+archive/ubuntu/alterdot)
 
   - Archive release notes for the new version to `doc/release-notes/` (branch `master` and branch of the release)
 

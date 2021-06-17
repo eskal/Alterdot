@@ -1,25 +1,25 @@
-# /etc/conf.d/bitcredsd: config file for /etc/init.d/bitcredsd
+# /etc/conf.d/alterdotd: config file for /etc/init.d/alterdotd
 
 # Config file location
-#BITCOIND_CONFIGFILE="/etc/bitcreds/bitcreds.conf"
+#BITCOIND_CONFIGFILE="/etc/alterdot/alterdot.conf"
 
 # What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
-#BITCOIND_PIDDIR="/var/run/bitcredsd"
+#BITCOIND_PIDDIR="/var/run/alterdotd"
 
 # What filename to give the pidfile
-#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/bitcredsd.pid"
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/alterdotd.pid"
 
-# Where to write bitcredsd data (be mindful that the blockchain is large)
-#BITCOIND_DATADIR="/var/lib/bitcredsd"
+# Where to write alterdotd data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/alterdotd"
 
-# User and group to own bitcredsd process
-#BITCOIND_USER="bitcreds"
-#BITCOIND_GROUP="bitcreds"
+# User and group to own alterdotd process
+#BITCOIND_USER="alterdot"
+#BITCOIND_GROUP="alterdot"
 
-# Path to bitcredsd executable
-#BITCOIND_BIN="/usr/bin/bitcredsd"
+# Path to alterdotd executable
+#BITCOIND_BIN="/usr/bin/alterdotd"
 
-# Nice value to run bitcredsd under
+# Nice value to run alterdotd under
 #BITCOIND_NICE=0
 
 # Additional options (avoid -conf and -datadir, use flags above)

@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>org.bitcreds.bitcredsd</string>
+	<string>org.alterdot.alterdotd</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/usr/local/bin/bitcredsd</string>
+		<string>/usr/local/bin/alterdotd</string>
 		<string>-daemon</string>
 	</array>
 	<key>RunAtLoad</key>

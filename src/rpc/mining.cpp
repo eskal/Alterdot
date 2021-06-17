@@ -199,7 +199,7 @@ UniValue generatetoaddress(const JSONRPCRequest& request)
             "\nMine blocks immediately to a specified address (before the RPC call returns)\n"
             "\nArguments:\n"
             "1. nblocks      (numeric, required) How many blocks are generated immediately.\n"
-            "2. address      (string, required) The address to send the newly generated Bitcreds to.\n"
+            "2. address      (string, required) The address to send the newly generated Alterdot to.\n"
             "3. maxtries     (numeric, optional) How many iterations to try (default = 1000000).\n"
             "\nResult:\n"
             "[ blockhashes ]     (array) hashes of blocks generated\n"
@@ -223,7 +223,7 @@ UniValue generatetoaddress(const JSONRPCRequest& request)
 
     return generateBlocks(coinbaseScript, nGenerate, nMaxTries, false);
 }
-#endif // ENABLE_MINER TODO_BCRS_LOW include setgenerate under ENABLE_MINER or have it by default
+#endif // ENABLE_MINER TODO_ADOT_LOW include setgenerate under ENABLE_MINER or have it by default
 
 UniValue setgenerate(const JSONRPCRequest& request)
 {
@@ -264,7 +264,7 @@ UniValue setgenerate(const JSONRPCRequest& request)
 
     SoftSetBoolArg("-gen", fGenerate);
     SoftSetArg("-genproclimit", itostr(nGenProcLimit));
-    GenerateBitcreds(fGenerate, nGenProcLimit, Params());
+    GenerateAlterdot(fGenerate, nGenProcLimit, Params());
 
     return NullUniValue;
 }
@@ -554,10 +554,10 @@ UniValue getblocktemplate(const JSONRPCRequest& request)
 
     if (Params().MiningRequiresPeers()) {
         if (g_connman->GetNodeCount(CConnman::CONNECTIONS_ALL) == 0)
-            throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Bitcreds is not connected!");
+            throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Alterdot is not connected!");
 
         if (IsInitialBlockDownload())
-            throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Bitcreds is downloading blocks...");
+            throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Alterdot is downloading blocks...");
     }
 
     // when enforcement is on we need information about a masternode payee or otherwise our block is going to be orphaned by the network
@@ -565,13 +565,13 @@ UniValue getblocktemplate(const JSONRPCRequest& request)
     if (sporkManager.IsSporkActive(SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT)
         && !masternodeSync.IsWinnersListSynced()
         && !mnpayments.GetBlockTxOuts(chainActive.Height() + 1, 0, voutMasternodePayments))
-            throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Bitcreds is downloading masternode winners...");
+            throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Alterdot is downloading masternode winners...");
 
     // next bock is a superblock and we need governance info to correctly construct it
     if (sporkManager.IsSporkActive(SPORK_9_SUPERBLOCKS_ENABLED)
         && !masternodeSync.IsSynced()
         && CSuperblock::IsValidBlockHeight(chainActive.Height() + 1))
-            throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Bitcreds is syncing with network...");
+            throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Alterdot is syncing with network...");
 
     static unsigned int nTransactionsUpdatedLast;
 
@@ -1069,7 +1069,7 @@ static const CRPCCommand commands[] =
     { "generating",         "generate",               &generate,               true,  {"nblocks","maxtries"} },
     { "generating",         "generatetoaddress",      &generatetoaddress,      true,  {"nblocks","address","maxtries"} },
 #endif // ENABLE_MINER
-    { "generating",         "setgenerate",            &setgenerate,            true,  {"generate","genproclimit"} }, // TODO_BCRS_LOW
+    { "generating",         "setgenerate",            &setgenerate,            true,  {"generate","genproclimit"} }, // TODO_ADOT_LOW
     { "util",               "estimatefee",            &estimatefee,            true,  {"nblocks"} },
     { "util",               "estimatepriority",       &estimatepriority,       true,  {"nblocks"} },
     { "util",               "estimatesmartfee",       &estimatesmartfee,       true,  {"nblocks"} },

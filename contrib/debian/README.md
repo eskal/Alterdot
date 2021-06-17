@@ -1,21 +1,21 @@
 
 Debian
 ====================
-This directory contains files used to package bitcredsd/bitcreds-qt
-for Debian-based Linux systems. If you compile bitcredsd/bitcreds-qt yourself, there are some useful files here.
+This directory contains files used to package alterdotd/alterdot-qt
+for Debian-based Linux systems. If you compile alterdotd/alterdot-qt yourself, there are some useful files here.
 
-## bitcreds: URI support ##
+## alterdot: URI support ##
 
 
-bitcreds-qt.desktop  (Gnome / Open Desktop)
+alterdot-qt.desktop  (Gnome / Open Desktop)
 To install:
 
-	sudo desktop-file-install bitcreds-qt.desktop
+	sudo desktop-file-install alterdot-qt.desktop
 	sudo update-desktop-database
 
 If you build yourself, you will either need to modify the paths in
-the .desktop file or copy or symlink your bitcreds-qt binary to `/usr/bin`
-and the `../../share/pixmaps/bitcreds128.png` to `/usr/share/pixmaps`
+the .desktop file or copy or symlink your alterdot-qt binary to `/usr/bin`
+and the `../../share/pixmaps/alterdot128.png` to `/usr/share/pixmaps`
 
-bitcreds-qt.protocol (KDE)
+alterdot-qt.protocol (KDE)
 

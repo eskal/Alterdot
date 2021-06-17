@@ -3,7 +3,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcreds-config.h"
+#include "config/alterdot-config.h"
 #endif
 
 #include "optionsdialog.h"
@@ -92,13 +92,13 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
     }
     
     /* Theme selector */
-    ui->theme->addItem(QString("BCRS-light"), QVariant("light"));
-    ui->theme->addItem(QString("BCRS-light-hires"), QVariant("light-hires"));
-    ui->theme->addItem(QString("BCRS-light-retro"), QVariant("light-retro"));
-    ui->theme->addItem(QString("BCRS-light-hires-retro"), QVariant("light-hires-retro"));
-    ui->theme->addItem(QString("BCRS-blue"), QVariant("drkblue"));
-    ui->theme->addItem(QString("BCRS-Crownium"), QVariant("crownium"));
-    ui->theme->addItem(QString("BCRS-traditional"), QVariant("trad"));
+    ui->theme->addItem(QString("ADOT-light"), QVariant("light"));
+    ui->theme->addItem(QString("ADOT-light-hires"), QVariant("light-hires"));
+    ui->theme->addItem(QString("ADOT-light-retro"), QVariant("light-retro"));
+    ui->theme->addItem(QString("ADOT-light-hires-retro"), QVariant("light-hires-retro"));
+    ui->theme->addItem(QString("ADOT-blue"), QVariant("drkblue"));
+    ui->theme->addItem(QString("ADOT-Crownium"), QVariant("crownium"));
+    ui->theme->addItem(QString("ADOT-traditional"), QVariant("trad"));
     
     /* Language selector */
     QDir translations(":translations");

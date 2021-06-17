@@ -114,7 +114,7 @@ static Consensus::LLMQParams llmq10_60 = {
         .minSize = 6,
         .threshold = 6,
 
-        .dkgInterval = 24, // one DKG per hour TODO_BCRS_FUTURE update LLMQs in accordance with Bitcreds block times
+        .dkgInterval = 24, // one DKG per hour TODO_ADOT_FUTURE update LLMQs in accordance with Alterdot block times
         .dkgPhaseBlocks = 2,
         .dkgMiningWindowStart = 10, // dkgPhaseBlocks * 5 = after finalization
         .dkgMiningWindowEnd = 18,
@@ -184,37 +184,37 @@ public:
         consensus.nHardForkFive = 850000; //block
         consensus.nHardForkSix = 1000000; //block
         consensus.nHardForkSeven = 1034000; // block core-mode network, LWMA switch
-        consensus.nHardForkEight = 1037000; // block Bitcreds-rebase in effect, old Bitcreds rejected
+        consensus.nHardForkEight = 1037000; // block Alterdot-rebase in effect, old Alterdot rejected
         consensus.nDetMNRegHeight = 1040000; // block start registration of Deterministic Masternodes, spork block activates them
         consensus.nTempDevFundIncreaseEnd = 625000; //block
         consensus.nMasternodePaymentsStartBlock = 100; // Masternode Payments begin on block 100.
         consensus.nInstantSendConfirmationsRequired = 6;
         consensus.nInstantSendKeepLock = 24;
-        consensus.nBudgetPaymentsStartBlock = 20545; // Bitcreds doesn't use budget payments.
+        consensus.nBudgetPaymentsStartBlock = 20545; // Alterdot doesn't use budget payments.
         consensus.nBudgetPaymentsCycleBlocks = 20545; // Blocks per month
         consensus.nBudgetPaymentsWindowBlocks = 100;
-        consensus.nSuperblockStartBlock = 20546; // Bitcreds doesn't have superblocks.
+        consensus.nSuperblockStartBlock = 20546; // Alterdot doesn't have superblocks.
         consensus.nSuperblockCycle = 20545; // 675 (Blocks per day) x 365.25 (Days per Year) / 12 = 20545
         consensus.nGovernanceMinQuorum = 10;
         consensus.nGovernanceFilterElements = 20000;
         consensus.nOldMasternodeCollateral = 50000;
         consensus.nNewMasternodeCollateral = 10000;
-        consensus.nMasternodeMinimumConfirmations = 15; // TODO_BCRS_FUTURE
-        //consensus.BIP34Height = 951; TODO_BCRS_LOW implemented from genesis
+        consensus.nMasternodeMinimumConfirmations = 15; // TODO_ADOT_FUTURE
+        //consensus.BIP34Height = 951; TODO_ADOT_LOW implemented from genesis
         //consensus.BIP34Hash = uint256S("0x000001f35e70f7c5705f64c6c5cc3dea9449e74d5b5c7cf74dad1bcca14a8012");
-        //consensus.BIP65Height = 619382; // 00000000000076d8fcea02ec0963de4abfd01e771fec0863f960c2c64fe6f357 TODO_BCRS_LOW implemented from genesis
-        //consensus.BIP66Height = 245817; // 00000000000b1fa2dfa312863570e13fae9ca7b5566cb27e55422620b469aefa TODO_BCRS_LOW implemented from genesis
-        consensus.DIP0001Height = 5000000; // TODO_BCRS_LOW not currently used
+        //consensus.BIP65Height = 619382; // 00000000000076d8fcea02ec0963de4abfd01e771fec0863f960c2c64fe6f357 TODO_ADOT_LOW implemented from genesis
+        //consensus.BIP66Height = 245817; // 00000000000b1fa2dfa312863570e13fae9ca7b5566cb27e55422620b469aefa TODO_ADOT_LOW implemented from genesis
+        consensus.DIP0001Height = 5000000; // TODO_ADOT_LOW not currently used
         consensus.powLimit = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20
-        //consensus.nPowTargetTimespan = 24 * 60 * 60; // Bitcreds: 1 day, not used in Bitcreds
+        //consensus.nPowTargetTimespan = 24 * 60 * 60; // Alterdot: 1 day, not used in Alterdot
         consensus.nDifficultyAdjustmentInterval = 576; // biggest time frame used by the DELTA retargeting algo, not used, just information
-        consensus.nOldPowTargetSpacing = 2 * 64; // old Bitcreds: 128 seconds
-        consensus.nNewPowTargetSpacing = 6 * 60; // new Bitcreds: 360 seconds
+        consensus.nOldPowTargetSpacing = 2 * 64; // old Alterdot: 128 seconds
+        consensus.nNewPowTargetSpacing = 6 * 60; // new Alterdot: 360 seconds
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
-        //consensus.nPowDGWHeight = 1020000; // switch to Dark Gravity Wave difficulty retargeting algo TODO_BCRS_LOW Bitcreds will switch to LWMA before this version
+        //consensus.nPowDGWHeight = 1020000; // switch to Dark Gravity Wave difficulty retargeting algo TODO_ADOT_LOW Alterdot will switch to LWMA before this version
         consensus.nRuleChangeActivationThreshold = 321; // 95% of nMinerConfirmationWindow
-        consensus.nMinerConfirmationWindow = 338; // in Bitcoin and Bitcreds this was nPowTargetTimespan / nPowTargetSpacing; 
+        consensus.nMinerConfirmationWindow = 338; // in Bitcoin and Alterdot this was nPowTargetTimespan / nPowTargetSpacing; 
                                                   // should be updated as nPowTargetTimespan has been removed due to usage of DELTA algo
 
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
@@ -226,21 +226,21 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1486252800; // Feb 5th, 2017
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1517788800; // Feb 5th, 2018
 
-        // Deployment of DIP0001 TODO_BCRS_LOW not currently used
+        // Deployment of DIP0001 TODO_ADOT_LOW not currently used
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].bit = 1;
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nStartTime = 1508025600; // Oct 15th, 2017
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nTimeout = 1539561600; // Oct 15th, 2018
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nWindowSize = 4032;
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 3226; // 80% of 4032
 
-        // Deployment of BIP147 TODO_BCRS_LOW activates at hard fork eight, code in place
+        // Deployment of BIP147 TODO_ADOT_LOW activates at hard fork eight, code in place
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].bit = 2;
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nStartTime = 1524477600; // Apr 23th, 2018
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nTimeout = 1556013600; // Apr 23th, 2019
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nWindowSize = 4032;
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nThreshold = 3226; // 80% of 4032
 
-        // Deployment of DIP0003 TODO_BCRS_LOW not used in Bitcreds, nDetMNRegHeight used for start of registrations 
+        // Deployment of DIP0003 TODO_ADOT_LOW not used in Alterdot, nDetMNRegHeight used for start of registrations 
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].bit = 3;
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].nStartTime = 1546300800; // Jan 1st, 2019
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].nTimeout = 1577836800; // Jan 1st, 2020
@@ -271,25 +271,25 @@ public:
         assert(consensus.hashGenesisBlock == uint256S("0x0000dea5d2c92cf3f1dce5031cc2b368b2a5e3ebea73ea1278fef673d10b1345"));
         assert(genesis.hashMerkleRoot == uint256S("0x1df9b425c9a06de51b3fb210ffd2e051e05718e264e8ee4692592746c1566a0c"));
 
-        vSeeds.push_back(CDNSSeedData("bitcreds.org", "dnsseed1.bitcreds.org"));
-        vSeeds.push_back(CDNSSeedData("bitcreds.org", "dnsseed2.bitcreds.org"));
+        vSeeds.push_back(CDNSSeedData("alterdot.org", "dnsseed1.alterdot.org"));
+        vSeeds.push_back(CDNSSeedData("alterdot.org", "dnsseed2.alterdot.org"));
 
-        // Bitcreds addresses start with 'C'
+        // Alterdot addresses start with 'C'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,28);
-        // Bitcreds script addresses start with '5'
+        // Alterdot script addresses start with '5'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,10);
-        // Bitcreds private keys start with 'y'
+        // Alterdot private keys start with 'y'
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,140);
-        // Bitcreds BIP32 pubkeys start with 'xpub' (Bitcoin defaults)
+        // Alterdot BIP32 pubkeys start with 'xpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x88)(0xB2)(0x1E).convert_to_container<std::vector<unsigned char> >();
-        // Bitcreds BIP32 prvkeys start with 'xprv' (Bitcoin defaults)
+        // Alterdot BIP32 prvkeys start with 'xprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x88)(0xAD)(0xE4).convert_to_container<std::vector<unsigned char> >();
-        // Bitcreds BIP44 coin type is '5'
+        // Alterdot BIP44 coin type is '5'
         nExtCoinType = 5;
 
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
 
-        // long living quorum params TODO_BCRS_FUTURE
+        // long living quorum params TODO_ADOT_FUTURE
         consensus.llmqs[Consensus::LLMQ_50_60] = llmq50_60;
         consensus.llmqs[Consensus::LLMQ_400_60] = llmq400_60;
         consensus.llmqs[Consensus::LLMQ_400_85] = llmq400_85;
@@ -367,8 +367,8 @@ public:
         //consensus.BIP66Height = 2075; // 0000002acdd29a14583540cb72e1c5cc83783560e38fa7081495d474fe1671f7
         consensus.DIP0001Height = 5500;
         consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20
-        //consensus.nPowTargetTimespan = 24 * 60 * 60; // Bitcreds: 1 day
-        //consensus.nPowTargetSpacing = 2.5 * 60; // Bitcreds: 2.5 minutes
+        //consensus.nPowTargetTimespan = 24 * 60 * 60; // Alterdot: 1 day
+        //consensus.nPowTargetSpacing = 2.5 * 60; // Alterdot: 2.5 minutes
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
         //consensus.nPowKGWHeight = 4002; // nPowKGWHeight >= nPowDGWHeight means "no KGW"
@@ -429,21 +429,21 @@ public:
 
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.push_back(CDNSSeedData("bitcredsdot.io",  "testnet-seed.bitcredsdot.io"));
+        vSeeds.push_back(CDNSSeedData("alterdotdot.io",  "testnet-seed.alterdotdot.io"));
         vSeeds.push_back(CDNSSeedData("masternode.io", "test.dnsseed.masternode.io"));
 
-        // Testnet Bitcreds addresses start with 'y'
+        // Testnet Alterdot addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
-        // Testnet Bitcreds script addresses start with '8' or '9'
+        // Testnet Alterdot script addresses start with '8' or '9'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,19);
         // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        // Testnet Bitcreds BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
+        // Testnet Alterdot BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
-        // Testnet Bitcreds BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
+        // Testnet Alterdot BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
 
-        // Testnet Bitcreds BIP44 coin type is '1' (All coin's testnet default)
+        // Testnet Alterdot BIP44 coin type is '1' (All coin's testnet default)
         nExtCoinType = 1;
 
         // long living quorum params
@@ -512,8 +512,8 @@ public:
         //consensus.BIP66Height = 1; // BIP66 activated immediately on devnet
         consensus.DIP0001Height = 2; // DIP0001 activated immediately on devnet
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 1
-        //consensus.nPowTargetTimespan = 24 * 60 * 60; // Bitcreds: 1 day
-        //consensus.nPowTargetSpacing = 2.5 * 60; // Bitcreds: 2.5 minutes
+        //consensus.nPowTargetTimespan = 24 * 60 * 60; // Alterdot: 1 day
+        //consensus.nPowTargetSpacing = 2.5 * 60; // Alterdot: 2.5 minutes
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = false;
         //consensus.nPowKGWHeight = 4001; // nPowKGWHeight >= nPowDGWHeight means "no KGW"
@@ -574,20 +574,20 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        //vSeeds.push_back(CDNSSeedData("bitcredsevo.org",  "devnet-seed.bitcredsevo.org"));
+        //vSeeds.push_back(CDNSSeedData("alterdotevo.org",  "devnet-seed.alterdotevo.org"));
 
-        // Testnet Bitcreds addresses start with 'y'
+        // Testnet Alterdot addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
-        // Testnet Bitcreds script addresses start with '8' or '9'
+        // Testnet Alterdot script addresses start with '8' or '9'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,19);
         // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        // Testnet Bitcreds BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
+        // Testnet Alterdot BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
-        // Testnet Bitcreds BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
+        // Testnet Alterdot BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
 
-        // Testnet Bitcreds BIP44 coin type is '1' (All coin's testnet default)
+        // Testnet Alterdot BIP44 coin type is '1' (All coin's testnet default)
         nExtCoinType = 1;
 
         // long living quorum params
@@ -662,8 +662,8 @@ public:
         //consensus.BIP66Height = 1251; // BIP66 activated on regtest (Used in rpc activation tests)
         consensus.DIP0001Height = 2000;
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 1
-        //consensus.nPowTargetTimespan = 24 * 60 * 60; // Bitcreds: 1 day
-        //consensus.nPowTargetSpacing = 2.5 * 60; // Bitcreds: 2.5 minutes
+        //consensus.nPowTargetTimespan = 24 * 60 * 60; // Alterdot: 1 day
+        //consensus.nPowTargetSpacing = 2.5 * 60; // Alterdot: 2.5 minutes
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = true;
         //consensus.nPowKGWHeight = 15200; // same as mainnet
@@ -735,18 +735,18 @@ public:
             0
         };
 
-        // Regtest Bitcreds addresses start with 'y'
+        // Regtest Alterdot addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
-        // Regtest Bitcreds script addresses start with '8' or '9'
+        // Regtest Alterdot script addresses start with '8' or '9'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,19);
         // Regtest private keys start with '9' or 'c' (Bitcoin defaults)
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        // Regtest Bitcreds BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
+        // Regtest Alterdot BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
-        // Regtest Bitcreds BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
+        // Regtest Alterdot BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
 
-        // Regtest Bitcreds BIP44 coin type is '1' (All coin's testnet default)
+        // Regtest Alterdot BIP44 coin type is '1' (All coin's testnet default)
         nExtCoinType = 1;
 
         // long living quorum params

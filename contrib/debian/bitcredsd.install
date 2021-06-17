@@ -1,2 +1,2 @@
-usr/local/bin/bitcredsd usr/bin
-usr/local/bin/bitcreds-cli usr/bin
+usr/local/bin/alterdotd usr/bin
+usr/local/bin/alterdot-cli usr/bin

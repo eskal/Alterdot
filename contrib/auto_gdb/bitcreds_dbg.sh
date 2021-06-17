@@ -1,4 +1,4 @@
 #!/bin/bash
-# use testnet settings,  if you need mainnet,  use ~/.bitcreds/bitcredsd.pid file instead
-bitcreds_pid=$(<~/.bitcreds/testnet3/bitcredsd.pid)
-sudo gdb -batch -ex "source debug.gdb" bitcredsd ${bitcreds_pid}
+# use testnet settings,  if you need mainnet,  use ~/.alterdot/alterdotd.pid file instead
+alterdot_pid=$(<~/.alterdot/testnet3/alterdotd.pid)
+sudo gdb -batch -ex "source debug.gdb" alterdotd ${alterdot_pid}

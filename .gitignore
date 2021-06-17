@@ -7,13 +7,13 @@ reset-files.bash
 *.tar.gz
 
 *.exe
-src/bitcreds
-src/bitcredsd
-src/bitcreds-cli
-src/bitcreds-tx
-src/test/test_bitcreds
-src/qt/test/test_bitcreds-qt
-src/bench/bench_bitcreds
+src/alterdot
+src/alterdotd
+src/alterdot-cli
+src/alterdot-tx
+src/test/test_alterdot
+src/qt/test/test_alterdot-qt
+src/bench/bench_alterdot
 
 # autoreconf
 Makefile.in
@@ -36,8 +36,8 @@ config.log
 config.status
 configure
 libtool
-src/config/bitcreds-config.h
-src/config/bitcreds-config.h.in
+src/config/alterdot-config.h
+src/config/alterdot-config.h.in
 src/config/stamp-h1
 share/setup.nsi
 share/qt/Info.plist
@@ -82,12 +82,12 @@ libconftest.dylib*
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-bitcreds-qt
-Bitcreds-Qt.app
+alterdot-qt
+Alterdot-Qt.app
 
 # Unit-tests
 Makefile.test
-bitcreds-qt_test
+alterdot-qt_test
 src/test/buildenv.py
 
 # Resources cpp
@@ -101,7 +101,7 @@ build
 *.gcno
 *.gcda
 /*.info
-test_bitcreds.coverage/
+test_alterdot.coverage/
 total.coverage/
 coverage_percent.txt
 
@@ -119,15 +119,15 @@ qa/cache/*
 .autotools
 /doc/doxygen/
 
-libbitcredsconsensus.pc
+libalterdotconsensus.pc
 contrib/devtools/split-debug.sh
-src/qt/bitcreds-qt.bash
+src/qt/alterdot-qt.bash
 qa/pull-tester/tests-config.sh
 
 #development symlinks
-bitcreds-cli
-bitcredsd
-bitcreds-qt
+alterdot-cli
+alterdotd
+alterdot-qt
 make
 
 /docker/bin

@@ -717,7 +717,7 @@ bool AcceptToMemoryPoolWorker(CTxMemPool& pool, CValidationState& state, const C
                                         hash.ToString(), ptxConflicting->GetHash().ToString()),
                                 REJECT_INVALID, "txlockreq-tx-mempool-conflict");
             }
-            // Transaction conflicts with mempool and RBF doesn't exist in Bitcreds
+            // Transaction conflicts with mempool and RBF doesn't exist in Alterdot
             return state.Invalid(false, REJECT_CONFLICT, "txn-mempool-conflict");
         }
     }
@@ -1030,7 +1030,7 @@ bool GetTransaction(const uint256 &hash, CTransactionRef &txOut, const Consensus
                 return error("%s: Deserialize or I/O error - %s", __func__, e.what());
             }
 
-            if (hashBlock != hash) // TODO_BCRS_LOW maybe use a different approach
+            if (hashBlock != hash) // TODO_ADOT_LOW maybe use a different approach
                 hashBlock = header.GetHash();
 
             if (txOut->GetHash() != hash)
@@ -1053,7 +1053,7 @@ bool GetTransaction(const uint256 &hash, CTransactionRef &txOut, const Consensus
             for (const auto& tx : block.vtx) {
                 if (tx->GetHash() == hash) {
                     txOut = tx;
-                    if (hashBlock != hash) // TODO_BCRS_LOW maybe use a different approach
+                    if (hashBlock != hash) // TODO_ADOT_LOW maybe use a different approach
                         hashBlock = pindexSlow->GetBlockHash();
                     return true;
                 }
@@ -1243,9 +1243,9 @@ CAmount GetDevelopmentFundPayment(const int& nHeight) {
     CAmount nIntDevFundReward = 0 * COIN;
     Consensus::Params consensusParams = Params().GetConsensus();
 
-    // 0.5 BCRS reward to DevFund from 375,001 until block 1,000,000
+    // 0.5 ADOT reward to DevFund from 375,001 until block 1,000,000
     if (nHeight > consensusParams.nHardForkTwo && nHeight <= consensusParams.nHardForkSix) {
-        // Temporal increase to 1 BCRS reward to DevFund from 550,001 until block 625,000
+        // Temporal increase to 1 ADOT reward to DevFund from 550,001 until block 625,000
         if (nHeight > consensusParams.nHardForkThree && nHeight <= consensusParams.nTempDevFundIncreaseEnd)
             nIntDevFundReward = 1 * COIN;
         else
@@ -1857,7 +1857,7 @@ bool FindUndoPos(CValidationState &state, int nFile, CDiskBlockPos &pos, unsigne
 static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
 void ThreadScriptCheck() {
-    RenameThread("bitcreds-scriptch");
+    RenameThread("alterdot-scriptch");
     scriptcheckqueue.Thread();
 }
 
@@ -2083,7 +2083,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
         }
     }*/
     /*
-    /// BCRS: Check superblock start
+    /// ADOT: Check superblock start
 
     // make sure old budget is the real one
     if (pindex->nHeight == chainparams.GetConsensus().nSuperblockStartBlock &&
@@ -2092,7 +2092,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
             return state.DoS(100, error("ConnectBlock(): invalid superblock start"),
                              REJECT_INVALID, "bad-sb-start");
 
-    /// END BCRS
+    /// END ADOT
     */
    
     // BIP16 didn't become active until Apr 1 2012
@@ -2130,7 +2130,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue> > addressUnspentIndex;
     std::vector<std::pair<CSpentIndexKey, CSpentIndexValue> > spentIndex;
 
-    bool fDIP0001Active_context = pindex->nHeight >= Params().GetConsensus().DIP0001Height; // TODO_BCRS_FUTURE keep DIP0001 for possible future changes similar to it
+    bool fDIP0001Active_context = pindex->nHeight >= Params().GetConsensus().DIP0001Height; // TODO_ADOT_FUTURE keep DIP0001 for possible future changes similar to it
 
     for (unsigned int i = 0; i < block.vtx.size(); i++)
     {
@@ -2278,7 +2278,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
                      pindex->GetBlockHash().ToString(), FormatStateMessage(state));
     }
 
-    // BCRS
+    // ADOT
 
     // It's possible that we simply don't have enough data and this could fail
     // (i.e. block itself could be a correct one and we need to store it),
@@ -2286,7 +2286,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     // the peer who sent us this block is missing some data and wasn't able
     // to recognize that block is actually invalid.
 
-    // BCRS : CHECK TRANSACTIONS FOR INSTANTSEND
+    // ADOT : CHECK TRANSACTIONS FOR INSTANTSEND
 
     if (sporkManager.IsSporkActive(SPORK_3_INSTANTSEND_BLOCK_FILTERING)) {
         // Require other nodes to comply, send them some data in case they are missing it.
@@ -2301,16 +2301,16 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
                     // TODO: relay instantsend data/proof.
                     LOCK(cs_main);
                     mapRejectedBlocks.insert(std::make_pair(block.GetHash(), GetTime()));
-                    return state.DoS(10, error("ConnectBlock(BCRS): transaction %s conflicts with transaction lock %s", tx->GetHash().ToString(), hashLocked.ToString()),
+                    return state.DoS(10, error("ConnectBlock(ADOT): transaction %s conflicts with transaction lock %s", tx->GetHash().ToString(), hashLocked.ToString()),
                                      REJECT_INVALID, "conflict-tx-lock");
                 }
             }
         }
     } else {
-        LogPrintf("ConnectBlock(BCRS): spork is off, skipping transaction locking checks\n");
+        LogPrintf("ConnectBlock(ADOT): spork is off, skipping transaction locking checks\n");
     }
 
-    // BCRS : MODIFIED TO CHECK MASTERNODE PAYMENTS AND SUPERBLOCKS
+    // ADOT : MODIFIED TO CHECK MASTERNODE PAYMENTS AND SUPERBLOCKS
 
     // TODO: resync data (both ways?) and try to reprocess this block later.
     CAmount nExpectedBlockValue;
@@ -2323,26 +2323,26 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     CAmount fundReward = GetDevelopmentFundPayment(pindex->nHeight);
 
     if (!IsFundRewardValid(*block.vtx[0], fundReward, pindex->nHeight))
-        return state.DoS(0, error("ConnectBlock(BCRS): Didn't pay the Development Fund"), REJECT_INVALID, "bad-cb-amount");
+        return state.DoS(0, error("ConnectBlock(ADOT): Didn't pay the Development Fund"), REJECT_INVALID, "bad-cb-amount");
     
     nExpectedBlockValue += fundReward;
 
     std::string strError = "";
 
     if(!IsBlockValueValid(block, pindex->nHeight, nExpectedBlockValue, strError)){
-        return state.DoS(0, error("ConnectBlock(BCRS): %s", strError), REJECT_INVALID, "bad-cb-amount");
+        return state.DoS(0, error("ConnectBlock(ADOT): %s", strError), REJECT_INVALID, "bad-cb-amount");
     }
 
     if (!IsBlockPayeeValid(*block.vtx[0], pindex->nHeight, nExpectedBlockValue)) {
         mapRejectedBlocks.insert(std::make_pair(block.GetHash(), GetTime()));
-        return state.DoS(0, error("ConnectBlock(BCRS): couldn't find Masternode or Superblock payments"),
+        return state.DoS(0, error("ConnectBlock(ADOT): couldn't find Masternode or Superblock payments"),
                                 REJECT_INVALID, "bad-cb-payee");
     }
 
     int64_t nTime5 = GetTimeMicros(); nTimePayeeAndSpecial += nTime5 - nTime4;
     LogPrint("bench", "    - Payee and special txes: %.2fms [%.2fs]\n", 0.001 * (nTime5 - nTime4), nTimePayeeAndSpecial * 0.000001);
 
-    // END BCRS
+    // END ADOT
 
     if (fJustCheck)
         return true;
@@ -3552,7 +3552,7 @@ bool ExtractBdnsBanFromScript(const CScript& scriptPubKey, std::string& bdnsName
     std::string byte, decodedData;
     char chr;
 
-    for(std::size_t i = 0; i < hexString.length(); i += 2) { // TODO_BCRS_LOW extract code in separate method
+    for(std::size_t i = 0; i < hexString.length(); i += 2) { // TODO_ADOT_LOW extract code in separate method
         byte = hexString.substr(i, 2);
         chr = (char)(int)strtol(byte.c_str(), NULL, 16);
         decodedData.push_back(chr);

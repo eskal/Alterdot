@@ -5,7 +5,7 @@
 #include "dbwrapper.h"
 #include "uint256.h"
 #include "random.h"
-#include "test/test_bitcreds.h"
+#include "test/test_alterdot.h"
 
 #include <boost/assign/std/vector.hpp> // for 'operator+=()'
 #include <boost/assert.hpp>

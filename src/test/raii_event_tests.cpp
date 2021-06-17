@@ -12,7 +12,7 @@
 
 #include "support/events.h"
 
-#include "test/test_bitcreds.h"
+#include "test/test_alterdot.h"
 
 #include <vector>
 

@@ -83,7 +83,7 @@ unsigned int static KimotoGravityWell(const CBlockIndex* pindexLast, const Conse
 */
 /*
 unsigned int static DarkGravityWave(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params) {
-    // current difficulty formula, bitcreds - DarkGravity v3, written by Evan Duffield - evan@bitcreds.org
+    // current difficulty formula, alterdot - DarkGravity v3, written by Evan Duffield - evan@alterdot.org
     const arith_uint256 bnPowLimit = UintToArith256(params.powLimit);
     int64_t nPastBlocks = 24;
 
@@ -209,7 +209,7 @@ unsigned int DeriveNextWorkRequiredLWMA(const INDEX_TYPE pindexLast, const BLOCK
     const int64_t T = params.GetCurrentPowTargetSpacing(pindexLast->nHeight + 1);
 
     // For T=600, 300, 150 use approximately N=60, 90, 120
-    const int64_t N = 80; // TODO_BCRS_LOW maybe move to params
+    const int64_t N = 80; // TODO_ADOT_LOW maybe move to params
 
     // Define a k that will be used to get a proper average after weighting the solvetimes.
     const int64_t k = N * (N + 1) * T / 2;

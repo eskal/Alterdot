@@ -1,8 +1,8 @@
-Source: bitcreds
+Source: alterdot
 Section: utils
 Priority: optional
-Maintainer: Holger Schinzel <holger@bitcreds.org>
-Uploaders: Holger Schinzel <holger@bitcreds.org>
+Maintainer: Holger Schinzel <holger@alterdot.org>
+Uploaders: Holger Schinzel <holger@alterdot.org>
 Build-Depends: debhelper,
  devscripts,
  automake,
@@ -26,45 +26,45 @@ Build-Depends: debhelper,
  python,
  libzmq3-dev
 Standards-Version: 3.9.2
-Homepage: https://www.bitcreds.org/
-Vcs-Git: git://github.com/dashpay/bitcreds.git
-Vcs-Browser: https://github.com/dashpay/bitcreds
+Homepage: https://www.alterdot.org/
+Vcs-Git: git://github.com/dashpay/alterdot.git
+Vcs-Browser: https://github.com/dashpay/alterdot
 
-Package: bitcredsd
+Package: alterdotd
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - daemon
- Bitcreds is an experimental new digital currency that enables anonymous, instant
- payments to anyone, anywhere in the world. Bitcreds uses peer-to-peer
+ Alterdot is an experimental new digital currency that enables anonymous, instant
+ payments to anyone, anywhere in the world. Alterdot uses peer-to-peer
  technology to operate with no central authority: managing transactions
- and issuing money are carried out collectively by the network. Bitcreds
+ and issuing money are carried out collectively by the network. Alterdot
  is the name of the open source software which enables the use of this currency.
  .
- This package provides the daemon, bitcredsd, and the CLI tool
- bitcreds-cli to interact with the daemon.
+ This package provides the daemon, alterdotd, and the CLI tool
+ alterdot-cli to interact with the daemon.
 
-Package: bitcreds-qt
+Package: alterdot-qt
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - Qt GUI
- Bitcreds is an experimental new digital currency that enables anonymous, instant
- payments to anyone, anywhere in the world. Bitcreds uses peer-to-peer
+ Alterdot is an experimental new digital currency that enables anonymous, instant
+ payments to anyone, anywhere in the world. Alterdot uses peer-to-peer
  technology to operate with no central authority: managing transactions
- and issuing money are carried out collectively by the network. Bitcreds
+ and issuing money are carried out collectively by the network. Alterdot
  is the name of the open source software which enables the use of this currency.
  .
- This package provides Bitcreds-Qt, a GUI for Bitcreds based on Qt.
+ This package provides Alterdot-Qt, a GUI for Alterdot based on Qt.
 
-Package: bitcreds-tx
+Package: alterdot-tx
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer digital currency - standalone transaction tool
- Bitcreds is an experimental new digital currency that enables anonymous, instant
- payments to anyone, anywhere in the world. Bitcreds uses peer-to-peer
+ Alterdot is an experimental new digital currency that enables anonymous, instant
+ payments to anyone, anywhere in the world. Alterdot uses peer-to-peer
  technology to operate with no central authority: managing transactions
- and issuing money are carried out collectively by the network. Bitcreds
+ and issuing money are carried out collectively by the network. Alterdot
  is the name of the open source software which enables the use of this currency.
  .
- This package provides bitcreds-tx, a command-line transaction creation
- tool which can be used without a bitcreds daemon.  Some means of
+ This package provides alterdot-tx, a command-line transaction creation
+ tool which can be used without a alterdot daemon.  Some means of
  exchanging minimal transaction data with peers is still required.

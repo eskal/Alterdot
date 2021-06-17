@@ -43,7 +43,7 @@
 
 //////////////////////////////////////////////////////////////////////////////
 //
-// BitcredsMiner
+// AlterdotMiner
 //
 
 //
@@ -184,7 +184,7 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
     coinbaseTx.vout.resize(1);
     coinbaseTx.vout[0].scriptPubKey = scriptPubKeyIn;
 
-    // NOTE: unlike in bitcoin, we need to pass PREVIOUS block height here (Bitcreds), in Bitcreds we got back to the current block height
+    // NOTE: unlike in bitcoin, we need to pass PREVIOUS block height here (Alterdot), in Alterdot we got back to the current block height
     CAmount blockReward = GetPoWBlockPayment(nHeight, nFees);
 
     // Compute regular coinbase transaction.
@@ -694,11 +694,11 @@ static bool ProcessBlockFound(CBlock* pblock, const CChainParams& chainparams)
 }
 
 // ***TODO*** that part changed in bitcoin, we are using a mix with old one here for now
-void static BitcredsMiner(const CChainParams& chainparams)
+void static AlterdotMiner(const CChainParams& chainparams)
 {
-    LogPrintf("BitcredsMiner -- started\n");
+    LogPrintf("AlterdotMiner -- started\n");
     SetThreadPriority(THREAD_PRIORITY_LOWEST);
-    RenameThread("bitcreds-miner");
+    RenameThread("alterdot-miner");
 
     int nThreadHashrate = 0;
     int64_t nThreadStartTime = GetTime(), nLastHashrateTime = GetTimeMillis();
@@ -737,13 +737,13 @@ void static BitcredsMiner(const CChainParams& chainparams)
 
             if (!pblocktemplate.get())
             {
-                LogPrintf("BitcredsMiner -- Keypool ran out, please call keypoolrefill before restarting the mining thread\n");
+                LogPrintf("AlterdotMiner -- Keypool ran out, please call keypoolrefill before restarting the mining thread\n");
                 return;
             }
             CBlock *pblock = &pblocktemplate->block;
             IncrementExtraNonce(pblock, pindexPrev, nExtraNonce);
 
-            LogPrintf("BitcredsMiner -- Running miner with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
+            LogPrintf("AlterdotMiner -- Running miner with %u transactions in block (%u bytes)\n", pblock->vtx.size(),
                 ::GetSerializeSize(*pblock, SER_NETWORK, PROTOCOL_VERSION));
 
             //
@@ -769,7 +769,7 @@ void static BitcredsMiner(const CChainParams& chainparams)
                         //assert(hash == pblock->GetHash());
 
                         SetThreadPriority(THREAD_PRIORITY_NORMAL);
-                        LogPrintf("BitcredsMiner:\n proof-of-work found  \n  hash: %s  \ntarget: %s\n", hash.GetHex(), hashTarget.GetHex());
+                        LogPrintf("AlterdotMiner:\n proof-of-work found  \n  hash: %s  \ntarget: %s\n", hash.GetHex(), hashTarget.GetHex());
                         ProcessBlockFound(pblock, chainparams);
                         SetThreadPriority(THREAD_PRIORITY_LOWEST);
                         coinbaseScript->KeepScript();
@@ -813,7 +813,7 @@ void static BitcredsMiner(const CChainParams& chainparams)
                         if (GetTime() - nLogTime > 30 * 60)
                         {
                             nLogTime = GetTime();
-                            LogPrintf("BitcredsMiner: hashmeter %6.0f hash/s\n", dHashesPerSec);
+                            LogPrintf("AlterdotMiner: hashmeter %6.0f hash/s\n", dHashesPerSec);
                         }
                     }
                 }
@@ -848,17 +848,17 @@ void static BitcredsMiner(const CChainParams& chainparams)
     catch (const boost::thread_interrupted&)
     {
         dHashesPerSec = 0;
-        LogPrintf("BitcredsMiner -- terminated\n");
+        LogPrintf("AlterdotMiner -- terminated\n");
         throw;
     }
     catch (const std::runtime_error &e)
     {
-        LogPrintf("BitcredsMiner -- runtime error: %s\n", e.what());
+        LogPrintf("AlterdotMiner -- runtime error: %s\n", e.what());
         return;
     }
 }
 
-void GenerateBitcreds(bool fGenerate, int nThreads, const CChainParams& chainparams)
+void GenerateAlterdot(bool fGenerate, int nThreads, const CChainParams& chainparams)
 {
     static boost::thread_group* minerThreads = NULL;
 
@@ -878,5 +878,5 @@ void GenerateBitcreds(bool fGenerate, int nThreads, const CChainParams& chainpar
 
     minerThreads = new boost::thread_group();
     for (int i = 0; i < nThreads; i++)
-        minerThreads->create_thread(boost::bind(&BitcredsMiner, boost::cref(chainparams)));
+        minerThreads->create_thread(boost::bind(&AlterdotMiner, boost::cref(chainparams)));
 }

@@ -148,8 +148,8 @@ void masternode_list_help()
             "  lastpaidblock  - Print the last block height a node was paid on the network\n"
             "  lastpaidtime   - Print the last time a node was paid on the network\n"
             "  lastseen       - Print timestamp of when a masternode was last seen on the network\n"
-            "  owneraddress   - Print the masternode owner Bitcreds address\n"
-            "  payee          - Print the masternode payout Bitcreds address (can be additionally filtered,\n"
+            "  owneraddress   - Print the masternode owner Alterdot address\n"
+            "  payee          - Print the masternode payout Alterdot address (can be additionally filtered,\n"
             "                   partial match)\n"
             "  protocol       - Print protocol of a masternode (can be additionally filtered, exact match)\n"
             "  keyid          - Print the masternode (not collateral) key id\n"
@@ -157,7 +157,7 @@ void masternode_list_help()
             "  sentinel       - Print sentinel version of a masternode (can be additionally filtered, exact match)\n"
             "  status         - Print masternode status: PRE_ENABLED / ENABLED / EXPIRED / SENTINEL_PING_EXPIRED / NEW_START_REQUIRED /\n"
             "                   UPDATE_REQUIRED / POSE_BAN / OUTPOINT_SPENT (can be additionally filtered, partial match)\n"
-            "  votingaddress  - Print the masternode voting Bitcreds address\n"
+            "  votingaddress  - Print the masternode voting Alterdot address\n"
         );
 }
 
@@ -1303,13 +1303,13 @@ UniValue sentinelping(const JSONRPCRequest& request)
 static const CRPCCommand commands[] =
 { //  category              name                      actor (function)         okSafe argNames
   //  --------------------- ------------------------  -----------------------  ------ ----------
-    { "bitcreds",               "masternode",             &masternode,             true,  {} },
-    { "bitcreds",               "masternodelist",         &masternodelist,         true,  {} },
-    { "bitcreds",               "masternodebroadcast",    &masternodebroadcast,    true,  {} },
-    { "bitcreds",               "getpoolinfo",            &getpoolinfo,            true,  {} },
-    { "bitcreds",               "sentinelping",           &sentinelping,           true,  {} },
+    { "alterdot",               "masternode",             &masternode,             true,  {} },
+    { "alterdot",               "masternodelist",         &masternodelist,         true,  {} },
+    { "alterdot",               "masternodebroadcast",    &masternodebroadcast,    true,  {} },
+    { "alterdot",               "getpoolinfo",            &getpoolinfo,            true,  {} },
+    { "alterdot",               "sentinelping",           &sentinelping,           true,  {} },
 #ifdef ENABLE_WALLET
-    { "bitcreds",               "privatesend",            &privatesend,            false, {} },
+    { "alterdot",               "privatesend",            &privatesend,            false, {} },
 #endif // ENABLE_WALLET
 };
 

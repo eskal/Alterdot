@@ -13,7 +13,7 @@
 - (NSString *)__bundleIdentifier
 {
     if (self == [NSBundle mainBundle]) {
-        return @"org.bitcreds.Bitcreds-Qt";
+        return @"org.alterdot.Alterdot-Qt";
     } else {
         return [self __bundleIdentifier];
     }

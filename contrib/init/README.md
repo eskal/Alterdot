@@ -1,11 +1,11 @@
 Sample configuration files for:
 
-SystemD: bitcredsd.service
-Upstart: bitcredsd.conf
-OpenRC:  bitcredsd.openrc
-         bitcredsd.openrcconf
-CentOS:  bitcredsd.init
-OS X:    org.bitcreds.bitcredsd.plist
+SystemD: alterdotd.service
+Upstart: alterdotd.conf
+OpenRC:  alterdotd.openrc
+         alterdotd.openrcconf
+CentOS:  alterdotd.init
+OS X:    org.alterdot.alterdotd.plist
 
 have been made available to assist packagers in creating node packages here.
 

@@ -41,9 +41,9 @@ SendCoinsEntry::SendCoinsEntry(const PlatformStyle *_platformStyle, QWidget *par
     ui->deleteButton_is->setIcon(QIcon(":/icons/" + theme + "/remove"));
     ui->deleteButton_s->setIcon(QIcon(":/icons/" + theme + "/remove"));
       
-    // normal bitcreds address field
+    // normal alterdot address field
     GUIUtil::setupAddressWidget(ui->payTo, this);
-    // just a label for displaying bitcreds address(es)
+    // just a label for displaying alterdot address(es)
     ui->payTo_is->setFont(GUIUtil::fixedPitchFont());
 
     // Connect signals

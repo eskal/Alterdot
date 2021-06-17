@@ -1,21 +1,21 @@
 Shared Libraries
 ================
 
-## bitcredsconsensus
+## alterdotconsensus
 
-The purpose of this library is to make the verification functionality that is critical to Bitcreds's consensus available to other applications, e.g. to language bindings.
+The purpose of this library is to make the verification functionality that is critical to Alterdot's consensus available to other applications, e.g. to language bindings.
 
 ### API
 
-The interface is defined in the C header `bitcredsconsensus.h` located in  `src/script/bitcredsconsensus.h`.
+The interface is defined in the C header `alterdotconsensus.h` located in  `src/script/alterdotconsensus.h`.
 
 #### Version
 
-`bitcredsconsensus_version` returns an `unsigned int` with the API version *(currently at an experimental `0`)*.
+`alterdotconsensus_version` returns an `unsigned int` with the API version *(currently at an experimental `0`)*.
 
 #### Script Validation
 
-`bitcredsconsensus_verify_script` returns an `int` with the status of the verification. It will be `1` if the input script correctly spends the previous output `scriptPubKey`.
+`alterdotconsensus_verify_script` returns an `int` with the status of the verification. It will be `1` if the input script correctly spends the previous output `scriptPubKey`.
 
 ##### Parameters
 - `const unsigned char *scriptPubKey` - The previous output script that encumbers spending.
@@ -24,21 +24,21 @@ The interface is defined in the C header `bitcredsconsensus.h` located in  `src/
 - `unsigned int txToLen` - The number of bytes for the `txTo`.
 - `unsigned int nIn` - The index of the input in `txTo` that spends the `scriptPubKey`.
 - `unsigned int flags` - The script validation flags *(see below)*.
-- `bitcredsconsensus_error* err` - Will have the error/success code for the operation *(see below)*.
+- `alterdotconsensus_error* err` - Will have the error/success code for the operation *(see below)*.
 
 ##### Script Flags
-- `bitcredsconsensus_SCRIPT_FLAGS_VERIFY_NONE`
-- `bitcredsconsensus_SCRIPT_FLAGS_VERIFY_P2SH` - Evaluate P2SH ([BIP16](https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki)) subscripts
-- `bitcredsconsensus_SCRIPT_FLAGS_VERIFY_DERSIG` - Enforce strict DER ([BIP66](https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki)) compliance
-- `bitcredsconsensus_SCRIPT_FLAGS_VERIFY_NULLDUMMY` - Enforce NULLDUMMY ([BIP147](https://github.com/bitcoin/bips/blob/master/bip-0147.mediawiki))
-- `bitcredsconsensus_SCRIPT_FLAGS_VERIFY_CHECKLOCKTIMEVERIFY` - Enable CHECKLOCKTIMEVERIFY ([BIP65](https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki))
-- `bitcredsconsensus_SCRIPT_FLAGS_VERIFY_CHECKSEQUENCEVERIFY` - Enable CHECKSEQUENCEVERIFY ([BIP112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki))
+- `alterdotconsensus_SCRIPT_FLAGS_VERIFY_NONE`
+- `alterdotconsensus_SCRIPT_FLAGS_VERIFY_P2SH` - Evaluate P2SH ([BIP16](https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki)) subscripts
+- `alterdotconsensus_SCRIPT_FLAGS_VERIFY_DERSIG` - Enforce strict DER ([BIP66](https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki)) compliance
+- `alterdotconsensus_SCRIPT_FLAGS_VERIFY_NULLDUMMY` - Enforce NULLDUMMY ([BIP147](https://github.com/bitcoin/bips/blob/master/bip-0147.mediawiki))
+- `alterdotconsensus_SCRIPT_FLAGS_VERIFY_CHECKLOCKTIMEVERIFY` - Enable CHECKLOCKTIMEVERIFY ([BIP65](https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki))
+- `alterdotconsensus_SCRIPT_FLAGS_VERIFY_CHECKSEQUENCEVERIFY` - Enable CHECKSEQUENCEVERIFY ([BIP112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki))
 
 ##### Errors
-- `bitcredsconsensus_ERR_OK` - No errors with input parameters *(see the return value of `bitcredsconsensus_verify_script` for the verification status)*
-- `bitcredsconsensus_ERR_TX_INDEX` - An invalid index for `txTo`
-- `bitcredsconsensus_ERR_TX_SIZE_MISMATCH` - `txToLen` did not match with the size of `txTo`
-- `bitcredsconsensus_ERR_DESERIALIZE` - An error deserializing `txTo`
+- `alterdotconsensus_ERR_OK` - No errors with input parameters *(see the return value of `alterdotconsensus_verify_script` for the verification status)*
+- `alterdotconsensus_ERR_TX_INDEX` - An invalid index for `txTo`
+- `alterdotconsensus_ERR_TX_SIZE_MISMATCH` - `txToLen` did not match with the size of `txTo`
+- `alterdotconsensus_ERR_DESERIALIZE` - An error deserializing `txTo`
 
 ### Example Implementations
 - [NBitcoin](https://github.com/NicolasDorier/NBitcoin/blob/master/NBitcoin/Script.cs#L814) (.NET Bindings)

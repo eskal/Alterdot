@@ -9,7 +9,7 @@
 #include "uint256.h"
 #include "util.h"
 #include "utilstrencodings.h"
-#include "test/test_bitcreds.h"
+#include "test/test_alterdot.h"
 
 #include <string>
 #include <vector>

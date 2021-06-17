@@ -1,15 +1,15 @@
 [Unit]
-Description=Bitcreds's distributed currency daemon
+Description=Alterdot's distributed currency daemon
 After=network.target
 
 [Service]
-User=bitcreds
-Group=bitcreds
+User=alterdot
+Group=alterdot
 
 Type=forking
-PIDFile=/var/lib/bitcredsd/bitcredsd.pid
-ExecStart=/usr/bin/bitcredsd -daemon -pid=/var/lib/bitcredsd/bitcredsd.pid \
--conf=/etc/bitcreds/bitcreds.conf -datadir=/var/lib/bitcredsd -disablewallet
+PIDFile=/var/lib/alterdotd/alterdotd.pid
+ExecStart=/usr/bin/alterdotd -daemon -pid=/var/lib/alterdotd/alterdotd.pid \
+-conf=/etc/alterdot/alterdot.conf -datadir=/var/lib/alterdotd -disablewallet
 
 Restart=always
 PrivateTmp=true

@@ -62,12 +62,12 @@
         <translation>Adresa prijatia</translation>
     </message>
     <message>
-        <source>These are your Bitcreds addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Toto sú Vaše Bitcreds adresy pre posielanie platieb. Pred poslaním mincí vždy overte sumu a doručovaciu adresu.</translation>
+        <source>These are your Alterdot addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Toto sú Vaše Alterdot adresy pre posielanie platieb. Pred poslaním mincí vždy overte sumu a doručovaciu adresu.</translation>
     </message>
     <message>
-        <source>These are your Bitcreds addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Toto sú Vaše Bitcreds adresy pre posielanie platieb. Pre každú transakciu sa doporučuje použiť novú doručovaciu adresu.</translation>
+        <source>These are your Alterdot addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Toto sú Vaše Alterdot adresy pre posielanie platieb. Pre každú transakciu sa doporučuje použiť novú doručovaciu adresu.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -172,8 +172,8 @@
         <translation>Potvrďte zašifrovanie peňaženky</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BCRS&lt;/b&gt;!</source>
-        <translation>Upozornenie: Ak zašifrujete vašu peňaženku a stratíte prístupové heslo, potom &lt;b&gt;prídete o všetky svoje BCRS-y&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR ADOT&lt;/b&gt;!</source>
+        <translation>Upozornenie: Ak zašifrujete vašu peňaženku a stratíte prístupové heslo, potom &lt;b&gt;prídete o všetky svoje ADOT-y&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -242,12 +242,12 @@
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <source>A fatal error occurred. Bitcreds can no longer continue safely and will quit.</source>
-        <translation>Došlo k závažnej chybe. Bitcreds už nemôže bezpečne pokračovať a bude ukončený.</translation>
+        <source>A fatal error occurred. Alterdot can no longer continue safely and will quit.</source>
+        <translation>Došlo k závažnej chybe. Alterdot už nemôže bezpečne pokračovať a bude ukončený.</translation>
     </message>
     <message>
-        <source>Bitcreds</source>
-        <translation>Bitcreds</translation>
+        <source>Alterdot</source>
+        <translation>Alterdot</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -270,16 +270,16 @@
         <translation>&amp;Odoslať</translation>
     </message>
     <message>
-        <source>Send coins to a Bitcreds address</source>
-        <translation>Poslať mince na Bitcreds adresu</translation>
+        <source>Send coins to a Alterdot address</source>
+        <translation>Poslať mince na Alterdot adresu</translation>
     </message>
     <message>
         <source>&amp;Receive</source>
         <translation>&amp;Prijať</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcreds: URIs)</source>
-        <translation>Vyžiadať platby (vygeneruje QR kódy a Bitcreds: URI)</translation>
+        <source>Request payments (generates QR codes and alterdot: URIs)</source>
+        <translation>Vyžiadať platby (vygeneruje QR kódy a Alterdot: URI)</translation>
     </message>
     <message>
         <source>&amp;Transactions</source>
@@ -306,8 +306,8 @@
         <translation>Ukončiť program</translation>
     </message>
     <message>
-        <source>Show information about Bitcreds</source>
-        <translation>Zobraziť informácie o Bitcreds</translation>
+        <source>Show information about Alterdot</source>
+        <translation>Zobraziť informácie o Alterdot</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -378,16 +378,16 @@
         <translation>Podpísať &amp;správu...</translation>
     </message>
     <message>
-        <source>Sign messages with your Bitcreds addresses to prove you own them</source>
-        <translation>Podpísať správy s Vašimi Bitcreds adresami ako dôkaz že ich vlastníte</translation>
+        <source>Sign messages with your Alterdot addresses to prove you own them</source>
+        <translation>Podpísať správy s Vašimi Alterdot adresami ako dôkaz že ich vlastníte</translation>
     </message>
     <message>
         <source>&amp;Verify message...</source>
         <translation>&amp;Overiť správu...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified Bitcreds addresses</source>
-        <translation>Overiť správy pre uistenie, že boli podpísané zadanými Bitcreds adresami</translation>
+        <source>Verify messages to ensure they were signed with specified Alterdot addresses</source>
+        <translation>Overiť správy pre uistenie, že boli podpísané zadanými Alterdot adresami</translation>
     </message>
     <message>
         <source>&amp;Information</source>
@@ -474,16 +474,16 @@
         <translation>Otvoriť &amp;URI...</translation>
     </message>
     <message>
-        <source>Open a bitcreds: URI or payment request</source>
-        <translation>Otvoriť bitcreds: URI alebo žiadosť o platbu </translation>
+        <source>Open a alterdot: URI or payment request</source>
+        <translation>Otvoriť alterdot: URI alebo žiadosť o platbu </translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
         <translation>&amp;Možnosti príkazového riadku</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible Bitcreds command-line options</source>
-        <translation>Ukázať %1 zoznam možných nastavení Bitcreds pomocou príkazového riadku</translation>
+        <source>Show the %1 help message to get a list with possible Alterdot command-line options</source>
+        <translation>Ukázať %1 zoznam možných nastavení Alterdot pomocou príkazového riadku</translation>
     </message>
     <message>
         <source>%1 client</source>
@@ -518,8 +518,8 @@
         <translation>Lišta záložiek</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to Bitcreds network</source>
-        <translation><numerusform>%n aktívne spojenie so sieťou Bitcreds</numerusform><numerusform>%n aktívne spojenia so sieťou Bitcreds</numerusform><numerusform>%n aktívnych spojení so sieťou Bitcreds</numerusform><numerusform>%n aktívnych spojení so sieťou Bitcreds</numerusform></translation>
+        <source>%n active connection(s) to Alterdot network</source>
+        <translation><numerusform>%n aktívne spojenie so sieťou Alterdot</numerusform><numerusform>%n aktívne spojenia so sieťou Alterdot</numerusform><numerusform>%n aktívnych spojení so sieťou Alterdot</numerusform><numerusform>%n aktívnych spojení so sieťou Alterdot</numerusform></translation>
     </message>
     <message>
         <source>Network activity disabled</source>
@@ -873,8 +873,8 @@
         <translation>Upraviť adresu pre odoslanie</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid Bitcreds address.</source>
-        <translation>Zadaná adresa "%1" nie je platná Bitcreds adresa.</translation>
+        <source>The entered address "%1" is not a valid Alterdot address.</source>
+        <translation>Zadaná adresa "%1" nie je platná Alterdot adresa.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -971,8 +971,8 @@
         <translation>Informácie o PrivateSend</translation>
     </message>
     <message>
-        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Bitcreds in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 BCRS, 0.01 BCRS, 0.1 BCRS, 1 BCRS and 10 BCRS -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.bitcreds.org/en/latest/wallets/bitcreds/privatesend-instantsend.html"&gt;PrivateSend documentation&lt;/a&gt;.</source>
-        <translation>&lt;h3&gt;Základy PrivateSend&lt;/h3&gt; PrivateSend Vám poskytuje skutočné finančné súkromie skrývaním pôvodu Vašich zdrojov. Všetky Bitcreds vo vašej peňaženke pozostávajú z rôznych "vstupov", ktoré si môžete predstaviť ako rozdelené, which you can think of as separate, diskrétne mince.&lt;br&gt; PrivateSend používa zdokonalený proces pre miešanie Vašich vstupov so vstupmi iných ľudí bez toho. aby Vaše mince museli opustiť Vašu peňaženku. Počas cele doby máte kontrolu nad Vašimi peniazmi.&lt;hr&gt; &lt;b&gt;Proces PrivateSend funguje nasledovne:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend začne rozdelením Vašich transakčných vstupov na štandardné časti, takzvané denominácie. Tieto denominácie sú 0.001 BCRS, 0.01 BCRS, 0.1 BCRS, 1 BCRS a 10 BCRS -- v podstate niečo ako papierové peniaze, ktoré používate každý deň.&lt;/li&gt; &lt;li&gt;Vaša peňaženka potom pošle požiadavok špeciálne nastavenému softvérovému uzlu nazvaného "Masternode". Tieto masternódy sú potom informované, že máte záujem miešať určité denominácie. Masternode neobdrží žiadne informácie ktoré by Vás identifikovali, takže nikdy nevedia kto ste.&lt;/li&gt; &lt;li&gt;Keď ďalší dvaja ľudia pošlú podobnú správu hovoriacu o tom že chcú miešať rovnakú denomináciu, začne sa samotné miešanie. Masternode zamieša vstupy a povie peňaženkám všetkých troch používateľov, aby zaplatili teraz už zmiešané vstupy sami sebe. Vaša peňaženka zaplatí tieto denominácie priamo sebe, ale už na inú adresu (nazývanú "meniaca adresa").&lt;/li&gt; &lt;li&gt;Aby boli Vaše zdroje plne zakryté, Vaša peňaženka musí zopakovať tento proces niekoľko krát s každou denomináciou.  Vždy keď je tento proces dokončený, je nazvaný "kolo". Každé kolo PrivateSend exponenciálne sťažuje určiť odkiaľ pochádzajú Vaše zdroje.&lt;/li&gt; &lt;li&gt;Toto miešanie sa deje na pozadí bez nutnosti zásahov z Vašej strany. Keď si prajete uskutočniť transakciu, Vaše zdroje budú už anonymné. Nie je nutné na nič čakať.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt; &lt;b&gt;DÔLEŽITÉ:&lt;/b&gt; Vaša peňaženka obsahuje iba 1000 týchto "meniacich adries". Vždy keď prebehne miešanie, použije sa maximálne až 9 Vašich adries. To znamená, že týchto 1000 adries vystačí zhruba na 100 miešaní. Keď sa použije 900 adries, Vaša peňaženka musí vytvoriť viac adries. Toto je však možné iba vtedy, keď máte zapnuté automatické zálohovanie.&lt;br&gt; V dôsledku toho, používatelia ktorí majú zálohovanie vypnuté, budú mať vypnutý aj PrivateSend. &lt;hr&gt;&lt;a href="https://docs.bitcreds.org/en/latest/wallets/bitcreds/privatesend-instantsend.html"&gt;Viac informácií nájdete v dokumentácii PrivateSend&lt;/a&gt;.</translation>
+        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Alterdot in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 ADOT, 0.01 ADOT, 0.1 ADOT, 1 ADOT and 10 ADOT -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.alterdot.org/en/latest/wallets/alterdot/privatesend-instantsend.html"&gt;PrivateSend documentation&lt;/a&gt;.</source>
+        <translation>&lt;h3&gt;Základy PrivateSend&lt;/h3&gt; PrivateSend Vám poskytuje skutočné finančné súkromie skrývaním pôvodu Vašich zdrojov. Všetky Alterdot vo vašej peňaženke pozostávajú z rôznych "vstupov", ktoré si môžete predstaviť ako rozdelené, which you can think of as separate, diskrétne mince.&lt;br&gt; PrivateSend používa zdokonalený proces pre miešanie Vašich vstupov so vstupmi iných ľudí bez toho. aby Vaše mince museli opustiť Vašu peňaženku. Počas cele doby máte kontrolu nad Vašimi peniazmi.&lt;hr&gt; &lt;b&gt;Proces PrivateSend funguje nasledovne:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend začne rozdelením Vašich transakčných vstupov na štandardné časti, takzvané denominácie. Tieto denominácie sú 0.001 ADOT, 0.01 ADOT, 0.1 ADOT, 1 ADOT a 10 ADOT -- v podstate niečo ako papierové peniaze, ktoré používate každý deň.&lt;/li&gt; &lt;li&gt;Vaša peňaženka potom pošle požiadavok špeciálne nastavenému softvérovému uzlu nazvaného "Masternode". Tieto masternódy sú potom informované, že máte záujem miešať určité denominácie. Masternode neobdrží žiadne informácie ktoré by Vás identifikovali, takže nikdy nevedia kto ste.&lt;/li&gt; &lt;li&gt;Keď ďalší dvaja ľudia pošlú podobnú správu hovoriacu o tom že chcú miešať rovnakú denomináciu, začne sa samotné miešanie. Masternode zamieša vstupy a povie peňaženkám všetkých troch používateľov, aby zaplatili teraz už zmiešané vstupy sami sebe. Vaša peňaženka zaplatí tieto denominácie priamo sebe, ale už na inú adresu (nazývanú "meniaca adresa").&lt;/li&gt; &lt;li&gt;Aby boli Vaše zdroje plne zakryté, Vaša peňaženka musí zopakovať tento proces niekoľko krát s každou denomináciou.  Vždy keď je tento proces dokončený, je nazvaný "kolo". Každé kolo PrivateSend exponenciálne sťažuje určiť odkiaľ pochádzajú Vaše zdroje.&lt;/li&gt; &lt;li&gt;Toto miešanie sa deje na pozadí bez nutnosti zásahov z Vašej strany. Keď si prajete uskutočniť transakciu, Vaše zdroje budú už anonymné. Nie je nutné na nič čakať.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt; &lt;b&gt;DÔLEŽITÉ:&lt;/b&gt; Vaša peňaženka obsahuje iba 1000 týchto "meniacich adries". Vždy keď prebehne miešanie, použije sa maximálne až 9 Vašich adries. To znamená, že týchto 1000 adries vystačí zhruba na 100 miešaní. Keď sa použije 900 adries, Vaša peňaženka musí vytvoriť viac adries. Toto je však možné iba vtedy, keď máte zapnuté automatické zálohovanie.&lt;br&gt; V dôsledku toho, používatelia ktorí majú zálohovanie vypnuté, budú mať vypnutý aj PrivateSend. &lt;hr&gt;&lt;a href="https://docs.alterdot.org/en/latest/wallets/alterdot/privatesend-instantsend.html"&gt;Viac informácií nájdete v dokumentácii PrivateSend&lt;/a&gt;.</translation>
     </message>
 </context>
 <context>
@@ -990,8 +990,8 @@
         <translation>Keďže toto je prvé spustenie programu, môžete si vybrať, kam %1 bude ukladať vaše údaje.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcreds block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>%1 stiahne a uloží kópiu reťazca blokov Bitcreds. V tomto adresári bude uložené aspoň %2GB dát a bude časom rásť. Peňaženka bude tiež uložená v tomto adresári.</translation>
+        <source>%1 will download and store a copy of the Alterdot block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>%1 stiahne a uloží kópiu reťazca blokov Alterdot. V tomto adresári bude uložené aspoň %2GB dát a bude časom rásť. Peňaženka bude tiež uložená v tomto adresári.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1256,12 +1256,12 @@
         <translation>Forma</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the Bitcreds network, as detailed below.</source>
-        <translation>Nedávne transakcie ešte nemusia byť viditeľné, a preto stav Vašej peňaženky nože byť nesprávny. Informácia bude správna hneď ako Vaša peňaženka dokončí synchronizáciu so sieťou Bitcreds. Viac detailov nájdete nižšie.</translation>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the Alterdot network, as detailed below.</source>
+        <translation>Nedávne transakcie ešte nemusia byť viditeľné, a preto stav Vašej peňaženky nože byť nesprávny. Informácia bude správna hneď ako Vaša peňaženka dokončí synchronizáciu so sieťou Alterdot. Viac detailov nájdete nižšie.</translation>
     </message>
     <message>
-        <source>Attempting to spend Bitcreds that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
-        <translation>Pokúsiť sa minút Bitcreds, ktoré sú ovplyvnené "ešte nezobrazenými" transakciami, nebudú akceptované sieťou.</translation>
+        <source>Attempting to spend Alterdot that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
+        <translation>Pokúsiť sa minút Alterdot, ktoré sú ovplyvnené "ešte nezobrazenými" transakciami, nebudú akceptované sieťou.</translation>
     </message>
     <message>
         <source>Number of blocks left</source>
@@ -1350,8 +1350,8 @@
         <translation>(0 = auto, &lt;0 = nechať toľkoto voľných jadier)</translation>
     </message>
     <message>
-        <source>Amount of Bitcreds to keep anonymized</source>
-        <translation>Suma Bitcreds ktorú držať anonymne </translation>
+        <source>Amount of Alterdot to keep anonymized</source>
+        <translation>Suma Alterdot ktorú držať anonymne </translation>
     </message>
     <message>
         <source>W&amp;allet</source>
@@ -1402,8 +1402,8 @@
         <translation>Táto suma slúži ako hranica pre vypnutie PrivateSend akonáhle je dosiahnutá.</translation>
     </message>
     <message>
-        <source>Automatically open the Bitcreds client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automaticky otvoriť na smerovači port pre Bitcreds klient. Toto funguje iba ak Váš smerovač  podporuje UPnP a je povolené</translation>
+        <source>Automatically open the Alterdot client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Automaticky otvoriť na smerovači port pre Alterdot klient. Toto funguje iba ak Váš smerovač  podporuje UPnP a je povolené</translation>
     </message>
     <message>
         <source>Accept connections from outside</source>
@@ -1414,8 +1414,8 @@
         <translation>Povoliť prichádzajúce spojenia</translation>
     </message>
     <message>
-        <source>Connect to the Bitcreds network through a SOCKS5 proxy.</source>
-        <translation>Pripojiť sa do siete Bitcreds cez proxy SOCKS5.</translation>
+        <source>Connect to the Alterdot network through a SOCKS5 proxy.</source>
+        <translation>Pripojiť sa do siete Alterdot cez proxy SOCKS5.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1510,8 +1510,8 @@
         <translation>Tor</translation>
     </message>
     <message>
-        <source>Connect to the Bitcreds network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Pripojiť sa do siete Bitcreds cez oddelené SOCKS5 proxy pre skryté služby Tor.</translation>
+        <source>Connect to the Alterdot network through a separate SOCKS5 proxy for Tor hidden services.</source>
+        <translation>Pripojiť sa do siete Alterdot cez oddelené SOCKS5 proxy pre skryté služby Tor.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services:</source>
@@ -1635,8 +1635,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Forma</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcreds network after a connection is established, but this process has not completed yet.</source>
-        <translation>Zobrazené informácie môžu byť zastaralé. Vaša peňaženka sa automaticky zosynchronizuje so sieťou Bitcreds akonáhle nadviaže spojenie, avšak tento proces ešte nebol dokončený.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Alterdot network after a connection is established, but this process has not completed yet.</source>
+        <translation>Zobrazené informácie môžu byť zastaralé. Vaša peňaženka sa automaticky zosynchronizuje so sieťou Alterdot akonáhle nadviaže spojenie, avšak tento proces ešte nebol dokončený.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1735,8 +1735,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Čiastka a kolá:</translation>
     </message>
     <message>
-        <source>0 BCRS / 0 Rounds</source>
-        <translation>0 BCRS / 0 Kôl</translation>
+        <source>0 ADOT / 0 Rounds</source>
+        <translation>0 ADOT / 0 Kôl</translation>
     </message>
     <message>
         <source>Submitted Denom:</source>
@@ -1901,8 +1901,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Chyba pri vyžiadaní platby</translation>
     </message>
     <message>
-        <source>Cannot start bitcreds: click-to-pay handler</source>
-        <translation>Bitcreds sa nedá spustiť: click-to-pay handler</translation>
+        <source>Cannot start alterdot: click-to-pay handler</source>
+        <translation>Alterdot sa nedá spustiť: click-to-pay handler</translation>
     </message>
     <message>
         <source>URI handling</source>
@@ -1917,8 +1917,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Neplatná adresa platby %1</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid Bitcreds address or malformed URI parameters.</source>
-        <translation>URI sa nedá analyzovať! Toto môže byť spôsobené neplatnou Bitcreds adresou, alebo nesprávnym tvarom URI parametrov.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid Alterdot address or malformed URI parameters.</source>
+        <translation>URI sa nedá analyzovať! Toto môže byť spôsobené neplatnou Alterdot adresou, alebo nesprávnym tvarom URI parametrov.</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -2007,8 +2007,8 @@ https://www.transifex.com/projects/p/dash/</translation>
 <context>
     <name>QObject</name>
     <message>
-        <source>Bitcreds</source>
-        <translation>Bitcreds</translation>
+        <source>Alterdot</source>
+        <translation>Alterdot</translation>
     </message>
     <message>
         <source>%1 didn't yet exit safely...</source>
@@ -2023,8 +2023,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Suma</translation>
     </message>
     <message>
-        <source>Enter a Bitcreds address (e.g. %1)</source>
-        <translation>Zadajte Bitcreds adresu (e.g. %1)</translation>
+        <source>Enter a Alterdot address (e.g. %1)</source>
+        <translation>Zadajte Alterdot adresu (e.g. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -2541,8 +2541,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Z&amp;novu použiť jestvujúcu prijímaciu adresu (neodporúča sa)</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcreds network.</source>
-        <translation>Pripojiť ku vyžiadanej platbe voliteľnú správu, ktorá sa zobrazí, keď bude žiadosť otvorená. Poznámka: Správa nebude poslaná spolu s platbou cez sieť Bitcreds.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Alterdot network.</source>
+        <translation>Pripojiť ku vyžiadanej platbe voliteľnú správu, ktorá sa zobrazí, keď bude žiadosť otvorená. Poznámka: Správa nebude poslaná spolu s platbou cez sieť Alterdot.</translation>
     </message>
     <message>
         <source>&amp;Message:</source>
@@ -2553,8 +2553,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Voliteľný popis ktorý sa pridá k tejto novej prijímajúcej adrese.</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Bitcreds network.</source>
-        <translation>Pripojiť ku vyžiadanej platbe voliteľnú správu, ktorá sa zobrazí, keď bude žiadosť otvorená. &lt;br&gt;Poznámka: Správa nebude poslaná spolu s platbou cez sieť Bitcreds.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Alterdot network.</source>
+        <translation>Pripojiť ku vyžiadanej platbe voliteľnú správu, ktorá sa zobrazí, keď bude žiadosť otvorená. &lt;br&gt;Poznámka: Správa nebude poslaná spolu s platbou cez sieť Alterdot.</translation>
     </message>
     <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
@@ -2822,8 +2822,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Ak je vlastný poplatok nastavený na 1000 duffov a transakcia je len 250 bytov, v tom prípade "za kilobajt" zaplatí iba 250 duffov na poplatkoch, &lt;br /&gt;zatiaľ čo "celkovo pri najmenšom" zaplatí 1000 duffov. Pre transakcie väčšie ako jeden kilobajt, obe zaplatia rovnako za kilobajt. </translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for bitcreds transactions than the network can process.</source>
-        <translation>Platenie minimálneho poplatku je v poriadku pokiaľ je objem transakcií menší ako je miesto v bloku. &lt;br /&gt;Buďte opatrný pretože to môže skončiť s nikdy nepotvrdenými transakciami, akonáhle je dopyt po Bitcreds transakciách väčší ako dokáže sieť Bitcreds spracovať.</translation>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for alterdot transactions than the network can process.</source>
+        <translation>Platenie minimálneho poplatku je v poriadku pokiaľ je objem transakcií menší ako je miesto v bloku. &lt;br /&gt;Buďte opatrný pretože to môže skončiť s nikdy nepotvrdenými transakciami, akonáhle je dopyt po Alterdot transakciách väčší ako dokáže sieť Alterdot spracovať.</translation>
     </message>
     <message>
         <source>per kilobyte</source>
@@ -3010,8 +3010,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation><numerusform>Odhad pre začiatok potvrdzovania je %n blok.</numerusform><numerusform>Odhad pre začiatok potvrdzovania sú %n bloky.</numerusform><numerusform>Odhad pre začiatok potvrdzovania je %n blokov.</numerusform><numerusform>Odhad pre začiatok potvrdzovania je %n blokov.</numerusform></translation>
     </message>
     <message>
-        <source>Warning: Invalid Bitcreds address</source>
-        <translation>Upozornenie: Neplatná Bitcreds adresa</translation>
+        <source>Warning: Invalid Alterdot address</source>
+        <translation>Upozornenie: Neplatná Alterdot adresa</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -3041,8 +3041,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Zapla&amp;tiť:</translation>
     </message>
     <message>
-        <source>The Bitcreds address to send the payment to</source>
-        <translation>Bitcreds adresa pre poslanie platby</translation>
+        <source>The Alterdot address to send the payment to</source>
+        <translation>Alterdot adresa pre poslanie platby</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3077,8 +3077,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Su&amp;ma:</translation>
     </message>
     <message>
-        <source>The fee will be deducted from the amount being sent. The recipient will receive a lower amount of Bitcreds than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
-        <translation>Poplatok sa odpočíta od čiastky, ktorú odosielate. Príjemca dostane menej Bitcreds ako zadáte. Ak je vybraných viacero príjemcov, poplatok je rozdelený rovnakým dielom.</translation>
+        <source>The fee will be deducted from the amount being sent. The recipient will receive a lower amount of Alterdot than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
+        <translation>Poplatok sa odpočíta od čiastky, ktorú odosielate. Príjemca dostane menej Alterdot ako zadáte. Ak je vybraných viacero príjemcov, poplatok je rozdelený rovnakým dielom.</translation>
     </message>
     <message>
         <source>S&amp;ubtract fee from amount</source>
@@ -3089,8 +3089,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Správa:</translation>
     </message>
     <message>
-        <source>A message that was attached to the bitcreds: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcreds network.</source>
-        <translation>Správa ktorá bola pripojená ku bitcreds: URI ktorá sa uchová spolu s transakciou pre Vašu referenciu. Poznámka: Táto správa nebude poslaná cez sieť Bitcreds.</translation>
+        <source>A message that was attached to the alterdot: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Alterdot network.</source>
+        <translation>Správa ktorá bola pripojená ku alterdot: URI ktorá sa uchová spolu s transakciou pre Vašu referenciu. Poznámka: Táto správa nebude poslaná cez sieť Alterdot.</translation>
     </message>
     <message>
         <source>This is an unauthenticated payment request.</source>
@@ -3142,12 +3142,12 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>&amp;Podpísať Správu</translation>
     </message>
     <message>
-        <source>You can sign messages/agreements with your addresses to prove you can receive Bitcreds sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
-        <translation>Môžete podpísať správy/dohody svojou adresou aby ste dokázali, že na ňu prijať Bitcreds. Buďte opatrní a nepodpisuje nič vágne alebo náhodné, nakoľko útoky typu "phishing" Vás môžu lákať k ich podpísaniu Vašej identity. Podpisujte iba vyhlásenia s úplnými detailami s ktorými súhlasíte.</translation>
+        <source>You can sign messages/agreements with your addresses to prove you can receive Alterdot sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
+        <translation>Môžete podpísať správy/dohody svojou adresou aby ste dokázali, že na ňu prijať Alterdot. Buďte opatrní a nepodpisuje nič vágne alebo náhodné, nakoľko útoky typu "phishing" Vás môžu lákať k ich podpísaniu Vašej identity. Podpisujte iba vyhlásenia s úplnými detailami s ktorými súhlasíte.</translation>
     </message>
     <message>
-        <source>The Bitcreds address to sign the message with</source>
-        <translation>Bitcreds adresa na podpísanie správy</translation>
+        <source>The Alterdot address to sign the message with</source>
+        <translation>Alterdot adresa na podpísanie správy</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3178,8 +3178,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Kopírovať práve zvolenú adresu do systémovej schránky</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this Bitcreds address</source>
-        <translation>Podpísať spravu aby ste dokázali, že vlastníte túto Bitcreds adresu</translation>
+        <source>Sign the message to prove you own this Alterdot address</source>
+        <translation>Podpísať spravu aby ste dokázali, že vlastníte túto Alterdot adresu</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -3202,12 +3202,12 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Vložte adresu príjemcu, správu (uistite sa, že presne kopírujete ukončenia riadkov, medzery, odrážky, atď.) a podpis pre potvrdenie správy. Buďte opatrní a nedomýšľajte si viac než je uvedené v samotnej podpísanej správe a môžete sa tak vyhnúť podvodu MITM útokom. Toto len potvrdzuje, že podpisujúca strana môže prijímať na tejto adrese, nepotvrdzuje to vlastníctvo žiadnej transakcie!</translation>
     </message>
     <message>
-        <source>The Bitcreds address the message was signed with</source>
-        <translation>Adresa Bitcreds s ktorou bola podpísaná správa</translation>
+        <source>The Alterdot address the message was signed with</source>
+        <translation>Adresa Alterdot s ktorou bola podpísaná správa</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified Bitcreds address</source>
-        <translation>Overiť správu pre uistenie, že bola podpísaná zadanou Bitcreds adresou</translation>
+        <source>Verify the message to ensure it was signed with the specified Alterdot address</source>
+        <translation>Overiť správu pre uistenie, že bola podpísaná zadanou Alterdot adresou</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -3837,8 +3837,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Poslať Mince</translation>
     </message>
     <message>
-        <source>InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 BCRS.</source>
-        <translation>InstantSend zatiaľ nepodporuje posielanie takto vysokých čiastok. Transakcie sú limitované na %1 BCRS.</translation>
+        <source>InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 ADOT.</source>
+        <translation>InstantSend zatiaľ nepodporuje posielanie takto vysokých čiastok. Transakcie sú limitované na %1 ADOT.</translation>
     </message>
     <message>
         <source>Used way too many inputs (&gt;%1) for this InstantSend transaction, fees could be huge.</source>
@@ -3885,7 +3885,7 @@ https://www.transifex.com/projects/p/dash/</translation>
     </message>
 </context>
 <context>
-    <name>bitcreds</name>
+    <name>alterdot</name>
     <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>Spojiť s danou adresou a vždy na nej počúvať. Použite zápis [host]:port pre IPv6</translation>
@@ -4535,8 +4535,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>V pamäti udržiavať najviac &lt;n&gt; nepotvrdených transakcií (predvolené: %u)</translation>
     </message>
     <message>
-        <source>Disable all Bitcreds specific functionality (Masternodes, PrivateSend, InstantSend, Governance) (0-1, default: %u)</source>
-        <translation>Vypnúť všetky funkcie špecifické pre Bitcreds (Masternódy, PrivateSend, InstantSend, Správu) (0-1, predvolené: %u)</translation>
+        <source>Disable all Alterdot specific functionality (Masternodes, PrivateSend, InstantSend, Governance) (0-1, default: %u)</source>
+        <translation>Vypnúť všetky funkcie špecifické pre Alterdot (Masternódy, PrivateSend, InstantSend, Správu) (0-1, predvolené: %u)</translation>
     </message>
     <message>
         <source>%s file contains all private keys from this wallet. Do not share it with anyone!</source>
@@ -4587,8 +4587,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Pokiaľ &lt;category&gt; nie je nastavená, alebo &lt;category&gt; = 1, vypíš všetky informácie pre ladenie.</translation>
     </message>
     <message>
-        <source>InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 BCRS.</source>
-        <translation>InstantSend zatiaľ nepodporuje posielanie takto vysokých čiastok. Transakcie sú limitované na %1 BCRS.</translation>
+        <source>InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 ADOT.</source>
+        <translation>InstantSend zatiaľ nepodporuje posielanie takto vysokých čiastok. Transakcie sú limitované na %1 ADOT.</translation>
     </message>
     <message>
         <source>InstantSend requires inputs with at least %d confirmations, you might need to wait a few minutes and try again.</source>
@@ -4687,8 +4687,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Upozornenie: Ťaží sa neznáma verzia blokov! Je možné, že sú v platnosti neznáme pravidlá</translation>
     </message>
     <message>
-        <source>You are starting in lite mode, all Bitcreds-specific functionality is disabled.</source>
-        <translation>Začínate v režime Lite, všetky funkcie špecifické pre Bitcreds sú deaktivované.</translation>
+        <source>You are starting in lite mode, all Alterdot-specific functionality is disabled.</source>
+        <translation>Začínate v režime Lite, všetky funkcie špecifické pre Alterdot sú deaktivované.</translation>
     </message>
     <message>
         <source>You need to rebuild the database using -reindex to go back to unpruned mode.  This will redownload the entire blockchain</source>
@@ -5047,8 +5047,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Možnosti servra RPC:</translation>
     </message>
     <message>
-        <source>Bitcreds</source>
-        <translation>Bitcreds</translation>
+        <source>Alterdot</source>
+        <translation>Alterdot</translation>
     </message>
     <message>
         <source>The %s developers</source>
@@ -5251,8 +5251,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Neplatná spork adresa určená pomocou -sporkaddr</translation>
     </message>
     <message>
-        <source>Keep N BCRS anonymized (%u-%u, default: %u)</source>
-        <translation>Udržujte N BCRS anonymizovaných (%u-%u, predvolené: %u)</translation>
+        <source>Keep N ADOT anonymized (%u-%u, default: %u)</source>
+        <translation>Udržujte N ADOT anonymizovaných (%u-%u, predvolené: %u)</translation>
     </message>
     <message>
         <source>Print this help message and exit</source>

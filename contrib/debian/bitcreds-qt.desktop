@@ -1,13 +1,13 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=Bitcreds
-Comment=Bitcreds P2P Cryptocurrency
-Comment[de]=Verbinde mit dem Bitcreds peer-to-peer Netzwerk
-Comment[fr]=Bitcreds, monnaie virtuelle cryptographique pair à pair
-Comment[tr]=Bitcreds, eşten eşe kriptografik sanal para birimi
-Exec=bitcreds-qt %u
+Name=Alterdot
+Comment=Alterdot P2P Cryptocurrency
+Comment[de]=Verbinde mit dem Alterdot peer-to-peer Netzwerk
+Comment[fr]=Alterdot, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Alterdot, eşten eşe kriptografik sanal para birimi
+Exec=alterdot-qt %u
 Terminal=false
 Type=Application
-Icon=bitcreds128
-MimeType=x-scheme-handler/bitcreds;
+Icon=alterdot128
+MimeType=x-scheme-handler/alterdot;
 Categories=Office;Finance;

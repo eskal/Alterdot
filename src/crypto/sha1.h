@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCREDS_CRYPTO_SHA1_H
-#define BITCREDS_CRYPTO_SHA1_H
+#ifndef ALTERDOT_CRYPTO_SHA1_H
+#define ALTERDOT_CRYPTO_SHA1_H
 
 #include <stdint.h>
 #include <stdlib.h>
@@ -25,4 +25,4 @@ public:
     CSHA1& Reset();
 };
 
-#endif // BITCREDS_CRYPTO_SHA1_H
+#endif // ALTERDOT_CRYPTO_SHA1_H

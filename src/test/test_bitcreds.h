@@ -3,8 +3,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_TEST_TEST_BCRS_H
-#define BITCOIN_TEST_TEST_BCRS_H
+#ifndef BITCOIN_TEST_TEST_ADOT_H
+#define BITCOIN_TEST_TEST_ADOT_H
 
 #include "chainparamsbase.h"
 #include "key.h"

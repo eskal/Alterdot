@@ -7,7 +7,7 @@
 #include "pow.h"
 #include "random.h"
 #include "util.h"
-#include "test/test_bitcreds.h"
+#include "test/test_alterdot.h"
 
 #include <boost/test/unit_test.hpp>
 

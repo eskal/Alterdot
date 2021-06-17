@@ -143,7 +143,7 @@ public:
 };
 
 /**
- * Bitcreds RPC command dispatcher.
+ * Alterdot RPC command dispatcher.
  */
 class CRPCTable
 {

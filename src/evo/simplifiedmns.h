@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BCRS_SIMPLIFIEDMNS_H
-#define BCRS_SIMPLIFIEDMNS_H
+#ifndef ADOT_SIMPLIFIEDMNS_H
+#define ADOT_SIMPLIFIEDMNS_H
 
 #include "bls/bls.h"
 #include "merkleblock.h"
@@ -127,4 +127,4 @@ public:
 
 bool BuildSimplifiedMNListDiff(const uint256& baseBlockHash, const uint256& blockHash, CSimplifiedMNListDiff& mnListDiffRet, std::string& errorRet);
 
-#endif //BCRS_SIMPLIFIEDMNS_H
+#endif //ADOT_SIMPLIFIEDMNS_H

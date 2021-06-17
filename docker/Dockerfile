@@ -1,6 +1,6 @@
 FROM debian:stretch
-LABEL maintainer="Bitcreds Developers <dev@bitcreds.org>"
-LABEL description="Dockerised Bitcreds, built from Travis"
+LABEL maintainer="Alterdot Developers <dev@alterdot.org>"
+LABEL description="Dockerised Alterdot, built from Travis"
 
 RUN apt-get update && apt-get -y upgrade && apt-get clean && rm -fr /var/cache/apt/*
 

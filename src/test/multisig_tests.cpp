@@ -11,7 +11,7 @@
 #include "script/sign.h"
 #include "script/ismine.h"
 #include "uint256.h"
-#include "test/test_bitcreds.h"
+#include "test/test_alterdot.h"
 
 
 #include <boost/foreach.hpp>

@@ -5,7 +5,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcreds-config.h"
+#include "config/alterdot-config.h"
 #endif
 
 #include "chainparams.h"
@@ -33,8 +33,8 @@
  *
  * \section intro_sec Introduction
  *
- * This is the developer documentation of the reference client for an experimental new digital currency called Bitcreds (https://www.bitcreds.org/),
- * which enables instant payments to anyone, anywhere in the world. Bitcreds uses peer-to-peer technology to operate
+ * This is the developer documentation of the reference client for an experimental new digital currency called Alterdot (https://www.alterdot.org/),
+ * which enables instant payments to anyone, anywhere in the world. Alterdot uses peer-to-peer technology to operate
  * with no central authority: managing transactions and issuing money are carried out collectively by the network.
  *
  * The software is a community-driven open source project, released under the MIT license.
@@ -73,7 +73,7 @@ bool AppInit(int argc, char* argv[])
     //
     // Parameters
     //
-    // If Qt is used, parameters/bitcreds.conf are parsed in qt/bitcreds.cpp's main()
+    // If Qt is used, parameters/alterdot.conf are parsed in qt/alterdot.cpp's main()
     ParseParameters(argc, argv);
 
     // Process help and version before taking care about datadir
@@ -88,7 +88,7 @@ bool AppInit(int argc, char* argv[])
         else
         {
             strUsage += "\n" + _("Usage:") + "\n" +
-                  "  bitcredsd [options]                     " + strprintf(_("Start %s Daemon"), _(PACKAGE_NAME)) + "\n";
+                  "  alterdotd [options]                     " + strprintf(_("Start %s Daemon"), _(PACKAGE_NAME)) + "\n";
 
             strUsage += "\n" + HelpMessage(HMM_BITCOIND);
         }
@@ -135,12 +135,12 @@ bool AppInit(int argc, char* argv[])
         // Command-line RPC
         bool fCommandLine = false;
         for (int i = 1; i < argc; i++)
-            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "bitcreds:"))
+            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "alterdot:"))
                 fCommandLine = true;
 
         if (fCommandLine)
         {
-            fprintf(stderr, "Error: There is no RPC client functionality in bitcredsd anymore. Use the bitcreds-cli utility instead.\n");
+            fprintf(stderr, "Error: There is no RPC client functionality in alterdotd anymore. Use the alterdot-cli utility instead.\n");
             exit(EXIT_FAILURE);
         }
         // -server defaults to true for bitcoind but not for the GUI so do this here
@@ -166,7 +166,7 @@ bool AppInit(int argc, char* argv[])
         if (GetBoolArg("-daemon", false))
         {
 #if HAVE_DECL_DAEMON
-            fprintf(stdout, "Bitcreds server starting\n");
+            fprintf(stdout, "Alterdot server starting\n");
 
             // Daemonize
             if (daemon(1, 0)) { // don't chdir (1), do close FDs (0)
@@ -205,7 +205,7 @@ int main(int argc, char* argv[])
 {
     SetupEnvironment();
 
-    // Connect bitcredsd signal handlers
+    // Connect alterdotd signal handlers
     noui_connect();
 
     return (AppInit(argc, argv) ? EXIT_SUCCESS : EXIT_FAILURE);

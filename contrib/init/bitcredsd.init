@@ -1,36 +1,36 @@
 #!/bin/bash
 #
-#  bitcredsd The Bitcreds server.
+#  alterdotd The Alterdot server.
 #
 #
 # chkconfig: 345 80 20
-# description: bitcredsd
-# processname: bitcredsd
+# description: alterdotd
+# processname: alterdotd
 #
 
 # Source function library.
 . /etc/init.d/functions
 
-# you can override defaults in /etc/sysconfig/bitcredsd, see below
-if [ -f /etc/sysconfig/bitcredsd ]; then
-        . /etc/sysconfig/bitcredsd
+# you can override defaults in /etc/sysconfig/alterdotd, see below
+if [ -f /etc/sysconfig/alterdotd ]; then
+        . /etc/sysconfig/alterdotd
 fi
 
 RETVAL=0
 
-prog=bitcredsd
-# you can override the lockfile via BITCOIND_LOCKFILE in /etc/sysconfig/bitcredsd
-lockfile=${BITCOIND_LOCKFILE-/var/lock/subsys/bitcredsd}
+prog=alterdotd
+# you can override the lockfile via BITCOIND_LOCKFILE in /etc/sysconfig/alterdotd
+lockfile=${BITCOIND_LOCKFILE-/var/lock/subsys/alterdotd}
 
-# bitcredsd defaults to /usr/bin/bitcredsd, override with BITCOIND_BIN
-bitcredsd=${BITCOIND_BIN-/usr/bin/bitcredsd}
+# alterdotd defaults to /usr/bin/alterdotd, override with BITCOIND_BIN
+alterdotd=${BITCOIND_BIN-/usr/bin/alterdotd}
 
-# bitcredsd opts default to -disablewallet, override with BITCOIND_OPTS
-bitcredsd_opts=${BITCOIND_OPTS--disablewallet}
+# alterdotd opts default to -disablewallet, override with BITCOIND_OPTS
+alterdotd_opts=${BITCOIND_OPTS--disablewallet}
 
 start() {
     echo -n $"Starting $prog: "
-    daemon $DAEMONOPTS $bitcredsd $bitcredsd_opts
+    daemon $DAEMONOPTS $alterdotd $alterdotd_opts
     RETVAL=$?
     echo
     [ $RETVAL -eq 0 ] && touch $lockfile

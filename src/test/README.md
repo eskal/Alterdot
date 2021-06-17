@@ -5,41 +5,41 @@ and tests weren't explicitly disabled.
 
 After configuring, they can be run with `make check`.
 
-To run the bitcredsd tests manually, launch `src/test/test_bitcreds`.
+To run the alterdotd tests manually, launch `src/test/test_alterdot`.
 
-To add more bitcredsd tests, add `BOOST_AUTO_TEST_CASE` functions to the existing
+To add more alterdotd tests, add `BOOST_AUTO_TEST_CASE` functions to the existing
 .cpp files in the `test/` directory or add new .cpp files that
 implement new BOOST_AUTO_TEST_SUITE sections.
 
-To run the bitcreds-qt tests manually, launch `src/qt/test/test_bitcreds-qt`
+To run the alterdot-qt tests manually, launch `src/qt/test/test_alterdot-qt`
 
-To add more bitcreds-qt tests, add them to the `src/qt/test/` directory and
+To add more alterdot-qt tests, add them to the `src/qt/test/` directory and
 the `src/qt/test/test_main.cpp` file.
 
 ### Running individual tests
 
-test_bitcreds has some built-in command-line arguments; for
+test_alterdot has some built-in command-line arguments; for
 example, to run just the getarg_tests verbosely:
 
-    test_bitcreds --log_level=all --run_test=getarg_tests
+    test_alterdot --log_level=all --run_test=getarg_tests
 
-... or to run just the doublebitcreds test:
+... or to run just the doublealterdot test:
 
-    test_bitcreds --run_test=getarg_tests/doublebitcreds
+    test_alterdot --run_test=getarg_tests/doublealterdot
 
-Run `test_bitcreds --help` for the full list.
+Run `test_alterdot --help` for the full list.
 
 ### Note on adding test cases
 
 The sources in this directory are unit test cases.  Boost includes a
-unit testing framework, and since Bitcreds already uses boost, it makes
+unit testing framework, and since Alterdot already uses boost, it makes
 sense to simply use this framework rather than require developers to
 configure some other framework (we want as few impediments to creating
 unit tests as possible).
 
-The build system is setup to compile an executable called `test_bitcreds`
+The build system is setup to compile an executable called `test_alterdot`
 that runs all of the unit tests.  The main source file is called
-test_bitcreds.cpp. To add a new unit test file to our test suite you need 
+test_alterdot.cpp. To add a new unit test file to our test suite you need 
 to add the file to `src/Makefile.test.include`. The pattern is to create 
 one test file for each class or source file for which you want to create 
 unit tests.  The file naming convention is `<source_filename>_tests.cpp` 
@@ -53,7 +53,7 @@ explaining how the boost unit test framework works:
 
 ### bitcoin-util-test.py
 
-The test directory also contains the bitcoin-util-test.py tool, which tests bitcoin utils (currently just bitcreds-tx). This test gets run automatically during the `make check` build process. It is also possible to run the test manually from the src directory:
+The test directory also contains the bitcoin-util-test.py tool, which tests bitcoin utils (currently just alterdot-tx). This test gets run automatically during the `make check` build process. It is also possible to run the test manually from the src directory:
 
 ```
 test/bitcoin-util-test.py --srcdir=[current directory]

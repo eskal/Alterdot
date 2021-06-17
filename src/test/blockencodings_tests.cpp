@@ -7,7 +7,7 @@
 #include "chainparams.h"
 #include "random.h"
 
-#include "test/test_bitcreds.h"
+#include "test/test_alterdot.h"
 
 #include <boost/test/unit_test.hpp>
 

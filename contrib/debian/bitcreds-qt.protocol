@@ -1,6 +1,6 @@
 [Protocol]
-exec=bitcreds-qt '%u'
-protocol=bitcreds
+exec=alterdot-qt '%u'
+protocol=alterdot
 input=none
 output=none
 helper=true

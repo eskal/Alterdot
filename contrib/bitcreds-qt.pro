@@ -20,4 +20,4 @@ FORMS += \
     ../src/qt/forms/transactiondescdialog.ui
 
 RESOURCES += \
-    ../src/qt/bitcreds.qrc
+    ../src/qt/alterdot.qrc

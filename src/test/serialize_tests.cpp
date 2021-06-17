@@ -5,7 +5,7 @@
 #include "serialize.h"
 #include "streams.h"
 #include "hash.h"
-#include "test/test_bitcreds.h"
+#include "test/test_alterdot.h"
 
 #include <stdint.h>
 

@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BCRS_QUORUMS_UTILS_H
-#define BCRS_QUORUMS_UTILS_H
+#ifndef ADOT_QUORUMS_UTILS_H
+#define ADOT_QUORUMS_UTILS_H
 
 #include "consensus/params.h"
 
@@ -25,4 +25,4 @@ public:
 
 }
 
-#endif//BCRS_QUORUMS_UTILS_H
+#endif//ADOT_QUORUMS_UTILS_H

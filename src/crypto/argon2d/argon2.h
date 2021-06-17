@@ -19,7 +19,7 @@
 #define ARGON2_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcreds-config.h"
+#include "config/alterdot-config.h"
 #endif
 
 #include <stdint.h>

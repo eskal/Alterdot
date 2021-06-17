@@ -5,7 +5,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcreds-config.h"
+#include "config/alterdot-config.h"
 #endif
 
 #include "util.h"
@@ -109,7 +109,7 @@ namespace boost {
 
 
 
-//Bitcreds only features
+//Alterdot only features
 bool fMasternodeMode = false;
 bool fLiteMode = false;
 /**
@@ -121,8 +121,8 @@ bool fLiteMode = false;
 */
 int nWalletBackups = 10;
 
-const char * const BITCOIN_CONF_FILENAME = "bitcreds.conf";
-const char * const BITCOIN_PID_FILENAME = "bitcredsd.pid";
+const char * const BITCOIN_CONF_FILENAME = "alterdot.conf";
+const char * const BITCOIN_PID_FILENAME = "alterdotd.pid";
 
 CCriticalSection cs_args;
 std::map<std::string, std::string> mapArgs;
@@ -278,8 +278,8 @@ bool LogAcceptCategory(const char* category)
                 const std::vector<std::string>& categories = mapMultiArgs.at("-debug");
                 ptrCategory.reset(new std::set<std::string>(categories.begin(), categories.end()));
                 // thread_specific_ptr automatically deletes the set when the thread ends.
-                // "bitcreds" is a composite category enabling all Bitcreds-related debug output
-                if(ptrCategory->count(std::string("bitcreds"))) {
+                // "alterdot" is a composite category enabling all Alterdot-related debug output
+                if(ptrCategory->count(std::string("alterdot"))) {
                     ptrCategory->insert(std::string("privatesend"));
                     ptrCategory->insert(std::string("instantsend"));
                     ptrCategory->insert(std::string("masternode"));
@@ -536,7 +536,7 @@ static std::string FormatException(const std::exception* pex, const char* pszThr
     char pszModule[MAX_PATH] = "";
     GetModuleFileNameA(NULL, pszModule, sizeof(pszModule));
 #else
-    const char* pszModule = "bitcreds";
+    const char* pszModule = "alterdot";
 #endif
     if (pex)
         return strprintf(
@@ -556,13 +556,13 @@ void PrintExceptionContinue(const std::exception* pex, const char* pszThread)
 boost::filesystem::path GetDefaultDataDir()
 {
     namespace fs = boost::filesystem;
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Bitcreds
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Bitcreds
-    // Mac: ~/Library/Application Support/Bitcreds
-    // Unix: ~/.bitcreds
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Alterdot
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Alterdot
+    // Mac: ~/Library/Application Support/Alterdot
+    // Unix: ~/.alterdot
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "Bitcreds";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "Alterdot";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -572,10 +572,10 @@ boost::filesystem::path GetDefaultDataDir()
         pathRet = fs::path(pszHome);
 #ifdef MAC_OSX
     // Mac
-    return pathRet / "Library/Application Support/Bitcreds";
+    return pathRet / "Library/Application Support/Alterdot";
 #else
     // Unix
-    return pathRet / ".bitcreds";
+    return pathRet / ".alterdot";
 #endif
 #endif
 }
@@ -690,12 +690,12 @@ void ReadConfigFile(const std::string& confPath)
 {
     boost::filesystem::ifstream streamConfig(GetConfigFile(confPath));
     if (!streamConfig.good()){
-        // Create empty bitcreds.conf if it does not excist
+        // Create empty alterdot.conf if it does not excist
         FILE* configFile = fopen(GetConfigFile(confPath).string().c_str(), "a");
         if (configFile != NULL) {
-            // Write bitcreds.conf file with random username and password.
+            // Write alterdot.conf file with random username and password.
             WriteConfigFile(configFile);
-            // New bitcreds.conf file written, now read it.
+            // New alterdot.conf file written, now read it.
             ReadConfigFile(confPath);
             return;
         }
@@ -708,7 +708,7 @@ void ReadConfigFile(const std::string& confPath)
 
         for (boost::program_options::detail::config_file_iterator it(streamConfig, setOptions), end; it != end; ++it)
         {
-            // Don't overwrite existing settings so command line settings override bitcreds.conf
+            // Don't overwrite existing settings so command line settings override alterdot.conf
             std::string strKey = std::string("-") + it->string_key;
             std::string strValue = it->value[0];
             InterpretNegativeSetting(strKey, strValue);

@@ -1,2 +1,2 @@
-contrib/bitcredsd.bash-completion	bitcredsd
-contrib/bitcreds-cli.bash-completion    bitcreds-cli
+contrib/alterdotd.bash-completion	alterdotd
+contrib/alterdot-cli.bash-completion    alterdot-cli

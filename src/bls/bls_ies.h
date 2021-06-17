@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BCRS_CRYPTO_BLS_IES_H
-#define BCRS_CRYPTO_BLS_IES_H
+#ifndef ADOT_CRYPTO_BLS_IES_H
+#define ADOT_CRYPTO_BLS_IES_H
 
 #include "bls.h"
 #include "streams.h"
@@ -161,4 +161,4 @@ public:
     }
 };
 
-#endif // BCRS_CRYPTO_BLS_IES_H
+#endif // ADOT_CRYPTO_BLS_IES_H

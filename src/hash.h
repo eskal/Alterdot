@@ -306,7 +306,7 @@ public:
 uint64_t SipHashUint256(uint64_t k0, uint64_t k1, const uint256& val);
 uint64_t SipHashUint256Extra(uint64_t k0, uint64_t k1, const uint256& val, uint32_t extra);
 
-    /* ----------- Bitcreds Hash ------------------------------------------------ */
+    /* ----------- Alterdot Hash ------------------------------------------------ */
     /// Argon2i, Argon2d, and Argon2id are parametrized by:
     /// A time cost, which defines the amount of computation realized and therefore the execution time, given in number of iterations
     /// A memory cost, which defines the memory usage, given in kibibytes (1 kibibytes = kilobytes 1.024)

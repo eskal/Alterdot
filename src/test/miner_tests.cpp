@@ -18,7 +18,7 @@
 #include "util.h"
 #include "utilstrencodings.h"
 
-#include "test/test_bitcreds.h"
+#include "test/test_alterdot.h"
 
 #include <memory>
 

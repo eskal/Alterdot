@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCREDS_CRYPTO_COMMON_H
-#define BITCREDS_CRYPTO_COMMON_H
+#ifndef ALTERDOT_CRYPTO_COMMON_H
+#define ALTERDOT_CRYPTO_COMMON_H
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcreds-config.h"
+#include "config/alterdot-config.h"
 #endif
 
 #include <stdint.h>
@@ -63,4 +63,4 @@ void static inline WriteBE64(unsigned char* ptr, uint64_t x)
     *((uint64_t*)ptr) = htobe64(x);
 }
 
-#endif // BITCREDS_CRYPTO_COMMON_H
+#endif // ALTERDOT_CRYPTO_COMMON_H

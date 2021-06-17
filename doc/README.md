@@ -1,37 +1,37 @@
-Bitcreds 0.13.0
+Alterdot 0.13.0
 =====================
 
-This is the official reference wallet for Bitcreds digital currency and comprises the backbone of the Bitcreds peer-to-peer network. You can [download Bitcreds](https://www.bitcreds.org/downloads/) or [build it yourself](#building) using the guides below.
+This is the official reference wallet for Alterdot digital currency and comprises the backbone of the Alterdot peer-to-peer network. You can [download Alterdot](https://www.alterdot.org/downloads/) or [build it yourself](#building) using the guides below.
 
 Running
 ---------------------
-The following are some helpful notes on how to run Bitcreds on your native platform.
+The following are some helpful notes on how to run Alterdot on your native platform.
 
 ### Unix
 
 Unpack the files into a directory and run:
 
-- `bin/bitcreds-qt` (GUI) or
-- `bin/bitcredsd` (headless)
+- `bin/alterdot-qt` (GUI) or
+- `bin/alterdotd` (headless)
 
 ### Windows
 
-Unpack the files into a directory, and then run bitcreds-qt.exe.
+Unpack the files into a directory, and then run alterdot-qt.exe.
 
 ### OS X
 
-Drag Bitcreds-Qt to your applications folder, and then run Bitcreds-Qt.
+Drag Alterdot-Qt to your applications folder, and then run Alterdot-Qt.
 
 ### Need Help?
 
-* See the [Bitcreds documentation](https://docs.bitcreds.org)
+* See the [Alterdot documentation](https://docs.alterdot.org)
 for help and more information.
-* Ask for help on [Bitcreds Nation Discord](http://bitcredschat.org)
-* Ask for help on the [Bitcreds Forum](https://bitcreds.org/forum)
+* Ask for help on [Alterdot Nation Discord](http://alterdotchat.org)
+* Ask for help on the [Alterdot Forum](https://alterdot.org/forum)
 
 Building
 ---------------------
-The following are developer notes on how to build Bitcreds on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
+The following are developer notes on how to build Alterdot on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
 
 - [OS X Build Notes](build-osx.md)
 - [Unix Build Notes](build-unix.md)
@@ -41,7 +41,7 @@ The following are developer notes on how to build Bitcreds on your native platfo
 
 Development
 ---------------------
-The Bitcreds repo's [root README](/README.md) contains relevant information on the development process and automated testing.
+The Alterdot repo's [root README](/README.md) contains relevant information on the development process and automated testing.
 
 - [Developer Notes](developer-notes.md)
 - [Release Notes](release-notes.md)
@@ -57,8 +57,8 @@ The Bitcreds repo's [root README](/README.md) contains relevant information on t
 - [Benchmarking](benchmarking.md)
 
 ### Resources
-* Discuss on the [Bitcreds Forum](https://bitcreds.org/forum), in the Development & Technical Discussion board.
-* Discuss on [Bitcreds Nation Discord](http://bitcredschat.org)
+* Discuss on the [Alterdot Forum](https://alterdot.org/forum), in the Development & Technical Discussion board.
+* Discuss on [Alterdot Nation Discord](http://alterdotchat.org)
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)

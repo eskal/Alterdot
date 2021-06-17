@@ -1,7 +1,7 @@
 [main]
 host = https://www.transifex.com
 
-[bitcreds.qt-translation-012x]
-file_filter = src/qt/locale/bitcreds_<lang>.ts
-source_file = src/qt/locale/bitcreds_en.ts
+[alterdot.qt-translation-012x]
+file_filter = src/qt/locale/alterdot_<lang>.ts
+source_file = src/qt/locale/alterdot_en.ts
 source_lang = en

@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCREDS_CRYPTO_RIPEMD160_H
-#define BITCREDS_CRYPTO_RIPEMD160_H
+#ifndef ALTERDOT_CRYPTO_RIPEMD160_H
+#define ALTERDOT_CRYPTO_RIPEMD160_H
 
 #include <stdint.h>
 #include <stdlib.h>
@@ -25,4 +25,4 @@ public:
     CRIPEMD160& Reset();
 };
 
-#endif // BITCREDS_CRYPTO_RIPEMD160_H
+#endif // ALTERDOT_CRYPTO_RIPEMD160_H

@@ -2,8 +2,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BCRS_QUORUMS_DUMMYDKG_H
-#define BCRS_QUORUMS_DUMMYDKG_H
+#ifndef ADOT_QUORUMS_DUMMYDKG_H
+#define ADOT_QUORUMS_DUMMYDKG_H
 
 #include "llmq/quorums_commitment.h"
 
@@ -154,4 +154,4 @@ extern CDummyDKG* quorumDummyDKG;
 
 }
 
-#endif//BCRS_QUORUMS_DUMMYDKG_H
+#endif//ADOT_QUORUMS_DUMMYDKG_H

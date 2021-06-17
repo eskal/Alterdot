@@ -1,9 +1,9 @@
-// Copyright (c) 2020-2021 Bitcreds Developers
+// Copyright (c) 2020-2021 Alterdot Developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCREDS_BDNSDB_H
-#define BITCREDS_BDNSDB_H
+#ifndef ALTERDOT_BDNSDB_H
+#define ALTERDOT_BDNSDB_H
 
 #include "dbwrapper.h"
 
@@ -42,4 +42,4 @@ public:
     bool EraseBDNSRecord(const std::string &bdnsName);
 };
 
-#endif // BITCREDS_BDNSDB_H
+#endif // ALTERDOT_BDNSDB_H

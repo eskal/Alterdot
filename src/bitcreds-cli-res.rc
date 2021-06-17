@@ -16,14 +16,14 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "Bitcreds"
-            VALUE "FileDescription",    "bitcreds-cli (JSON-RPC client for " PACKAGE_NAME ")"
+            VALUE "CompanyName",        "Alterdot"
+            VALUE "FileDescription",    "alterdot-cli (JSON-RPC client for " PACKAGE_NAME ")"
             VALUE "FileVersion",        VER_FILEVERSION_STR
-            VALUE "InternalName",       "bitcreds-cli"
+            VALUE "InternalName",       "alterdot-cli"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
-            VALUE "OriginalFilename",   "bitcreds-cli.exe"
-            VALUE "ProductName",        "bitcreds-cli"
+            VALUE "OriginalFilename",   "alterdot-cli.exe"
+            VALUE "ProductName",        "alterdot-cli"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END

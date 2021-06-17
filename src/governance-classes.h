@@ -4,7 +4,7 @@
 #ifndef GOVERNANCE_CLASSES_H
 #define GOVERNANCE_CLASSES_H
 
-//#define ENABLE_BCRS_DEBUG
+//#define ENABLE_ADOT_DEBUG
 
 #include "base58.h"
 #include "governance.h"

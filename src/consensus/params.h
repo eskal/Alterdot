@@ -105,14 +105,14 @@ struct LLMQParams {
 struct Params {
     uint256 hashGenesisBlock;
     uint256 hashDevnetGenesisBlock;
-    int nHardForkOne; // block TODO_BCRS_FUTURE refactor hard forks into an array
+    int nHardForkOne; // block TODO_ADOT_FUTURE refactor hard forks into an array
     int nHardForkTwo; // block
     int nHardForkThree; //block
     int nHardForkFour; //block
     int nHardForkFive; //block
     int nHardForkSix; // block
     int nHardForkSeven; // block, lite/core network mode
-    int nHardForkEight; // block, exit core mode, reactivation of MNs and Bitcreds-specific functionalities, BIP147
+    int nHardForkEight; // block, exit core mode, reactivation of MNs and Alterdot-specific functionalities, BIP147
     int nDetMNRegHeight; // block, start allowing registration of determinisitc MNs
     int nTempDevFundIncreaseEnd; //block height for temporal Dev fund increase ending
     int nSubsidyHalvingInterval;
@@ -138,7 +138,7 @@ struct Params {
     /** Block height at which BIP66 becomes active */
     //int BIP66Height;
     /** Block height at which DIP0001 becomes active */
-    int DIP0001Height; // TODO_BCRS_FUTURE not used currently
+    int DIP0001Height; // TODO_ADOT_FUTURE not used currently
 
     int nIntPhaseTotalBlocks;
     int nBlocksPerYear; // expected blocks per year

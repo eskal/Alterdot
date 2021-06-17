@@ -33,37 +33,37 @@ Follow the instructions in [build-generic](build-generic.md)
 Running
 -------
 
-Bitcreds is now available at `./src/bitcredsd`
+Alterdot is now available at `./src/alterdotd`
 
 Before running, it's recommended you create an RPC configuration file.
 
-    echo -e "rpcuser=bitcredsrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/Bitcreds/bitcreds.conf"
+    echo -e "rpcuser=alterdotrpc\nrpcpassword=$(xxd -l 16 -p /dev/urandom)" > "/Users/${USER}/Library/Application Support/Alterdot/alterdot.conf"
 
-    chmod 600 "/Users/${USER}/Library/Application Support/Bitcreds/bitcreds.conf"
+    chmod 600 "/Users/${USER}/Library/Application Support/Alterdot/alterdot.conf"
 
-The first time you run bitcredsd, it will start downloading the blockchain. This process could take several hours.
+The first time you run alterdotd, it will start downloading the blockchain. This process could take several hours.
 
 You can monitor the download process by looking at the debug.log file:
 
-    tail -f $HOME/Library/Application\ Support/Bitcreds/debug.log
+    tail -f $HOME/Library/Application\ Support/Alterdot/debug.log
 
 Other commands:
 -------
 
-    ./src/bitcredsd -daemon # Starts the bitcreds daemon.
-    ./src/bitcreds-cli --help # Outputs a list of command-line options.
-    ./src/bitcreds-cli help # Outputs a list of RPC commands when the daemon is running.
+    ./src/alterdotd -daemon # Starts the alterdot daemon.
+    ./src/alterdot-cli --help # Outputs a list of command-line options.
+    ./src/alterdot-cli help # Outputs a list of RPC commands when the daemon is running.
 
 Using Qt Creator as IDE
 ------------------------
-You can use Qt Creator as an IDE, for bitcreds development.
+You can use Qt Creator as an IDE, for alterdot development.
 Download and install the community edition of [Qt Creator](https://www.qt.io/download/).
 Uncheck everything except Qt Creator during the installation process.
 
 1. Make sure you installed everything through Homebrew mentioned above
 2. Do a proper ./configure --enable-debug
 3. In Qt Creator do "New Project" -> Import Project -> Import Existing Project
-4. Enter "bitcreds-qt" as project name, enter src/qt as location
+4. Enter "alterdot-qt" as project name, enter src/qt as location
 5. Leave the file selection as it is
 6. Confirm the "summary page"
 7. In the "Projects" tab select "Manage Kits..."

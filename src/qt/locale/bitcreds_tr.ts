@@ -62,12 +62,12 @@
         <translation>Alım adresleri</translation>
     </message>
     <message>
-        <source>These are your Bitcreds addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Bunlar ödemeleri göndermek için kullanacağınız Bitcreds adreslerinizdir. Bitcreds yollamadan önce tutarı ve alıcının alım adresini her zaman kontrol ediniz.</translation>
+        <source>These are your Alterdot addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Bunlar ödemeleri göndermek için kullanacağınız Alterdot adreslerinizdir. Alterdot yollamadan önce tutarı ve alıcının alım adresini her zaman kontrol ediniz.</translation>
     </message>
     <message>
-        <source>These are your Bitcreds addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Bunlar ödemeleri almak için kullanacağınız Bitcreds adreslerinizdir. Her işlem için yeni bir alım adresi kullanmanız tavsiye edilir.</translation>
+        <source>These are your Alterdot addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Bunlar ödemeleri almak için kullanacağınız Alterdot adreslerinizdir. Her işlem için yeni bir alım adresi kullanmanız tavsiye edilir.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -172,8 +172,8 @@
         <translation>Cüzdan şifrelemesini onayla</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BCRS&lt;/b&gt;!</source>
-        <translation>Uyarı: Eğer cüzdanınızı şifreler ve parolanızı unutursanız &lt;b&gt;TÜM BCRSİNİZİ KAYBEDERSİNİZ&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR ADOT&lt;/b&gt;!</source>
+        <translation>Uyarı: Eğer cüzdanınızı şifreler ve parolanızı unutursanız &lt;b&gt;TÜM ADOTİNİZİ KAYBEDERSİNİZ&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -242,12 +242,12 @@
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <source>A fatal error occurred. Bitcreds can no longer continue safely and will quit.</source>
-        <translation>Kritik bir hata oluştu. Bitcreds artık güvenli şekilde devam edemez ve kapanacak.</translation>
+        <source>A fatal error occurred. Alterdot can no longer continue safely and will quit.</source>
+        <translation>Kritik bir hata oluştu. Alterdot artık güvenli şekilde devam edemez ve kapanacak.</translation>
     </message>
     <message>
-        <source>Bitcreds</source>
-        <translation>Bitcreds</translation>
+        <source>Alterdot</source>
+        <translation>Alterdot</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -270,16 +270,16 @@
         <translation>&amp;Gönder</translation>
     </message>
     <message>
-        <source>Send coins to a Bitcreds address</source>
-        <translation>Bir Bitcreds adresine coin gönder</translation>
+        <source>Send coins to a Alterdot address</source>
+        <translation>Bir Alterdot adresine coin gönder</translation>
     </message>
     <message>
         <source>&amp;Receive</source>
         <translation>&amp;Al</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcreds: URIs)</source>
-        <translation>Ödeme talep et (QR kodu ve Bitcreds URI'si oluşturur)</translation>
+        <source>Request payments (generates QR codes and alterdot: URIs)</source>
+        <translation>Ödeme talep et (QR kodu ve Alterdot URI'si oluşturur)</translation>
     </message>
     <message>
         <source>&amp;Transactions</source>
@@ -306,8 +306,8 @@
         <translation>Uygulamadan çık</translation>
     </message>
     <message>
-        <source>Show information about Bitcreds</source>
-        <translation>Bitcreds hakkında bilgileri göster</translation>
+        <source>Show information about Alterdot</source>
+        <translation>Alterdot hakkında bilgileri göster</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -378,16 +378,16 @@
         <translation>&amp;İleti imzala...</translation>
     </message>
     <message>
-        <source>Sign messages with your Bitcreds addresses to prove you own them</source>
-        <translation>İletileri adreslerin size ait olduğunu ispatlamak için Bitcreds adresleri ile imzala</translation>
+        <source>Sign messages with your Alterdot addresses to prove you own them</source>
+        <translation>İletileri adreslerin size ait olduğunu ispatlamak için Alterdot adresleri ile imzala</translation>
     </message>
     <message>
         <source>&amp;Verify message...</source>
         <translation>İletiyi &amp;kontrol et...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified Bitcreds addresses</source>
-        <translation>Belirtilen Bitcreds adresleri ile imzalandıklarından emin olmak için iletileri kontrol et</translation>
+        <source>Verify messages to ensure they were signed with specified Alterdot addresses</source>
+        <translation>Belirtilen Alterdot adresleri ile imzalandıklarından emin olmak için iletileri kontrol et</translation>
     </message>
     <message>
         <source>&amp;Information</source>
@@ -474,16 +474,16 @@
         <translation>&amp;URI Aç...</translation>
     </message>
     <message>
-        <source>Open a bitcreds: URI or payment request</source>
-        <translation>Bir Bitcreds: bağlantısı ya da ödeme talebi aç</translation>
+        <source>Open a alterdot: URI or payment request</source>
+        <translation>Bir Alterdot: bağlantısı ya da ödeme talebi aç</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
         <translation>&amp;Komut satırı seçenekleri</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible Bitcreds command-line options</source>
-        <translation>Olası Bitcreds komut satırı seçeneklerinin listesini görmek için %1 yardım mesajını göster</translation>
+        <source>Show the %1 help message to get a list with possible Alterdot command-line options</source>
+        <translation>Olası Alterdot komut satırı seçeneklerinin listesini görmek için %1 yardım mesajını göster</translation>
     </message>
     <message>
         <source>%1 client</source>
@@ -518,8 +518,8 @@
         <translation>Sekme araç çubuğu</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to Bitcreds network</source>
-        <translation><numerusform>Bitcreds ağına %n aktif bağlantı</numerusform><numerusform>Bitcreds ağına %n aktif bağlantı</numerusform></translation>
+        <source>%n active connection(s) to Alterdot network</source>
+        <translation><numerusform>Alterdot ağına %n aktif bağlantı</numerusform><numerusform>Alterdot ağına %n aktif bağlantı</numerusform></translation>
     </message>
     <message>
         <source>Network activity disabled</source>
@@ -873,8 +873,8 @@
         <translation>Gönderi adresini düzenle</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid Bitcreds address.</source>
-        <translation>Girilen %1 adresi, geçerli bir Bitcreds adresi değildir.</translation>
+        <source>The entered address "%1" is not a valid Alterdot address.</source>
+        <translation>Girilen %1 adresi, geçerli bir Alterdot adresi değildir.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -971,8 +971,8 @@
         <translation>Özel Gönder bilgisi</translation>
     </message>
     <message>
-        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Bitcreds in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 BCRS, 0.01 BCRS, 0.1 BCRS, 1 BCRS and 10 BCRS -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.bitcreds.org/en/latest/wallets/bitcreds/privatesend-instantsend.html"&gt;PrivateSend documentation&lt;/a&gt;.</source>
-        <translation>&lt;h3&gt;Özel Gönder Temel Bilgiler&lt;/h3&gt; Özel Gönder size paranızın gerçek kaynağını gizleyerek tam bir gizlilik imkanı sağlar. Cüzdanınızdaki Bitcreds farklı "girdiler"den oluşur, bunu ayrı gizli paralar olarak düşünebilirsiniz.&lt;br&gt; Özel Gönder sizin girdilerinizi başka iki kişinin girdileri ile karıştırmak için yenilikçi bir işlem kullanır ve bu sırada paranın cüzdanınızdan çıkmasına gerek kalmaz. Her an paranızın kontrolü sizdedir.&lt;hr&gt; &lt;b&gt;Özel Gönder işlemi şöyle işler:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;Özel Gönder işlem girdilerinizi standart birimlere bölerek başlar. Bu birimler 0.001 BCRS, 0.01 BCRS, 0.1 BCRS, 1 BCRS ve 10 BCRS'dir -- her gün kullandığınız kağıt para gibi düşünebilirsiniz.&lt;/li&gt; &lt;li&gt;Sonra cüzdanınız ağdaki özel ayarlanmış yazılım düğümlerine talepler gönderir, bunşara "ana düğümler" denir. Bu ana düğümlere sizin belli bir miktar birimi karıştırmak istediğiniz bilgisi gider. Ana düğümlere kimliğinizi açık edecek bir bilgi gönderilmez, bu yüzden "kim" olduğunuzu bilmezler.&lt;/li&gt; &lt;li&gt;Aynı birimleri karıştırmak istediğini belirten iki başka kişi daha benzer mesajlar gönderince, karıştırma işlemi başlar. Ana düğüm giridleri karıştırır ve üç kullanıcının da cüzdanına şimdi dönüştürülmüş olan girdiyi kendilerne ödemelerini emreder. Cüzdanınız bu birimleri doğrudan kendisine öder ama farklı bir adres kullanır (buna değişim adresi denir).&lt;/li&gt; &lt;li&gt;Paranızı tamamen gizlemek için cüzdanınız bu işlemi her birim için birkaç defa tekrar etmelidir. Her işlem tamamlandığına buna bir "tur" denir. Her bir Özel Gönder turu paranızın kaynağının bulunmasını üstel olarak zorlaştırır.&lt;/li&gt; &lt;li&gt;Bu karışım işlemi arkaplanda sizin tarafınızdan bir müdahale olmadan gerçekleşir. Bir işlem yapmak istediğinizde bakiyeniz zaten anonimleştirilmiş olacaktır. Ek bir beklemeye gerek kalmaz.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;ÖNEMLİ:&lt;/b&gt; Cüzdanınızda bu "değişim adreslerinden" sadece 1000 tane vardır. Her bir karışım işleminde bu adreslerden 9 taneye kadar kullanılır. Bu da 1000 adresin yaklaşık 100 karışım işlemine yeteceği anlamına gelir. 900 tanesi kullanıldığı zaman, cüzdanınızın daha fazla adres oluşturması gerekir. Yalnız bunu ancak otomatik yedekleme etkinse yapabilir.&lt;br&gt; Sonuç olarak yedeklemeyi kapatan kullanıcılar aynı zamanda Özel Gönderi de kapatmış olurlar. &lt;hr&gt;Daha fazla bilgi için lütfen &lt;a href="https://docs.bitcreds.org/en/latest/wallets/bitcreds/privatesend-instantsend.html"&gt;Özel Gönder dökümantasyonuna&lt;/a&gt; göz atın.         </translation>
+        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Alterdot in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 ADOT, 0.01 ADOT, 0.1 ADOT, 1 ADOT and 10 ADOT -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.alterdot.org/en/latest/wallets/alterdot/privatesend-instantsend.html"&gt;PrivateSend documentation&lt;/a&gt;.</source>
+        <translation>&lt;h3&gt;Özel Gönder Temel Bilgiler&lt;/h3&gt; Özel Gönder size paranızın gerçek kaynağını gizleyerek tam bir gizlilik imkanı sağlar. Cüzdanınızdaki Alterdot farklı "girdiler"den oluşur, bunu ayrı gizli paralar olarak düşünebilirsiniz.&lt;br&gt; Özel Gönder sizin girdilerinizi başka iki kişinin girdileri ile karıştırmak için yenilikçi bir işlem kullanır ve bu sırada paranın cüzdanınızdan çıkmasına gerek kalmaz. Her an paranızın kontrolü sizdedir.&lt;hr&gt; &lt;b&gt;Özel Gönder işlemi şöyle işler:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;Özel Gönder işlem girdilerinizi standart birimlere bölerek başlar. Bu birimler 0.001 ADOT, 0.01 ADOT, 0.1 ADOT, 1 ADOT ve 10 ADOT'dir -- her gün kullandığınız kağıt para gibi düşünebilirsiniz.&lt;/li&gt; &lt;li&gt;Sonra cüzdanınız ağdaki özel ayarlanmış yazılım düğümlerine talepler gönderir, bunşara "ana düğümler" denir. Bu ana düğümlere sizin belli bir miktar birimi karıştırmak istediğiniz bilgisi gider. Ana düğümlere kimliğinizi açık edecek bir bilgi gönderilmez, bu yüzden "kim" olduğunuzu bilmezler.&lt;/li&gt; &lt;li&gt;Aynı birimleri karıştırmak istediğini belirten iki başka kişi daha benzer mesajlar gönderince, karıştırma işlemi başlar. Ana düğüm giridleri karıştırır ve üç kullanıcının da cüzdanına şimdi dönüştürülmüş olan girdiyi kendilerne ödemelerini emreder. Cüzdanınız bu birimleri doğrudan kendisine öder ama farklı bir adres kullanır (buna değişim adresi denir).&lt;/li&gt; &lt;li&gt;Paranızı tamamen gizlemek için cüzdanınız bu işlemi her birim için birkaç defa tekrar etmelidir. Her işlem tamamlandığına buna bir "tur" denir. Her bir Özel Gönder turu paranızın kaynağının bulunmasını üstel olarak zorlaştırır.&lt;/li&gt; &lt;li&gt;Bu karışım işlemi arkaplanda sizin tarafınızdan bir müdahale olmadan gerçekleşir. Bir işlem yapmak istediğinizde bakiyeniz zaten anonimleştirilmiş olacaktır. Ek bir beklemeye gerek kalmaz.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;ÖNEMLİ:&lt;/b&gt; Cüzdanınızda bu "değişim adreslerinden" sadece 1000 tane vardır. Her bir karışım işleminde bu adreslerden 9 taneye kadar kullanılır. Bu da 1000 adresin yaklaşık 100 karışım işlemine yeteceği anlamına gelir. 900 tanesi kullanıldığı zaman, cüzdanınızın daha fazla adres oluşturması gerekir. Yalnız bunu ancak otomatik yedekleme etkinse yapabilir.&lt;br&gt; Sonuç olarak yedeklemeyi kapatan kullanıcılar aynı zamanda Özel Gönderi de kapatmış olurlar. &lt;hr&gt;Daha fazla bilgi için lütfen &lt;a href="https://docs.alterdot.org/en/latest/wallets/alterdot/privatesend-instantsend.html"&gt;Özel Gönder dökümantasyonuna&lt;/a&gt; göz atın.         </translation>
     </message>
 </context>
 <context>
@@ -990,8 +990,8 @@
         <translation>Bu programın ilk kez başlatılmasından dolayı %1 yazılımının verilerini nerede saklayacağını seçebilirsiniz.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcreds block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>%1 Bitcreds blok zincirinin bir kopyasını indirecek ve depolayacak. En az %2GB veri bu klasörde depolanacak ve zaman içinde büyüyecek. Cüzdan da aynı zamanda bu klasörde depolanacak.</translation>
+        <source>%1 will download and store a copy of the Alterdot block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>%1 Alterdot blok zincirinin bir kopyasını indirecek ve depolayacak. En az %2GB veri bu klasörde depolanacak ve zaman içinde büyüyecek. Cüzdan da aynı zamanda bu klasörde depolanacak.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1256,12 +1256,12 @@
         <translation>Form</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the Bitcreds network, as detailed below.</source>
-        <translation>Son işlemler henüz görünmeyebilir ve bu nedenle cüzdanınızın bakiyesi yanlış olabilir. Bu bilgiler, aşağıda detaylandırıldığı gibi, cüzdanınız Bitcreds ağı ile senkronizasyonunu tamamladığında doğru olacaktır. </translation>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the Alterdot network, as detailed below.</source>
+        <translation>Son işlemler henüz görünmeyebilir ve bu nedenle cüzdanınızın bakiyesi yanlış olabilir. Bu bilgiler, aşağıda detaylandırıldığı gibi, cüzdanınız Alterdot ağı ile senkronizasyonunu tamamladığında doğru olacaktır. </translation>
     </message>
     <message>
-        <source>Attempting to spend Bitcreds that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
-        <translation>Daha görüntülenmemiş işlemler tarafından etkilenen Bitcreds'i harcama teşebbüsü ağ tarafından kabul edilmez.</translation>
+        <source>Attempting to spend Alterdot that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
+        <translation>Daha görüntülenmemiş işlemler tarafından etkilenen Alterdot'i harcama teşebbüsü ağ tarafından kabul edilmez.</translation>
     </message>
     <message>
         <source>Number of blocks left</source>
@@ -1350,8 +1350,8 @@
         <translation>(0 = otomatik, &lt;0 = bu kadar çekirdeği kullanma)</translation>
     </message>
     <message>
-        <source>Amount of Bitcreds to keep anonymized</source>
-        <translation>Anonim tutulacak Bitcreds tutarı</translation>
+        <source>Amount of Alterdot to keep anonymized</source>
+        <translation>Anonim tutulacak Alterdot tutarı</translation>
     </message>
     <message>
         <source>W&amp;allet</source>
@@ -1402,8 +1402,8 @@
         <translation>Bu tutar ulaşıldığında Özel Gönderi kapatacak bir eşik olarak çalışır.</translation>
     </message>
     <message>
-        <source>Automatically open the Bitcreds client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Router'da otomatik olarak Bitcreds istemcisi portu aç. Bu sadece router'ınız UPnP destekliyorsa ve etkinse çalışır.</translation>
+        <source>Automatically open the Alterdot client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Router'da otomatik olarak Alterdot istemcisi portu aç. Bu sadece router'ınız UPnP destekliyorsa ve etkinse çalışır.</translation>
     </message>
     <message>
         <source>Accept connections from outside</source>
@@ -1414,8 +1414,8 @@
         <translation>Gelen bağlantılara izin ver</translation>
     </message>
     <message>
-        <source>Connect to the Bitcreds network through a SOCKS5 proxy.</source>
-        <translation>Bitcreds ağına bir SOCKS5 vekil sunucusu aracılığıyla bağlan.</translation>
+        <source>Connect to the Alterdot network through a SOCKS5 proxy.</source>
+        <translation>Alterdot ağına bir SOCKS5 vekil sunucusu aracılığıyla bağlan.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1510,8 +1510,8 @@
         <translation>Tor</translation>
     </message>
     <message>
-        <source>Connect to the Bitcreds network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Bitcreds ağına gizli Tor servisleri için ayrı bir SOCKS5 vekil sunucusu aracılığıyla bağlan.</translation>
+        <source>Connect to the Alterdot network through a separate SOCKS5 proxy for Tor hidden services.</source>
+        <translation>Alterdot ağına gizli Tor servisleri için ayrı bir SOCKS5 vekil sunucusu aracılığıyla bağlan.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services:</source>
@@ -1635,8 +1635,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Form</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcreds network after a connection is established, but this process has not completed yet.</source>
-        <translation>Görüntülenen bilgiler güncel olmayabilir. Bağlantı kurulduğunda cüzdanınız otomatik olarak Bitcreds ağı ile senkronize olur ancak bu işlem henüz tamamlanmamıştır.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Alterdot network after a connection is established, but this process has not completed yet.</source>
+        <translation>Görüntülenen bilgiler güncel olmayabilir. Bağlantı kurulduğunda cüzdanınız otomatik olarak Alterdot ağı ile senkronize olur ancak bu işlem henüz tamamlanmamıştır.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1735,8 +1735,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Tutar ve Turlar:</translation>
     </message>
     <message>
-        <source>0 BCRS / 0 Rounds</source>
-        <translation>0 BCRS / 0 Tur</translation>
+        <source>0 ADOT / 0 Rounds</source>
+        <translation>0 ADOT / 0 Tur</translation>
     </message>
     <message>
         <source>Submitted Denom:</source>
@@ -1900,8 +1900,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Ödeme talebi hatası</translation>
     </message>
     <message>
-        <source>Cannot start bitcreds: click-to-pay handler</source>
-        <translation>Bitcreds başlatılamadı: tıkla-ve-öde yöneticisi</translation>
+        <source>Cannot start alterdot: click-to-pay handler</source>
+        <translation>Alterdot başlatılamadı: tıkla-ve-öde yöneticisi</translation>
     </message>
     <message>
         <source>URI handling</source>
@@ -1916,8 +1916,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>%1 ödeme adresi geçersizdir</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid Bitcreds address or malformed URI parameters.</source>
-        <translation>URI ayrıştırılamıyor! Bunun nedeni geçersiz bir Bitcreds adresi veya hatalı biçimlendirilmiş URI değişkenleri olabilir.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid Alterdot address or malformed URI parameters.</source>
+        <translation>URI ayrıştırılamıyor! Bunun nedeni geçersiz bir Alterdot adresi veya hatalı biçimlendirilmiş URI değişkenleri olabilir.</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -2006,8 +2006,8 @@ https://www.transifex.com/projects/p/dash/</translation>
 <context>
     <name>QObject</name>
     <message>
-        <source>Bitcreds</source>
-        <translation>Bitcreds</translation>
+        <source>Alterdot</source>
+        <translation>Alterdot</translation>
     </message>
     <message>
         <source>%1 didn't yet exit safely...</source>
@@ -2022,8 +2022,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Tutar</translation>
     </message>
     <message>
-        <source>Enter a Bitcreds address (e.g. %1)</source>
-        <translation>Bir Bitcreds adresi giriniz (mesela %1)</translation>
+        <source>Enter a Alterdot address (e.g. %1)</source>
+        <translation>Bir Alterdot adresi giriniz (mesela %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -2540,8 +2540,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>&amp;Hâlihazırda bulunan bir alım adresini kullan (önerilmez)</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcreds network.</source>
-        <translation>Talep açıldığında gösterilecek, isteğinize dayalı, ödeme talebi ile ilişkilendirilecek bir ileti. Not: Bu ileti ödeme ile birlikte Bitcreds ağı üzerinden gönderilmeyecektir.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Alterdot network.</source>
+        <translation>Talep açıldığında gösterilecek, isteğinize dayalı, ödeme talebi ile ilişkilendirilecek bir ileti. Not: Bu ileti ödeme ile birlikte Alterdot ağı üzerinden gönderilmeyecektir.</translation>
     </message>
     <message>
         <source>&amp;Message:</source>
@@ -2552,8 +2552,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Yeni alım adresi ile ilişkili, seçiminize dayalı etiket.</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Bitcreds network.</source>
-        <translation>Ödeme talebine eklenecek isteğe bağlı bir mesaj, talep açıldığında gösterilecektir.&lt;br&gt;Not: Mesaj ödeme ile birlikte Bitcreds ağı üzerinden gönderilmez.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Alterdot network.</source>
+        <translation>Ödeme talebine eklenecek isteğe bağlı bir mesaj, talep açıldığında gösterilecektir.&lt;br&gt;Not: Mesaj ödeme ile birlikte Alterdot ağı üzerinden gönderilmez.</translation>
     </message>
     <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
@@ -2821,8 +2821,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Eğer özel ücret 1000 duff olarak belirlendiyse ve işlem sadece 250 bayt ise "kilobayt başına" ücret olarak sadece 250 duff ödersiniz,&lt;br /&gt;bu da "toplam en az" 1000 duff öder. Bir kilobayttan büyük işlemler için ikisi de kilobayt başına ödeme yapar.</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for bitcreds transactions than the network can process.</source>
-        <translation>Bloklardaki alandan daha düşük işlem hacmi var olduğu sürece sadece minimum ücreti ödemek yeterli olur.&lt;br /&gt;Ama ağın işleyebileceğinden daha fazla bitcreds işlemi talebi olursa, bunun işlemlerin asla teyit edilememesi gibi bir sonucu olabileceğini unutmayın.</translation>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for alterdot transactions than the network can process.</source>
+        <translation>Bloklardaki alandan daha düşük işlem hacmi var olduğu sürece sadece minimum ücreti ödemek yeterli olur.&lt;br /&gt;Ama ağın işleyebileceğinden daha fazla alterdot işlemi talebi olursa, bunun işlemlerin asla teyit edilememesi gibi bir sonucu olabileceğini unutmayın.</translation>
     </message>
     <message>
         <source>per kilobyte</source>
@@ -3009,8 +3009,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation><numerusform>%n blok içinde onaylamanın başlayacağı tahmin ediliyor.</numerusform><numerusform>%n blok içinde onaylamanın başlayacağı tahmin ediliyor.</numerusform></translation>
     </message>
     <message>
-        <source>Warning: Invalid Bitcreds address</source>
-        <translation>UYARI: Geçersiz Bitcreds adresi</translation>
+        <source>Warning: Invalid Alterdot address</source>
+        <translation>UYARI: Geçersiz Alterdot adresi</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -3040,8 +3040,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>&amp;Şu adrese öde:</translation>
     </message>
     <message>
-        <source>The Bitcreds address to send the payment to</source>
-        <translation>Ödemenin yollanacağı Bitcreds adresi</translation>
+        <source>The Alterdot address to send the payment to</source>
+        <translation>Ödemenin yollanacağı Alterdot adresi</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3076,8 +3076,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Mebla&amp;ğ:</translation>
     </message>
     <message>
-        <source>The fee will be deducted from the amount being sent. The recipient will receive a lower amount of Bitcreds than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
-        <translation>Ücret gönderilen tutardan düşülecek. Alıcı sizin tutar alanına girdiğinizden daha düşük miktarda Bitcreds alacak. Eğer birden fazla alıcı seçilirse, ücret eşit bölünür.</translation>
+        <source>The fee will be deducted from the amount being sent. The recipient will receive a lower amount of Alterdot than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
+        <translation>Ücret gönderilen tutardan düşülecek. Alıcı sizin tutar alanına girdiğinizden daha düşük miktarda Alterdot alacak. Eğer birden fazla alıcı seçilirse, ücret eşit bölünür.</translation>
     </message>
     <message>
         <source>S&amp;ubtract fee from amount</source>
@@ -3088,8 +3088,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Mesaj:</translation>
     </message>
     <message>
-        <source>A message that was attached to the bitcreds: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcreds network.</source>
-        <translation>Referans için Bitcreds: URI'siyle iliştirilmiş işlemle birlikte depolanacak bir ileti. Not: Bu mesaj Bitcreds ağı üzerinden gönderilmeyecektir.</translation>
+        <source>A message that was attached to the alterdot: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Alterdot network.</source>
+        <translation>Referans için Alterdot: URI'siyle iliştirilmiş işlemle birlikte depolanacak bir ileti. Not: Bu mesaj Alterdot ağı üzerinden gönderilmeyecektir.</translation>
     </message>
     <message>
         <source>This is an unauthenticated payment request.</source>
@@ -3141,12 +3141,12 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Mesaj &amp;imzala</translation>
     </message>
     <message>
-        <source>You can sign messages/agreements with your addresses to prove you can receive Bitcreds sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
-        <translation>Onlara gönderilen Bitcreds'i alabildiğinizi ispatlamak için mesajları/anlaşmaları adresleriniz ile imzalayabilirsiniz. Muallak ya da rastgele bir şeyi imzalamamaya dikkat edin çünkü kimlik avı saldırıları ile sizi kimliğinizi açık etmek için dolandırabilirler. Sadece anlaştığınız tam ayrıntılı beyanları imzalayın.</translation>
+        <source>You can sign messages/agreements with your addresses to prove you can receive Alterdot sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
+        <translation>Onlara gönderilen Alterdot'i alabildiğinizi ispatlamak için mesajları/anlaşmaları adresleriniz ile imzalayabilirsiniz. Muallak ya da rastgele bir şeyi imzalamamaya dikkat edin çünkü kimlik avı saldırıları ile sizi kimliğinizi açık etmek için dolandırabilirler. Sadece anlaştığınız tam ayrıntılı beyanları imzalayın.</translation>
     </message>
     <message>
-        <source>The Bitcreds address to sign the message with</source>
-        <translation>İletinin imzalanmasında kullanılacak Bitcreds adresi</translation>
+        <source>The Alterdot address to sign the message with</source>
+        <translation>İletinin imzalanmasında kullanılacak Alterdot adresi</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3177,8 +3177,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Güncel imzayı sistem panosuna kopyala</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this Bitcreds address</source>
-        <translation>Bu Bitcreds adresine sahip olduğunuzu ispatlamak için mesajı imzala</translation>
+        <source>Sign the message to prove you own this Alterdot address</source>
+        <translation>Bu Alterdot adresine sahip olduğunuzu ispatlamak için mesajı imzala</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -3201,12 +3201,12 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Alıcının adresini, iletiyi (satır sonları, boşluklar, sekmeler vs. karakterleri tam olarak kopyaladığınızdan emin olunuz) ve imzayı aşağıya giriniz. Bir ortadaki adam saldırısı tarafından kandırılmaya engel olmak için imzadan, imzalı iletinin içeriğini aşan bir anlam çıkarmamaya dikkat ediniz. Bunun sadece imzalayan tarafın adres ile alım yapabildiğini ispatladığını ve herhangi bir işlemin gönderi tarafını kanıtlayamayacağını unutmayınız!</translation>
     </message>
     <message>
-        <source>The Bitcreds address the message was signed with</source>
-        <translation>İletinin imzalanmasında kullanılan Bitcreds adresi</translation>
+        <source>The Alterdot address the message was signed with</source>
+        <translation>İletinin imzalanmasında kullanılan Alterdot adresi</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified Bitcreds address</source>
-        <translation>Belirtilen Bitcreds adresi ile imzalandığını doğrulamak için iletiyi kontrol et</translation>
+        <source>Verify the message to ensure it was signed with the specified Alterdot address</source>
+        <translation>Belirtilen Alterdot adresi ile imzalandığını doğrulamak için iletiyi kontrol et</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -3836,8 +3836,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Bitcoini Gönder</translation>
     </message>
     <message>
-        <source>InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 BCRS.</source>
-        <translation>Anında Gönder şu anda bu kadar yüksek tutarları göndermeyi desteklemiyor. İşlemler şimdilik %1 BCRS ile sınırlı.</translation>
+        <source>InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 ADOT.</source>
+        <translation>Anında Gönder şu anda bu kadar yüksek tutarları göndermeyi desteklemiyor. İşlemler şimdilik %1 ADOT ile sınırlı.</translation>
     </message>
     <message>
         <source>Used way too many inputs (&gt;%1) for this InstantSend transaction, fees could be huge.</source>
@@ -3884,7 +3884,7 @@ https://www.transifex.com/projects/p/dash/</translation>
     </message>
 </context>
 <context>
-    <name>bitcreds</name>
+    <name>alterdot</name>
     <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>Belirtilen adrese bağlan ve daima ondan dinle. IPv6 için [makine]:port yazımını kullanınız</translation>
@@ -4534,8 +4534,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Hafızada en çok &lt;n&gt; bağlanılamaz işlem tut (varsayılan: %u)</translation>
     </message>
     <message>
-        <source>Disable all Bitcreds specific functionality (Masternodes, PrivateSend, InstantSend, Governance) (0-1, default: %u)</source>
-        <translation>Tüm Bitcreds spesifik işlevleri kapat (Ana Düğümler, Özel Gönder, Anında Gönder, Yönetim) (0-1, varsayılan: %u)</translation>
+        <source>Disable all Alterdot specific functionality (Masternodes, PrivateSend, InstantSend, Governance) (0-1, default: %u)</source>
+        <translation>Tüm Alterdot spesifik işlevleri kapat (Ana Düğümler, Özel Gönder, Anında Gönder, Yönetim) (0-1, varsayılan: %u)</translation>
     </message>
     <message>
         <source>%s file contains all private keys from this wallet. Do not share it with anyone!</source>
@@ -4586,8 +4586,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Eğer &lt;category&gt; belirtilmemişse ya da &lt;category&gt; = 1 ise, tüm hata ayıklama verilerini çıktı al.</translation>
     </message>
     <message>
-        <source>InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 BCRS.</source>
-        <translation>Özel Gönder şu anda bu kadar büyük meblağları desteklemiyor. Şu anda işlemler %1 BCRS ile sınırlı.</translation>
+        <source>InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 ADOT.</source>
+        <translation>Özel Gönder şu anda bu kadar büyük meblağları desteklemiyor. Şu anda işlemler %1 ADOT ile sınırlı.</translation>
     </message>
     <message>
         <source>InstantSend requires inputs with at least %d confirmations, you might need to wait a few minutes and try again.</source>
@@ -4686,8 +4686,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Uyarı: Bilinmeyen blok sürümü oluşturulmaya çalışılıyor. Bilinmeyen kuralların işlemesi mümkündür.</translation>
     </message>
     <message>
-        <source>You are starting in lite mode, all Bitcreds-specific functionality is disabled.</source>
-        <translation>Lite modda başlatıyorsunuz, tüm Bitcreds spesifik işlevler kapalı olacak.</translation>
+        <source>You are starting in lite mode, all Alterdot-specific functionality is disabled.</source>
+        <translation>Lite modda başlatıyorsunuz, tüm Alterdot spesifik işlevler kapalı olacak.</translation>
     </message>
     <message>
         <source>You need to rebuild the database using -reindex to go back to unpruned mode.  This will redownload the entire blockchain</source>
@@ -5046,8 +5046,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>RPC sunucu seçenekleri:</translation>
     </message>
     <message>
-        <source>Bitcreds</source>
-        <translation>Bitcreds</translation>
+        <source>Alterdot</source>
+        <translation>Alterdot</translation>
     </message>
     <message>
         <source>The %s developers</source>
@@ -5250,8 +5250,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>-sporkaddr ile yanlış spork adresi belirtildi</translation>
     </message>
     <message>
-        <source>Keep N BCRS anonymized (%u-%u, default: %u)</source>
-        <translation>N BCRS'i anonim tut (%u-%u, varsayılan: %u)</translation>
+        <source>Keep N ADOT anonymized (%u-%u, default: %u)</source>
+        <translation>N ADOT'i anonim tut (%u-%u, varsayılan: %u)</translation>
     </message>
     <message>
         <source>Print this help message and exit</source>

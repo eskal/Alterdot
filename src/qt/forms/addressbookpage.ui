@@ -137,7 +137,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../bitcreds.qrc"/>
+  <include location="../alterdot.qrc"/>
  </resources>
  <connections/>
 </ui>

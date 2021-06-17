@@ -21,8 +21,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef BCRS_BIP39_H
-#define BCRS_BIP39_H
+#ifndef ADOT_BIP39_H
+#define ADOT_BIP39_H
 
 #include "support/allocators/secure.h"
 

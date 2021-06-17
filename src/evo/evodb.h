@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BCRS_EVODB_H
-#define BCRS_EVODB_H
+#ifndef ADOT_EVODB_H
+#define ADOT_EVODB_H
 
 #include "dbwrapper.h"
 #include "sync.h"
@@ -76,4 +76,4 @@ public:
 
 extern CEvoDB* evoDb;
 
-#endif //BCRS_EVODB_H
+#endif //ADOT_EVODB_H

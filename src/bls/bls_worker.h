@@ -2,8 +2,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BCRS_CRYPTO_BLS_WORKER_H
-#define BCRS_CRYPTO_BLS_WORKER_H
+#ifndef ADOT_CRYPTO_BLS_WORKER_H
+#define ADOT_CRYPTO_BLS_WORKER_H
 
 #include "bls.h"
 
@@ -201,4 +201,4 @@ private:
     }
 };
 
-#endif //BCRS_CRYPTO_BLS_WORKER_H
+#endif //ADOT_CRYPTO_BLS_WORKER_H

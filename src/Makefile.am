@@ -1,5 +1,5 @@
 # Copyright (c) 2013-2016 The Bitcoin Core developers
-# Copyright (c) 2014-2018 The Bitcreds developers
+# Copyright (c) 2014-2018 The Alterdot developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -27,23 +27,23 @@ BITCOIN_INCLUDES += $(UNIVALUE_CFLAGS)
 
 BLS_LIBS=-lchiabls -lgmp
 
-LIBBITCOIN_SERVER=libbitcreds_server.a
-LIBBITCOIN_COMMON=libbitcreds_common.a
-LIBBITCOIN_CONSENSUS=libbitcreds_consensus.a
-LIBBITCOIN_CLI=libbitcreds_cli.a
-LIBBITCOIN_UTIL=libbitcreds_util.a
-LIBBITCOIN_CRYPTO=crypto/libbitcreds_crypto.a
-LIBBITCOINQT=qt/libbitcredsqt.a
+LIBBITCOIN_SERVER=libalterdot_server.a
+LIBBITCOIN_COMMON=libalterdot_common.a
+LIBBITCOIN_CONSENSUS=libalterdot_consensus.a
+LIBBITCOIN_CLI=libalterdot_cli.a
+LIBBITCOIN_UTIL=libalterdot_util.a
+LIBBITCOIN_CRYPTO=crypto/libalterdot_crypto.a
+LIBBITCOINQT=qt/libalterdotqt.a
 LIBSECP256K1=secp256k1/libsecp256k1.la
 
 if ENABLE_ZMQ
-LIBBITCOIN_ZMQ=libbitcreds_zmq.a
+LIBBITCOIN_ZMQ=libalterdot_zmq.a
 endif
 if BUILD_BITCOIN_LIBS
-LIBBITCOINCONSENSUS=libbitcredsconsensus.la
+LIBBITCOINCONSENSUS=libalterdotconsensus.la
 endif
 if ENABLE_WALLET
-LIBBITCOIN_WALLET=libbitcreds_wallet.a
+LIBBITCOIN_WALLET=libalterdot_wallet.a
 endif
 
 $(LIBSECP256K1): $(wildcard secp256k1/src/*) $(wildcard secp256k1/include/*)
@@ -68,15 +68,15 @@ TESTS =
 BENCHMARKS =
 
 if BUILD_BITCOIND
-  bin_PROGRAMS += bitcredsd
+  bin_PROGRAMS += alterdotd
 endif
 
 if BUILD_BITCOIN_UTILS
-  bin_PROGRAMS += bitcreds-cli bitcreds-tx
+  bin_PROGRAMS += alterdot-cli alterdot-tx
 endif
 
 .PHONY: FORCE check-symbols check-security
-# bitcreds #
+# alterdot #
 BITCOIN_CORE_H = \
   addrdb.h \
   activemasternode.h \
@@ -217,12 +217,12 @@ obj/build.h: FORCE
 	@$(MKDIR_P) $(builddir)/obj
 	@$(top_srcdir)/share/genbuild.sh $(abs_top_builddir)/src/obj/build.h \
 	  $(abs_top_srcdir)
-libbitcreds_util_a-clientversion.$(OBJEXT): obj/build.h
+libalterdot_util_a-clientversion.$(OBJEXT): obj/build.h
 
-# server: shared between bitcredsd and bitcreds-qt
-libbitcreds_server_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
-libbitcreds_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libbitcreds_server_a_SOURCES = \
+# server: shared between alterdotd and alterdot-qt
+libalterdot_server_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
+libalterdot_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libalterdot_server_a_SOURCES = \
   activemasternode.cpp \
   addrman.cpp \
   addrdb.cpp \
@@ -296,20 +296,20 @@ libbitcreds_server_a_SOURCES = \
   $(BITCOIN_CORE_H)
 
 if ENABLE_ZMQ
-libbitcreds_zmq_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(ZMQ_CFLAGS)
-libbitcreds_zmq_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libbitcreds_zmq_a_SOURCES = \
+libalterdot_zmq_a_CPPFLAGS = $(BITCOIN_INCLUDES) $(ZMQ_CFLAGS)
+libalterdot_zmq_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libalterdot_zmq_a_SOURCES = \
   zmq/zmqabstractnotifier.cpp \
   zmq/zmqnotificationinterface.cpp \
   zmq/zmqpublishnotifier.cpp
 endif
 
 
-# wallet: shared between bitcredsd and bitcreds-qt, but only linked
+# wallet: shared between alterdotd and alterdot-qt, but only linked
 # when wallet enabled
-libbitcreds_wallet_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libbitcreds_wallet_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libbitcreds_wallet_a_SOURCES = \
+libalterdot_wallet_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libalterdot_wallet_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libalterdot_wallet_a_SOURCES = \
   keepass.cpp \
   privatesend-client.cpp \
   privatesend-util.cpp \
@@ -322,9 +322,9 @@ libbitcreds_wallet_a_SOURCES = \
   $(BITCOIN_CORE_H)
 
 # crypto primitives library
-crypto_libbitcreds_crypto_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_CONFIG_INCLUDES) $(PIC_FLAGS)
-crypto_libbitcreds_crypto_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS) $(PIC_FLAGS)
-crypto_libbitcreds_crypto_a_SOURCES = \
+crypto_libalterdot_crypto_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_CONFIG_INCLUDES) $(PIC_FLAGS)
+crypto_libalterdot_crypto_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS) $(PIC_FLAGS)
+crypto_libalterdot_crypto_a_SOURCES = \
   crypto/aes.cpp \
   crypto/aes.h \
   crypto/common.h \
@@ -343,7 +343,7 @@ crypto_libbitcreds_crypto_a_SOURCES = \
   crypto/sha512.h
 
 # Argon2d
-crypto_libbitcreds_crypto_a_SOURCES += \
+crypto_libalterdot_crypto_a_SOURCES += \
   crypto/argon2d/argon2.h \
   crypto/argon2d/core.h \
   crypto/argon2d/encoding.h \
@@ -361,9 +361,9 @@ crypto_libbitcreds_crypto_a_SOURCES += \
   crypto/sph_types.h
 
 # consensus: shared between all executables that validate any consensus rules.
-libbitcreds_consensus_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libbitcreds_consensus_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libbitcreds_consensus_a_SOURCES = \
+libalterdot_consensus_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libalterdot_consensus_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libalterdot_consensus_a_SOURCES = \
   amount.h \
   arith_uint256.cpp \
   arith_uint256.h \
@@ -382,7 +382,7 @@ libbitcreds_consensus_a_SOURCES = \
   primitives/transaction.h \
   pubkey.cpp \
   pubkey.h \
-  script/bitcredsconsensus.cpp \
+  script/alterdotconsensus.cpp \
   script/interpreter.cpp \
   script/interpreter.h \
   script/script.cpp \
@@ -398,10 +398,10 @@ libbitcreds_consensus_a_SOURCES = \
   utilstrencodings.h \
   version.h
 
-# common: shared between bitcredsd, and bitcreds-qt and non-server tools
-libbitcreds_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libbitcreds_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libbitcreds_common_a_SOURCES = \
+# common: shared between alterdotd, and alterdot-qt and non-server tools
+libalterdot_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libalterdot_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libalterdot_common_a_SOURCES = \
   amount.cpp \
   base58.cpp \
   bdnsdb.cpp \
@@ -426,9 +426,9 @@ libbitcreds_common_a_SOURCES = \
 # util: shared between all executables.
 # This library *must* be included to make sure that the glibc
 # backward-compatibility objects and their sanity checks are linked.
-libbitcreds_util_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libbitcreds_util_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libbitcreds_util_a_SOURCES = \
+libalterdot_util_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libalterdot_util_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libalterdot_util_a_SOURCES = \
   bls/bls_ies.cpp \
   bls/bls_ies.h \
   bls/bls_worker.cpp \
@@ -451,31 +451,31 @@ libbitcreds_util_a_SOURCES = \
   $(BITCOIN_CORE_H)
 
 if GLIBC_BACK_COMPAT
-libbitcreds_util_a_SOURCES += compat/glibc_compat.cpp
+libalterdot_util_a_SOURCES += compat/glibc_compat.cpp
 AM_LDFLAGS += -Wl,--wrap=log2f -Wl,--wrap=__divmoddi4
 endif
 
-# cli: shared between bitcreds-cli and bitcreds-qt
-libbitcreds_cli_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-libbitcreds_cli_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libbitcreds_cli_a_SOURCES = \
+# cli: shared between alterdot-cli and alterdot-qt
+libalterdot_cli_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+libalterdot_cli_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libalterdot_cli_a_SOURCES = \
   rpc/client.cpp \
   $(BITCOIN_CORE_H)
 
-nodist_libbitcreds_util_a_SOURCES = $(srcdir)/obj/build.h
+nodist_libalterdot_util_a_SOURCES = $(srcdir)/obj/build.h
 #
 
-# bitcredsd binary #
-bitcredsd_SOURCES = bitcredsd.cpp
-bitcredsd_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-bitcredsd_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-bitcredsd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# alterdotd binary #
+alterdotd_SOURCES = alterdotd.cpp
+alterdotd_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+alterdotd_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+alterdotd_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-bitcredsd_SOURCES += bitcredsd-res.rc
+alterdotd_SOURCES += alterdotd-res.rc
 endif
 
-bitcredsd_LDADD = \
+alterdotd_LDADD = \
   $(LIBBITCOIN_SERVER) \
   $(LIBBITCOIN_COMMON) \
   $(LIBUNIVALUE) \
@@ -488,37 +488,37 @@ bitcredsd_LDADD = \
   $(LIBMEMENV) \
   $(LIBSECP256K1)
 
-bitcredsd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS) $(BLS_LIBS)
+alterdotd_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(ZMQ_LIBS) $(BLS_LIBS)
 
-# bitcreds-cli binary #
-bitcreds_cli_SOURCES = bitcreds-cli.cpp
-bitcreds_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
-bitcreds_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-bitcreds_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# alterdot-cli binary #
+alterdot_cli_SOURCES = alterdot-cli.cpp
+alterdot_cli_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(EVENT_CFLAGS)
+alterdot_cli_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+alterdot_cli_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-bitcreds_cli_SOURCES += bitcreds-cli-res.rc
+alterdot_cli_SOURCES += alterdot-cli-res.rc
 endif
 
-bitcreds_cli_LDADD = \
+alterdot_cli_LDADD = \
   $(LIBBITCOIN_CLI) \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_CRYPTO)
-bitcreds_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS) $(BLS_LIBS)
+alterdot_cli_LDADD += $(BOOST_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(EVENT_LIBS) $(BLS_LIBS)
 #
 
-# bitcreds-tx binary #
-bitcreds_tx_SOURCES = bitcreds-tx.cpp
-bitcreds_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
-bitcreds_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-bitcreds_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+# alterdot-tx binary #
+alterdot_tx_SOURCES = alterdot-tx.cpp
+alterdot_tx_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+alterdot_tx_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+alterdot_tx_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 if TARGET_WINDOWS
-bitcreds_tx_SOURCES += bitcreds-tx-res.rc
+alterdot_tx_SOURCES += alterdot-tx-res.rc
 endif
 
-bitcreds_tx_LDADD = \
+alterdot_tx_LDADD = \
   $(LIBUNIVALUE) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_UTIL) \
@@ -526,22 +526,22 @@ bitcreds_tx_LDADD = \
   $(LIBBITCOIN_CRYPTO) \
   $(LIBSECP256K1)
 
-bitcreds_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS) $(BLS_LIBS)
+alterdot_tx_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS) $(BLS_LIBS)
 #
 
-# bitcredsconsensus library #
+# alterdotconsensus library #
 if BUILD_BITCOIN_LIBS
-include_HEADERS = script/bitcredsconsensus.h
-libbitcredsconsensus_la_SOURCES = $(crypto_libbitcreds_crypto_a_SOURCES) $(libbitcreds_consensus_a_SOURCES)
+include_HEADERS = script/alterdotconsensus.h
+libalterdotconsensus_la_SOURCES = $(crypto_libalterdot_crypto_a_SOURCES) $(libalterdot_consensus_a_SOURCES)
 
 if GLIBC_BACK_COMPAT
-  libbitcredsconsensus_la_SOURCES += compat/glibc_compat.cpp
+  libalterdotconsensus_la_SOURCES += compat/glibc_compat.cpp
 endif
 
-libbitcredsconsensus_la_LDFLAGS = $(AM_LDFLAGS) -no-undefined $(RELDFLAGS)
-libbitcredsconsensus_la_LIBADD = $(LIBSECP256K1) $(BLS_LIBS)
-libbitcredsconsensus_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(builddir)/obj -I$(srcdir)/secp256k1/include -DBUILD_BITCOIN_INTERNAL
-libbitcredsconsensus_la_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libalterdotconsensus_la_LDFLAGS = $(AM_LDFLAGS) -no-undefined $(RELDFLAGS)
+libalterdotconsensus_la_LIBADD = $(LIBSECP256K1) $(BLS_LIBS)
+libalterdotconsensus_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(builddir)/obj -I$(srcdir)/secp256k1/include -DBUILD_BITCOIN_INTERNAL
+libalterdotconsensus_la_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 
 endif
 #
@@ -575,12 +575,12 @@ EXTRA_DIST = $(CTAES_DIST)
 EXTRA_DIST += $(IMMER_DIST)
 
 
-config/bitcreds-config.h: config/stamp-h1
+config/alterdot-config.h: config/stamp-h1
 	@$(MAKE) -C $(top_builddir) $(subdir)/$(@)
-config/stamp-h1: $(top_srcdir)/$(subdir)/config/bitcreds-config.h.in $(top_builddir)/config.status
+config/stamp-h1: $(top_srcdir)/$(subdir)/config/alterdot-config.h.in $(top_builddir)/config.status
 	$(AM_V_at)$(MAKE) -C $(top_builddir) $(subdir)/$(@)
-$(top_srcdir)/$(subdir)/config/bitcreds-config.h.in:  $(am__configure_deps)
-	$(AM_V_at)$(MAKE) -C $(top_srcdir) $(subdir)/config/bitcreds-config.h.in
+$(top_srcdir)/$(subdir)/config/alterdot-config.h.in:  $(am__configure_deps)
+	$(AM_V_at)$(MAKE) -C $(top_srcdir) $(subdir)/config/alterdot-config.h.in
 
 clean-local:
 	-$(MAKE) -C secp256k1 clean

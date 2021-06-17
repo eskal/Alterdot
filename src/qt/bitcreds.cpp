@@ -4,7 +4,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcreds-config.h"
+#include "config/alterdot-config.h"
 #endif
 
 #include "bitcoingui.h"
@@ -96,7 +96,7 @@ static void InitMessage(const std::string &message)
  */
 static std::string Translate(const char* psz)
 {
-    return QCoreApplication::translate("bitcreds", psz).toStdString();
+    return QCoreApplication::translate("alterdot", psz).toStdString();
 }
 
 static QString GetLangTerritory()
@@ -143,11 +143,11 @@ static void initTranslations(QTranslator &qtTranslatorBase, QTranslator &qtTrans
     if (qtTranslator.load("qt_" + lang_territory, QLibraryInfo::location(QLibraryInfo::TranslationsPath)))
         QApplication::installTranslator(&qtTranslator);
 
-    // Load e.g. bitcoin_de.qm (shortcut "de" needs to be defined in bitcreds.qrc)
+    // Load e.g. bitcoin_de.qm (shortcut "de" needs to be defined in alterdot.qrc)
     if (translatorBase.load(lang, ":/translations/"))
         QApplication::installTranslator(&translatorBase);
 
-    // Load e.g. bitcoin_de_DE.qm (shortcut "de_DE" needs to be defined in bitcreds.qrc)
+    // Load e.g. bitcoin_de_DE.qm (shortcut "de_DE" needs to be defined in alterdot.qrc)
     if (translator.load(lang_territory, ":/translations/"))
         QApplication::installTranslator(&translator);
 }
@@ -168,7 +168,7 @@ void DebugMessageHandler(QtMsgType type, const QMessageLogContext& context, cons
 }
 #endif
 
-/** Class encapsulating Bitcreds startup and shutdown.
+/** Class encapsulating Alterdot startup and shutdown.
  * Allows running startup and shutdown in a different thread from the UI thread.
  */
 class BitcoinCore: public QObject
@@ -195,7 +195,7 @@ private:
     void handleRunawayException(const std::exception *e);
 };
 
-/** Main Bitcreds application object */
+/** Main Alterdot application object */
 class BitcoinApplication: public QApplication
 {
     Q_OBJECT
@@ -257,7 +257,7 @@ private:
     void startThread();
 };
 
-#include "bitcreds.moc"
+#include "alterdot.moc"
 
 BitcoinCore::BitcoinCore():
     QObject()
@@ -533,7 +533,7 @@ void BitcoinApplication::initializeResult(int retval)
 
 #ifdef ENABLE_WALLET
         // Now that initialization/startup is done, process any command-line
-        // bitcreds: URIs or payment requests:
+        // alterdot: URIs or payment requests:
         connect(paymentServer, SIGNAL(receivedPaymentRequest(SendCoinsRecipient)),
                          window, SLOT(handlePaymentRequest(SendCoinsRecipient)));
         connect(window, SIGNAL(receivedURI(QString)),
@@ -555,7 +555,7 @@ void BitcoinApplication::shutdownResult(int retval)
 
 void BitcoinApplication::handleRunawayException(const QString &message)
 {
-    QMessageBox::critical(0, "Runaway exception", BitcoinGUI::tr("A fatal error occurred. Bitcreds can no longer continue safely and will quit.") + QString("\n\n") + message);
+    QMessageBox::critical(0, "Runaway exception", BitcoinGUI::tr("A fatal error occurred. Alterdot can no longer continue safely and will quit.") + QString("\n\n") + message);
     ::exit(EXIT_FAILURE);
 }
 
@@ -585,8 +585,8 @@ int main(int argc, char *argv[])
     QTextCodec::setCodecForCStrings(QTextCodec::codecForTr());
 #endif
 
-    Q_INIT_RESOURCE(bitcreds);
-    Q_INIT_RESOURCE(bitcreds_locale);
+    Q_INIT_RESOURCE(alterdot);
+    Q_INIT_RESOURCE(alterdot_locale);
 
     BitcoinApplication app(argc, argv);
 #if QT_VERSION > 0x050100
@@ -642,7 +642,7 @@ int main(int argc, char *argv[])
     if (!Intro::pickDataDirectory())
         return EXIT_SUCCESS;
 
-    /// 6. Determine availability of data directory and parse bitcreds.conf
+    /// 6. Determine availability of data directory and parse alterdot.conf
     /// - Do not call GetDataDir(true) before this step finishes
     if (!boost::filesystem::is_directory(GetDataDir(false)))
     {
@@ -687,7 +687,7 @@ int main(int argc, char *argv[])
     /// 7a. parse masternode.conf
     std::string strErr;
     if(!masternodeConfig.read(strErr)) {
-        QMessageBox::critical(0, QObject::tr("Bitcreds"),
+        QMessageBox::critical(0, QObject::tr("Alterdot"),
                               QObject::tr("Error reading masternode configuration file: %1").arg(strErr.c_str()));
         return EXIT_FAILURE;
     }
@@ -702,7 +702,7 @@ int main(int argc, char *argv[])
         exit(EXIT_SUCCESS);
 
     // Start up the payment server early, too, so impatient users that click on
-    // bitcreds: links repeatedly have their payment requests routed to this process:
+    // alterdot: links repeatedly have their payment requests routed to this process:
     app.createPaymentServer();
 #endif
 

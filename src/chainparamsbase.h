@@ -9,8 +9,8 @@
 #include <vector>
 
 /**
- * CBaseChainParams defines the base parameters (shared between bitcreds-cli and bitcredsd)
- * of a given instance of the Bitcreds system.
+ * CBaseChainParams defines the base parameters (shared between alterdot-cli and alterdotd)
+ * of a given instance of the Alterdot system.
  */
 class CBaseChainParams
 {

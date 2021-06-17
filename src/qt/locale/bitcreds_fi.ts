@@ -62,12 +62,12 @@
         <translation>Vastaanottava osoite</translation>
     </message>
     <message>
-        <source>These are your Bitcreds addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Nämä ovat Bitcreds osoitteesi maksujen lähetykseen. Tarkista aina lähetettävä määrä ja vastaanottajan osoite ennen kuin lähetät varoja.</translation>
+        <source>These are your Alterdot addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Nämä ovat Alterdot osoitteesi maksujen lähetykseen. Tarkista aina lähetettävä määrä ja vastaanottajan osoite ennen kuin lähetät varoja.</translation>
     </message>
     <message>
-        <source>These are your Bitcreds addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Nämä ovat Bitcreds osoitteesi suoritusten vastaanottamiseen. Suositellaan että käytät uutta osoitetta kullekin siirtotapahtumalle.</translation>
+        <source>These are your Alterdot addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Nämä ovat Alterdot osoitteesi suoritusten vastaanottamiseen. Suositellaan että käytät uutta osoitetta kullekin siirtotapahtumalle.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -172,8 +172,8 @@
         <translation>Vahvista lompakon salaus</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BCRS&lt;/b&gt;!</source>
-        <translation>Varoitus: Jos salaat lompakon ja unohdat salasanan, &lt;b&gt;MENETÄT KAIKKI BCRSisi&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR ADOT&lt;/b&gt;!</source>
+        <translation>Varoitus: Jos salaat lompakon ja unohdat salasanan, &lt;b&gt;MENETÄT KAIKKI ADOTisi&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -185,7 +185,7 @@
     </message>
     <message>
         <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your funds from being stolen by malware infecting your computer.</source>
-        <translation>%1 sulkeutuu nyt salauksen viimeistelyä varten. Muista että salaus pelkästään ei voi estää Bitcredsiesi varastamista jos koneesi saastuu haittaohjelmilla tai viruksilla.</translation>
+        <translation>%1 sulkeutuu nyt salauksen viimeistelyä varten. Muista että salaus pelkästään ei voi estää Alterdotiesi varastamista jos koneesi saastuu haittaohjelmilla tai viruksilla.</translation>
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. Previous backups of the unencrypted wallet file contain the same HD seed and still have full access to all your funds just like the new, encrypted wallet.</source>
@@ -242,12 +242,12 @@
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <source>A fatal error occurred. Bitcreds can no longer continue safely and will quit.</source>
-        <translation>Vakava virhe tapahtunut. Bitcreds ei voi enää toimia turvallisesti ja sulkeutuu.</translation>
+        <source>A fatal error occurred. Alterdot can no longer continue safely and will quit.</source>
+        <translation>Vakava virhe tapahtunut. Alterdot ei voi enää toimia turvallisesti ja sulkeutuu.</translation>
     </message>
     <message>
-        <source>Bitcreds</source>
-        <translation>Bitcreds</translation>
+        <source>Alterdot</source>
+        <translation>Alterdot</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -270,16 +270,16 @@
         <translation>L&amp;ähetä</translation>
     </message>
     <message>
-        <source>Send coins to a Bitcreds address</source>
-        <translation>Lähetä varoja Bitcreds osoitteeseen</translation>
+        <source>Send coins to a Alterdot address</source>
+        <translation>Lähetä varoja Alterdot osoitteeseen</translation>
     </message>
     <message>
         <source>&amp;Receive</source>
         <translation>&amp;Vastaanota</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and bitcreds: URIs)</source>
-        <translation>Pyydä maksuja (Luo QR koodit ja Bitcreds: URIt)</translation>
+        <source>Request payments (generates QR codes and alterdot: URIs)</source>
+        <translation>Pyydä maksuja (Luo QR koodit ja Alterdot: URIt)</translation>
     </message>
     <message>
         <source>&amp;Transactions</source>
@@ -306,8 +306,8 @@
         <translation>Sulje ohjelma</translation>
     </message>
     <message>
-        <source>Show information about Bitcreds</source>
-        <translation>Näytä tietoja Bitcreds:sta</translation>
+        <source>Show information about Alterdot</source>
+        <translation>Näytä tietoja Alterdot:sta</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -378,16 +378,16 @@
         <translation>&amp;Allekirjoita Viesti...</translation>
     </message>
     <message>
-        <source>Sign messages with your Bitcreds addresses to prove you own them</source>
-        <translation>Allekirjoita viestit Bitcreds osoitteillasi todistaaksesi että omistat ne</translation>
+        <source>Sign messages with your Alterdot addresses to prove you own them</source>
+        <translation>Allekirjoita viestit Alterdot osoitteillasi todistaaksesi että omistat ne</translation>
     </message>
     <message>
         <source>&amp;Verify message...</source>
         <translation>&amp;Tarkista Viesti...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified Bitcreds addresses</source>
-        <translation>Tarkista viestit ollaksesi varma että ne on allekirjoitettu määritetyillä Bitcreds osoitteilla</translation>
+        <source>Verify messages to ensure they were signed with specified Alterdot addresses</source>
+        <translation>Tarkista viestit ollaksesi varma että ne on allekirjoitettu määritetyillä Alterdot osoitteilla</translation>
     </message>
     <message>
         <source>&amp;Information</source>
@@ -474,15 +474,15 @@
         <translation>Avaa &amp;URI...</translation>
     </message>
     <message>
-        <source>Open a bitcreds: URI or payment request</source>
-        <translation>Avaa Bitcreds: URI tai maksupyyntö</translation>
+        <source>Open a alterdot: URI or payment request</source>
+        <translation>Avaa Alterdot: URI tai maksupyyntö</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
         <translation>&amp;Komentorivin valinnat</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible Bitcreds command-line options</source>
+        <source>Show the %1 help message to get a list with possible Alterdot command-line options</source>
         <translation>Näytä %1 ohjelista komentorivin valinnoista</translation>
     </message>
     <message>
@@ -518,8 +518,8 @@
         <translation>Välilehtipalkki</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to Bitcreds network</source>
-        <translation><numerusform>%n aktiivinen yhteys Bitcreds verkkoon</numerusform><numerusform>%n aktiivista yhteyttä Bitcreds verkkoon</numerusform></translation>
+        <source>%n active connection(s) to Alterdot network</source>
+        <translation><numerusform>%n aktiivinen yhteys Alterdot verkkoon</numerusform><numerusform>%n aktiivista yhteyttä Alterdot verkkoon</numerusform></translation>
     </message>
     <message>
         <source>Network activity disabled</source>
@@ -873,8 +873,8 @@
         <translation>Muokkaa lähettävää osoitetta</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid Bitcreds address.</source>
-        <translation>Annettu osoite "%1" ei ole pätevä Bitcreds osoite.</translation>
+        <source>The entered address "%1" is not a valid Alterdot address.</source>
+        <translation>Annettu osoite "%1" ei ole pätevä Alterdot osoite.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -971,8 +971,8 @@
         <translation>PrivateSend tietoja</translation>
     </message>
     <message>
-        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Bitcreds in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 BCRS, 0.01 BCRS, 0.1 BCRS, 1 BCRS and 10 BCRS -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.bitcreds.org/en/latest/wallets/bitcreds/privatesend-instantsend.html"&gt;PrivateSend documentation&lt;/a&gt;.</source>
-        <translation>&lt;h3&gt;PrivateSend perusteet&lt;/h3&gt; PrivateSend tarjoaa yksityisyyden hämärtämällä varojesi alkuperäisen osoitteen. Kaikki Bitcreds:it lompakossasi muodostuvat erillisistä "syötteistä", joita voit ajatella erillisinä kolikkoina.&lt;br&gt; PrivateSend käyttää innovatiivista prosessia sekoittaakseen lompakkosi syötteet kahden muun ihmisen syötteisiin, siirtämättä varoja pois lompakostasi. Varojesi kontrolli pysyy aina sinulla.&lt;hr&gt; &lt;b&gt; PrivateSend prosessi toimii seuraavasti:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend aloittaa pilkkomalla siirtotapahtumiesi syötteet pienemmiksi standardi arvoiksi. Nämä arvot ovat 0.001 BCRS, 0.01 BCRS, 0.1 BCRS, 1 BCRS ja 10 BCRS.&lt;/li&gt; &lt;li&gt;Sitten lompakkosi lähettää pyynnön verkon palvelimille, joita kutsutaan "masternode:iksi". Masternodet saavat tiedon että haluat sekoittaa pilkottuja standardi arvoja. Mitään tunnistetietoja ei lähetetä masternode:ille, ne eivät koskaan tiedä "kuka" olet.&lt;/li&gt; &lt;li&gt;Kun 2 muuta käyttäjää ilmoittaa että he haluavat myös sekoittaa varoja, alkaa sekoitus-sessio. Masternodet sekoittavat standardi arvot ja ilmoittavat kaikille 3:lle käyttäjän lompakoille että maksavat sekoitetut arvot takaisin itselleen. Lompakkosi maksaa nuo sekoitetut arvot suoraan itselleen, mutta eri osoitteeseen (vaihto-osoite).&lt;/li&gt; &lt;li&gt;Jotta varojesi alkuperäinen lähde hämärretään, lompakkosi suorittaa tämän prosessin useita kertoja kaikilla standardi arvoilla. Aina kun prosessi on valmis, sitä kutsutaan "kierrokseksi". Jokainen PrivateSend kierros tekee eksponentiaalisesti vaikeammaksi löytää varojesi alkuperäisen osoitteen.&lt;/li&gt; &lt;li&gt;Tämä sekoitusprosessi tapahtuu taustalla ilman käyttäjän toimenpiteitä. Kun haluat myöhemmin tehdä anonyymin varojen siirron, on varasi valmiiksi sekoitettu eli anonymisoitu. Erillistä sekoitusta/odotusta ei tarvita.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;TÄRKEÄÄ:&lt;/b&gt; Lompakkosi sisältää vain 1000 "vaihto-osoitetta". Aina kun sekoitustapahtuma tehdään, max 9 osoitetta käytetään. Tämä tarkoittaa sitä että nuo 1000 osoitetta kestää noin 100 sekoitustapahtumaa. Kun 900 osoitetta on käytetty, lompakkosi täytyy tehdä lisää osoitteita. Se voi tehdä niitä vain jos automaattinen varmistus on käytössä.&lt;br&gt; Tästä seuraa että jos varmistus ei ole käytössä, myös PrivateSend on pois käytöstä. &lt;hr&gt;Katso lisätietoja &lt;a href="https://docs.bitcreds.org/en/latest/wallets/bitcreds/privatesend-instantsend.html"&gt;PrivateSend dokumentaatiosta&lt;/a&gt;.</translation>
+        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Alterdot in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 ADOT, 0.01 ADOT, 0.1 ADOT, 1 ADOT and 10 ADOT -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.alterdot.org/en/latest/wallets/alterdot/privatesend-instantsend.html"&gt;PrivateSend documentation&lt;/a&gt;.</source>
+        <translation>&lt;h3&gt;PrivateSend perusteet&lt;/h3&gt; PrivateSend tarjoaa yksityisyyden hämärtämällä varojesi alkuperäisen osoitteen. Kaikki Alterdot:it lompakossasi muodostuvat erillisistä "syötteistä", joita voit ajatella erillisinä kolikkoina.&lt;br&gt; PrivateSend käyttää innovatiivista prosessia sekoittaakseen lompakkosi syötteet kahden muun ihmisen syötteisiin, siirtämättä varoja pois lompakostasi. Varojesi kontrolli pysyy aina sinulla.&lt;hr&gt; &lt;b&gt; PrivateSend prosessi toimii seuraavasti:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend aloittaa pilkkomalla siirtotapahtumiesi syötteet pienemmiksi standardi arvoiksi. Nämä arvot ovat 0.001 ADOT, 0.01 ADOT, 0.1 ADOT, 1 ADOT ja 10 ADOT.&lt;/li&gt; &lt;li&gt;Sitten lompakkosi lähettää pyynnön verkon palvelimille, joita kutsutaan "masternode:iksi". Masternodet saavat tiedon että haluat sekoittaa pilkottuja standardi arvoja. Mitään tunnistetietoja ei lähetetä masternode:ille, ne eivät koskaan tiedä "kuka" olet.&lt;/li&gt; &lt;li&gt;Kun 2 muuta käyttäjää ilmoittaa että he haluavat myös sekoittaa varoja, alkaa sekoitus-sessio. Masternodet sekoittavat standardi arvot ja ilmoittavat kaikille 3:lle käyttäjän lompakoille että maksavat sekoitetut arvot takaisin itselleen. Lompakkosi maksaa nuo sekoitetut arvot suoraan itselleen, mutta eri osoitteeseen (vaihto-osoite).&lt;/li&gt; &lt;li&gt;Jotta varojesi alkuperäinen lähde hämärretään, lompakkosi suorittaa tämän prosessin useita kertoja kaikilla standardi arvoilla. Aina kun prosessi on valmis, sitä kutsutaan "kierrokseksi". Jokainen PrivateSend kierros tekee eksponentiaalisesti vaikeammaksi löytää varojesi alkuperäisen osoitteen.&lt;/li&gt; &lt;li&gt;Tämä sekoitusprosessi tapahtuu taustalla ilman käyttäjän toimenpiteitä. Kun haluat myöhemmin tehdä anonyymin varojen siirron, on varasi valmiiksi sekoitettu eli anonymisoitu. Erillistä sekoitusta/odotusta ei tarvita.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;TÄRKEÄÄ:&lt;/b&gt; Lompakkosi sisältää vain 1000 "vaihto-osoitetta". Aina kun sekoitustapahtuma tehdään, max 9 osoitetta käytetään. Tämä tarkoittaa sitä että nuo 1000 osoitetta kestää noin 100 sekoitustapahtumaa. Kun 900 osoitetta on käytetty, lompakkosi täytyy tehdä lisää osoitteita. Se voi tehdä niitä vain jos automaattinen varmistus on käytössä.&lt;br&gt; Tästä seuraa että jos varmistus ei ole käytössä, myös PrivateSend on pois käytöstä. &lt;hr&gt;Katso lisätietoja &lt;a href="https://docs.alterdot.org/en/latest/wallets/alterdot/privatesend-instantsend.html"&gt;PrivateSend dokumentaatiosta&lt;/a&gt;.</translation>
     </message>
 </context>
 <context>
@@ -990,7 +990,7 @@
         <translation>Tämä on ensimmäinen kerta, kun %1 on käynnistetty, joten voit valita datahakemiston paikan.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the Bitcreds block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <source>%1 will download and store a copy of the Alterdot block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
         <translation>%1 lataa ja tallentaa kopion lohkoketjusta. Vähintään %2GB dataa tallennetaan tähän hakemistoon, ja se myös kasvaa ajan myötä. Myös lompakko tallennetaan tähän hakemistoon.</translation>
     </message>
     <message>
@@ -1256,12 +1256,12 @@
         <translation>Lomake</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the Bitcreds network, as detailed below.</source>
-        <translation>Viimeisimmät siirtotapahtumat eivät välttämättä ole vielä näkyvissä, ja siksi lompakon saldo voi olla väärin. Saldo korjaantuu oikeaksi kun lompakon synkronointi Bitcreds verkkoon on valmis.</translation>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the Alterdot network, as detailed below.</source>
+        <translation>Viimeisimmät siirtotapahtumat eivät välttämättä ole vielä näkyvissä, ja siksi lompakon saldo voi olla väärin. Saldo korjaantuu oikeaksi kun lompakon synkronointi Alterdot verkkoon on valmis.</translation>
     </message>
     <message>
-        <source>Attempting to spend Bitcreds that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
-        <translation>Yritys käyttää Bitcreds:eja joihin vaikuttaa ei näkyvissä olevat siirtotapahtumat, tulevat hylätyksi Bitcreds verkossa.</translation>
+        <source>Attempting to spend Alterdot that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
+        <translation>Yritys käyttää Alterdot:eja joihin vaikuttaa ei näkyvissä olevat siirtotapahtumat, tulevat hylätyksi Alterdot verkossa.</translation>
     </message>
     <message>
         <source>Number of blocks left</source>
@@ -1350,8 +1350,8 @@
         <translation>(0 = auto, &lt;0 = jätä näin monta prosessorin ydintä vapaaksi)</translation>
     </message>
     <message>
-        <source>Amount of Bitcreds to keep anonymized</source>
-        <translation>Bitcreds määrä joka pidetään anonymisoituna</translation>
+        <source>Amount of Alterdot to keep anonymized</source>
+        <translation>Alterdot määrä joka pidetään anonymisoituna</translation>
     </message>
     <message>
         <source>W&amp;allet</source>
@@ -1402,8 +1402,8 @@
         <translation>Tämä määrä toimii rajana sekoituksen keskeytykselle kun PrivateSend sen saavuttaa.</translation>
     </message>
     <message>
-        <source>Automatically open the Bitcreds client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Avaa automaattisesti Bitcreds asiakasohjelmalle portti reitittimeen. Tämä toimii vain jos reitittimesi tukee UPnP:tä ja se on käytössä.</translation>
+        <source>Automatically open the Alterdot client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Avaa automaattisesti Alterdot asiakasohjelmalle portti reitittimeen. Tämä toimii vain jos reitittimesi tukee UPnP:tä ja se on käytössä.</translation>
     </message>
     <message>
         <source>Accept connections from outside</source>
@@ -1414,8 +1414,8 @@
         <translation>Salli sisään tulevat yhteydet</translation>
     </message>
     <message>
-        <source>Connect to the Bitcreds network through a SOCKS5 proxy.</source>
-        <translation>Kytkeydy Bitcreds verkkoon käyttäen SOCKS5 proxy:a.</translation>
+        <source>Connect to the Alterdot network through a SOCKS5 proxy.</source>
+        <translation>Kytkeydy Alterdot verkkoon käyttäen SOCKS5 proxy:a.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1510,8 +1510,8 @@
         <translation>Tor</translation>
     </message>
     <message>
-        <source>Connect to the Bitcreds network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Kytkeydy Bitcreds verkkoon käyttäen erillistä SOCKS5 proxy:a Tor piilopalveluihin.</translation>
+        <source>Connect to the Alterdot network through a separate SOCKS5 proxy for Tor hidden services.</source>
+        <translation>Kytkeydy Alterdot verkkoon käyttäen erillistä SOCKS5 proxy:a Tor piilopalveluihin.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services:</source>
@@ -1635,8 +1635,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Lomake</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcreds network after a connection is established, but this process has not completed yet.</source>
-        <translation>Näytetyt tiedot eivät välttämättä ole ajan tasalla.&lt;br&gt;Lompakkosi synkronoituu automaattisesti Bitcreds verkkoon kun&lt;br&gt;yhteys on muodostettu, mutta tämä prosessi ei vielä ole valmis.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Alterdot network after a connection is established, but this process has not completed yet.</source>
+        <translation>Näytetyt tiedot eivät välttämättä ole ajan tasalla.&lt;br&gt;Lompakkosi synkronoituu automaattisesti Alterdot verkkoon kun&lt;br&gt;yhteys on muodostettu, mutta tämä prosessi ei vielä ole valmis.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1735,8 +1735,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Määrä ja Kierrokset:</translation>
     </message>
     <message>
-        <source>0 BCRS / 0 Rounds</source>
-        <translation>0 BCRS / 0 Kierrosta</translation>
+        <source>0 ADOT / 0 Rounds</source>
+        <translation>0 ADOT / 0 Kierrosta</translation>
     </message>
     <message>
         <source>Submitted Denom:</source>
@@ -1900,8 +1900,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Maksupyyntövirhe</translation>
     </message>
     <message>
-        <source>Cannot start bitcreds: click-to-pay handler</source>
-        <translation>Ei voi käynnistää Bitcredsia: click-to-pay handler</translation>
+        <source>Cannot start alterdot: click-to-pay handler</source>
+        <translation>Ei voi käynnistää Alterdotia: click-to-pay handler</translation>
     </message>
     <message>
         <source>URI handling</source>
@@ -1916,8 +1916,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Virheellinen maksuosoite %1</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid Bitcreds address or malformed URI parameters.</source>
-        <translation>URI:a ei voida jäsentää! Tämä voi johtua virheellisestä Bitcreds osoitteesta tai virheellisestä URI:n muuttujasta. </translation>
+        <source>URI cannot be parsed! This can be caused by an invalid Alterdot address or malformed URI parameters.</source>
+        <translation>URI:a ei voida jäsentää! Tämä voi johtua virheellisestä Alterdot osoitteesta tai virheellisestä URI:n muuttujasta. </translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -2006,8 +2006,8 @@ https://www.transifex.com/projects/p/dash/</translation>
 <context>
     <name>QObject</name>
     <message>
-        <source>Bitcreds</source>
-        <translation>Bitcreds</translation>
+        <source>Alterdot</source>
+        <translation>Alterdot</translation>
     </message>
     <message>
         <source>%1 didn't yet exit safely...</source>
@@ -2022,8 +2022,8 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>Määrä</translation>
     </message>
     <message>
-        <source>Enter a Bitcreds address (e.g. %1)</source>
-        <translation>Syötä Bitcreds osoite (esim. %1)</translation>
+        <source>Enter a Alterdot address (e.g. %1)</source>
+        <translation>Syötä Alterdot osoite (esim. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -2544,8 +2544,8 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
         <translation>&amp;Uudelleen käytä vastaanottavaa osoitetta (ei suositella)</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcreds network.</source>
-        <translation>Valinnainen viesti liitettäväksi maksupyyntöön, joka näytetään kun pyyntö on avattu.&lt;br&gt;Huomio: Viestiä ei lähetetä maksun mukana Bitcreds verkkoon.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Alterdot network.</source>
+        <translation>Valinnainen viesti liitettäväksi maksupyyntöön, joka näytetään kun pyyntö on avattu.&lt;br&gt;Huomio: Viestiä ei lähetetä maksun mukana Alterdot verkkoon.</translation>
     </message>
     <message>
         <source>&amp;Message:</source>
@@ -2556,8 +2556,8 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
         <translation>Valinnainen nimi liitetään uuteen vastaanottavaan osoitteeseen.</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Bitcreds network.</source>
-        <translation>Valinnainen viesti liitettäväksi maksupyyntöön, joka näytetään kun pyyntö on avattu.&lt;br&gt;Huomio: Viestiä ei lähetetä maksun mukana Bitcreds verkkoon.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Alterdot network.</source>
+        <translation>Valinnainen viesti liitettäväksi maksupyyntöön, joka näytetään kun pyyntö on avattu.&lt;br&gt;Huomio: Viestiä ei lähetetä maksun mukana Alterdot verkkoon.</translation>
     </message>
     <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
@@ -2825,7 +2825,7 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
         <translation>Jos mukautettu siirtomaksu on asetettu 1000 duff ja siirtotapahtuma on vain 250 tavua,&lt;br /&gt;tällöin "per kilotavu" maksaa vain 250 duffs siirtomaksun, kun taas "yhteensä vähintään" maksaa 1000 duffs.&lt;br /&gt;Siirtotapahtumat jotka ovat isompia kuin kilotavu, molemmat maksaa "per kilotavu".</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for bitcreds transactions than the network can process.</source>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for alterdot transactions than the network can process.</source>
         <translation>Minimi siirtomaksun maksaminen on ok niin kauan kun siirtotapahtumien määrä on pienempi kuin tila lohkoissa.&lt;br /&gt;Mutta ota huomioon että tämä voi johtaa siirtotapahtumaan jota ei vahvisteta koskaan, jos siirtotapahtumia on enemmän kuin verkko voi käsitellä.</translation>
     </message>
     <message>
@@ -3013,8 +3013,8 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
         <translation><numerusform>Arvioitu vahvistuksen aloitus %n lohkon kuluessa.</numerusform><numerusform>Arvioitu vahvistuksen aloitus %n lohkon kuluessa.</numerusform></translation>
     </message>
     <message>
-        <source>Warning: Invalid Bitcreds address</source>
-        <translation>Varoitus: Virheellinen Bitcreds osoite</translation>
+        <source>Warning: Invalid Alterdot address</source>
+        <translation>Varoitus: Virheellinen Alterdot osoite</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -3044,8 +3044,8 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
         <translation>Maksun &amp;saaja:</translation>
     </message>
     <message>
-        <source>The Bitcreds address to send the payment to</source>
-        <translation>Bitcreds osoite johon maksu lähetetään</translation>
+        <source>The Alterdot address to send the payment to</source>
+        <translation>Alterdot osoite johon maksu lähetetään</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3080,7 +3080,7 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
         <translation>&amp;Määrä:</translation>
     </message>
     <message>
-        <source>The fee will be deducted from the amount being sent. The recipient will receive a lower amount of Bitcreds than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
+        <source>The fee will be deducted from the amount being sent. The recipient will receive a lower amount of Alterdot than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>Siirtomaksu vähennetään lähetettävästä summasta. Vastaanottaja saa pienemmän summan kuin mitä laitoit määrä kenttään. Jos useampia vastaanottajia on valittu, siirtomaksu jaetaan tasan.</translation>
     </message>
     <message>
@@ -3092,8 +3092,8 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
         <translation>Viesti:</translation>
     </message>
     <message>
-        <source>A message that was attached to the bitcreds: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcreds network.</source>
-        <translation>Viesti joka liitettiin Bitcreds: URI joka talletetaan siirtotapahtuman kanssa viitteeksi sinulle. Huomio: Tätä viestiä ei lähetetä Bitcreds verkkoon.</translation>
+        <source>A message that was attached to the alterdot: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Alterdot network.</source>
+        <translation>Viesti joka liitettiin Alterdot: URI joka talletetaan siirtotapahtuman kanssa viitteeksi sinulle. Huomio: Tätä viestiä ei lähetetä Alterdot verkkoon.</translation>
     </message>
     <message>
         <source>This is an unauthenticated payment request.</source>
@@ -3145,12 +3145,12 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
         <translation>&amp;Allekirjoita viesti</translation>
     </message>
     <message>
-        <source>You can sign messages/agreements with your addresses to prove you can receive Bitcreds sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
+        <source>You can sign messages/agreements with your addresses to prove you can receive Alterdot sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
         <translation>Voit allekirjoittaa viestit/sopimukset omilla osoitteillasi todistaaksesi että omistat ne. Ole huolellinen että et allekirjoita mitään epämääräistä, satunnaista, phishing hyökkääjä voi huijata sinua allekirjoittamaan henkilöllisyytesi omasta puolestaan. Allekirjoita vain yksityiskohtaisesti täytetty selvitys johon sitoudut.</translation>
     </message>
     <message>
-        <source>The Bitcreds address to sign the message with</source>
-        <translation>Bitcreds osoite jolla viesti allekirjoitetaan</translation>
+        <source>The Alterdot address to sign the message with</source>
+        <translation>Alterdot osoite jolla viesti allekirjoitetaan</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3181,8 +3181,8 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
         <translation>Kopioi tämän hetkinen allekirjoitus leikepöydälle</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this Bitcreds address</source>
-        <translation>Allekirjoita viesti todistaaksesi että omistat tämän Bitcreds osoitteen</translation>
+        <source>Sign the message to prove you own this Alterdot address</source>
+        <translation>Allekirjoita viesti todistaaksesi että omistat tämän Alterdot osoitteen</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -3205,12 +3205,12 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
         <translation>Syötä allekirjoittava osoite, viesti (varmista että kopioit rivinvaihdot, välilyönnit, tabulaattorit, jne täsmälleen oikein) ja allekirjoitus alla oleviin kenttiin varmistaaksesi allekirjoituksen aitouden. Varo lukemasta enempää allekirjoitukseen kuin kuin mitä itse viestissä on, välttääksesi man-in-the-middle hyökkäyksen. Huom. tämä todistaa vain että allekirjoittava osapuoli vastaanottaa osoitteella, se ei voi todistaa lähettäjää.</translation>
     </message>
     <message>
-        <source>The Bitcreds address the message was signed with</source>
-        <translation>Bitcreds osoite jolla viesti on allekirjoitettu</translation>
+        <source>The Alterdot address the message was signed with</source>
+        <translation>Alterdot osoite jolla viesti on allekirjoitettu</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified Bitcreds address</source>
-        <translation>Tarkista että viesti on allekirjoitettu määritetyllä Bitcreds osoitteella</translation>
+        <source>Verify the message to ensure it was signed with the specified Alterdot address</source>
+        <translation>Tarkista että viesti on allekirjoitettu määritetyllä Alterdot osoitteella</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -3837,11 +3837,11 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
     <name>WalletModel</name>
     <message>
         <source>Send Coins</source>
-        <translation>Lähetä Bitcredseja</translation>
+        <translation>Lähetä Alterdoteja</translation>
     </message>
     <message>
-        <source>InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 BCRS.</source>
-        <translation>InstantSend ei tue näin korkeaa lähetysmäärää vielä. Siirtotapahtumat on tällä hetkellä rajoitettu %1 BCRS.</translation>
+        <source>InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 ADOT.</source>
+        <translation>InstantSend ei tue näin korkeaa lähetysmäärää vielä. Siirtotapahtumat on tällä hetkellä rajoitettu %1 ADOT.</translation>
     </message>
     <message>
         <source>Used way too many inputs (&gt;%1) for this InstantSend transaction, fees could be huge.</source>
@@ -3888,7 +3888,7 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
     </message>
 </context>
 <context>
-    <name>bitcreds</name>
+    <name>alterdot</name>
     <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
         <translation>Kytkeydy annettuun osoitteeseen ja pidä linja aina auki. Käytä [host]:port merkintätapaa IPv6:lle.</translation>
@@ -3927,7 +3927,7 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
-        <translation>Varoitus: Bitcreds verkossa on ristiriitoja! Louhijat näyttävät kokevan virhetilanteita.</translation>
+        <translation>Varoitus: Alterdot verkossa on ristiriitoja! Louhijat näyttävät kokevan virhetilanteita.</translation>
     </message>
     <message>
         <source>Warning: We do not appear to fully agree with our peers! You may need to upgrade, or other nodes may need to upgrade.</source>
@@ -4538,8 +4538,8 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
         <translation>Pidä enintään &lt;n&gt; ei yhdistettyä siirtotapahtumaa muistissa (oletus: %u)</translation>
     </message>
     <message>
-        <source>Disable all Bitcreds specific functionality (Masternodes, PrivateSend, InstantSend, Governance) (0-1, default: %u)</source>
-        <translation>Kytke pois käytöstä kaikki Bitcreds:in erityistoiminnot (Masternodet, PrivateSend, InstantSend, Hallinto) (0-1, oletus: %u)</translation>
+        <source>Disable all Alterdot specific functionality (Masternodes, PrivateSend, InstantSend, Governance) (0-1, default: %u)</source>
+        <translation>Kytke pois käytöstä kaikki Alterdot:in erityistoiminnot (Masternodet, PrivateSend, InstantSend, Hallinto) (0-1, oletus: %u)</translation>
     </message>
     <message>
         <source>%s file contains all private keys from this wallet. Do not share it with anyone!</source>
@@ -4590,8 +4590,8 @@ Näillä toiminnoilla voit korjata korruptoituneen lohkoketjun tai puuttuvat/van
         <translation>Jos &lt;category&gt; ei ole toimitettu, tai &lt;category&gt; = 1, tulosta kaikki debug tiedot.</translation>
     </message>
     <message>
-        <source>InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 BCRS.</source>
-        <translation>InstantSend ei tue näin korkeaa lähetysmäärää vielä. Siirtotapahtumat on tällä hetkellä rajoitettu %1 BCRS.</translation>
+        <source>InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 ADOT.</source>
+        <translation>InstantSend ei tue näin korkeaa lähetysmäärää vielä. Siirtotapahtumat on tällä hetkellä rajoitettu %1 ADOT.</translation>
     </message>
     <message>
         <source>InstantSend requires inputs with at least %d confirmations, you might need to wait a few minutes and try again.</source>
@@ -4691,8 +4691,8 @@ Vähennä uakommenttien määrää tai kokoa.</translation>
         <translation>Varoitus: Tuntemattomia lohkoversioita louhitaan! On mahdollista että tuntemattomia sääntöjä on käytössä</translation>
     </message>
     <message>
-        <source>You are starting in lite mode, all Bitcreds-specific functionality is disabled.</source>
-        <translation>Olet käynnistämässä lite tilassa, kaikki Bitcreds-toiminnot ovat pois käytöstä.</translation>
+        <source>You are starting in lite mode, all Alterdot-specific functionality is disabled.</source>
+        <translation>Olet käynnistämässä lite tilassa, kaikki Alterdot-toiminnot ovat pois käytöstä.</translation>
     </message>
     <message>
         <source>You need to rebuild the database using -reindex to go back to unpruned mode.  This will redownload the entire blockchain</source>
@@ -5051,8 +5051,8 @@ Vähennä uakommenttien määrää tai kokoa.</translation>
         <translation>RPC palvelimen valinnat:</translation>
     </message>
     <message>
-        <source>Bitcreds</source>
-        <translation>Bitcreds</translation>
+        <source>Alterdot</source>
+        <translation>Alterdot</translation>
     </message>
     <message>
         <source>The %s developers</source>
@@ -5255,8 +5255,8 @@ Vähennä uakommenttien määrää tai kokoa.</translation>
         <translation>Virheellinen spork osoite määritelty -sporkaddr</translation>
     </message>
     <message>
-        <source>Keep N BCRS anonymized (%u-%u, default: %u)</source>
-        <translation>Pidä N BCRS anonymisoituna (%u-%u, oletus: %u)</translation>
+        <source>Keep N ADOT anonymized (%u-%u, default: %u)</source>
+        <translation>Pidä N ADOT anonymisoituna (%u-%u, oletus: %u)</translation>
     </message>
     <message>
         <source>Print this help message and exit</source>
