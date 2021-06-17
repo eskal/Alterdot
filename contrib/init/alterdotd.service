@@ -1,0 +1,22 @@
+[Unit]
+Description=Alterdot's distributed currency daemon
+After=network.target
+
+[Service]
+User=alterdot
+Group=alterdot
+
+Type=forking
+PIDFile=/var/lib/alterdotd/alterdotd.pid
+ExecStart=/usr/bin/alterdotd -daemon -pid=/var/lib/alterdotd/alterdotd.pid \
+-conf=/etc/alterdot/alterdot.conf -datadir=/var/lib/alterdotd -disablewallet
+
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

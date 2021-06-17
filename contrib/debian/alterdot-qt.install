@@ -1,0 +1,6 @@
+usr/local/bin/alterdot-qt usr/bin
+share/pixmaps/alterdot32.xpm usr/share/pixmaps
+share/pixmaps/alterdot16.xpm usr/share/pixmaps
+share/pixmaps/alterdot128.png usr/share/pixmaps
+debian/alterdot-qt.desktop usr/share/applications
+debian/alterdot-qt.protocol usr/share/kde4/services/

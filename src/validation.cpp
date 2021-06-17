@@ -37,6 +37,7 @@
 #include "validationinterface.h"
 #include "versionbits.h"
 #include "warnings.h"
+#include "base58.h"
 
 #include "instantx.h"
 #include "masternodeman.h"
@@ -47,8 +48,11 @@
 #include "evo/deterministicmns.h"
 #include "evo/cbtx.h"
 
+#include "bdnsdb.h"
+
 #include <atomic>
 #include <sstream>
+#include <chrono>
 
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/algorithm/string/join.hpp>
@@ -226,6 +230,7 @@ CBlockIndex* FindForkInGlobalIndex(const CChain& chain, const CBlockLocator& loc
 CCoinsViewDB *pcoinsdbview = NULL;
 CCoinsViewCache *pcoinsTip = NULL;
 CBlockTreeDB *pblocktree = NULL;
+CBDNSDB *pbdnsdb = NULL;
 
 enum FlushStateMode {
     FLUSH_STATE_NONE,
@@ -574,8 +579,7 @@ bool CheckTransaction(const CTransaction& tx, CValidationState &state)
 bool ContextualCheckTransaction(const CTransaction& tx, CValidationState &state, const Consensus::Params& consensusParams, const CBlockIndex* pindexPrev)
 {
     int nHeight = pindexPrev == NULL ? 0 : pindexPrev->nHeight + 1;
-    bool fDIP0001Active_context = nHeight >= consensusParams.DIP0001Height;
-    bool fDIP0003Active_context = VersionBitsState(pindexPrev, consensusParams, Consensus::DEPLOYMENT_DIP0003, versionbitscache) == THRESHOLD_ACTIVE;
+    bool fDIP0003Active_context = nHeight > Params().GetConsensus().nDetMNRegHeight;
 
     if (fDIP0003Active_context) {
         // check version 3 transaction types
@@ -597,7 +601,7 @@ bool ContextualCheckTransaction(const CTransaction& tx, CValidationState &state,
     }
 
     // Size limits
-    if (fDIP0001Active_context && ::GetSerializeSize(tx, SER_NETWORK, PROTOCOL_VERSION) > MAX_STANDARD_TX_SIZE)
+    if (::GetSerializeSize(tx, SER_NETWORK, PROTOCOL_VERSION) > MAX_STANDARD_TX_SIZE)
         return state.DoS(100, false, REJECT_INVALID, "bad-txns-oversize");
 
     return true;
@@ -712,7 +716,7 @@ bool AcceptToMemoryPoolWorker(CTxMemPool& pool, CValidationState& state, const C
                                         hash.ToString(), ptxConflicting->GetHash().ToString()),
                                 REJECT_INVALID, "txlockreq-tx-mempool-conflict");
             }
-            // Transaction conflicts with mempool and RBF doesn't exist in Dash
+            // Transaction conflicts with mempool and RBF doesn't exist in Alterdot
             return state.Invalid(false, REJECT_CONFLICT, "txn-mempool-conflict");
         }
     }
@@ -1024,7 +1028,10 @@ bool GetTransaction(const uint256 &hash, CTransactionRef &txOut, const Consensus
             } catch (const std::exception& e) {
                 return error("%s: Deserialize or I/O error - %s", __func__, e.what());
             }
-            hashBlock = header.GetHash();
+
+            if (hashBlock != hash) // TODO_ADOT_LOW maybe use a different approach
+                hashBlock = header.GetHash();
+
             if (txOut->GetHash() != hash)
                 return error("%s: txid mismatch", __func__);
             return true;
@@ -1045,7 +1052,8 @@ bool GetTransaction(const uint256 &hash, CTransactionRef &txOut, const Consensus
             for (const auto& tx : block.vtx) {
                 if (tx->GetHash() == hash) {
                     txOut = tx;
-                    hashBlock = pindexSlow->GetBlockHash();
+                    if (hashBlock != hash) // TODO_ADOT_LOW maybe use a different approach
+                        hashBlock = pindexSlow->GetBlockHash();
                     return true;
                 }
             }
@@ -1086,7 +1094,7 @@ bool WriteBlockToDisk(const CBlock& block, CDiskBlockPos& pos, const CMessageHea
     return true;
 }
 
-bool ReadBlockFromDisk(CBlock& block, const CDiskBlockPos& pos, const Consensus::Params& consensusParams)
+bool ReadBlockFromDisk(CBlock& block, const CDiskBlockPos& pos, const Consensus::Params& consensusParams, bool checkHeader)
 {
     block.SetNull();
 
@@ -1104,7 +1112,7 @@ bool ReadBlockFromDisk(CBlock& block, const CDiskBlockPos& pos, const Consensus:
     }
 
     // Check the header
-    if (!CheckProofOfWork(block.GetHash(), block.nBits, consensusParams))
+    if (checkHeader && !CheckProofOfWork(block.GetHash(), block.nBits, consensusParams))
         return error("ReadBlockFromDisk: Errors in block header at %s", pos.ToString());
 
     return true;
@@ -1140,81 +1148,116 @@ double ConvertBitsToDouble(unsigned int nBits)
     return dDiff;
 }
 
-/*
-NOTE:   unlike bitcoin we are using PREVIOUS block height here,
-        might be a good idea to change this to use prev bits
-        but current height to avoid confusion.
-*/
-CAmount GetBlockSubsidy(int nPrevBits, int nPrevHeight, const Consensus::Params& consensusParams, bool fSuperblockPartOnly)
-{
-    double dDiff;
-    CAmount nSubsidyBase;
+CAmount GetPoWBlockPayment(const int& nHeight, CAmount nFees) {
+    CAmount nIntPoWReward = 0 * COIN;
+    Consensus::Params consensusParams = Params().GetConsensus();
 
-    if (nPrevHeight <= 4500 && Params().NetworkIDString() == CBaseChainParams::MAIN) {
-        /* a bug which caused diff to not be correctly calculated */
-        dDiff = (double)0x0000ffff / (double)(nPrevBits & 0x00ffffff);
-    } else {
-        dDiff = ConvertBitsToDouble(nPrevBits);
+    if (nHeight == 1) {
+        nIntPoWReward = 475000 * COIN;
+        LogPrint("premine creation", "GetPoWBlockPayment() : create=%s Premine=%d\n", FormatMoney(nIntPoWReward), nIntPoWReward);
+        return nIntPoWReward;
     }
+    else if (nHeight > 1 && nHeight <= consensusParams.nHardForkTwo)
+        nIntPoWReward = 10 * COIN;
+    else if (nHeight > consensusParams.nHardForkTwo && nHeight < consensusParams.nHardForkSix) {
+        int nIntPhase = (nHeight - consensusParams.nHardForkTwo) / consensusParams.nIntPhaseTotalBlocks;
 
-    if (nPrevHeight < 5465) {
-        // Early ages...
-        // 1111/((x+1)^2)
-        nSubsidyBase = (1111.0 / (pow((dDiff+1.0),2.0)));
-        if(nSubsidyBase > 500) nSubsidyBase = 500;
-        else if(nSubsidyBase < 1) nSubsidyBase = 1;
-    } else if (nPrevHeight < 17000 || (dDiff <= 75 && nPrevHeight < 24000)) {
-        // CPU mining era
-        // 11111/(((x+51)/6)^2)
-        nSubsidyBase = (11111.0 / (pow((dDiff+51.0)/6.0,2.0)));
-        if(nSubsidyBase > 500) nSubsidyBase = 500;
-        else if(nSubsidyBase < 25) nSubsidyBase = 25;
-    } else {
-        // GPU/ASIC mining era
-        // 2222222/(((x+2600)/9)^2)
-        nSubsidyBase = (2222222.0 / (pow((dDiff+2600.0)/9.0,2.0)));
-        if(nSubsidyBase > 25) nSubsidyBase = 25;
-        else if(nSubsidyBase < 5) nSubsidyBase = 5;
+        switch (nIntPhase) {
+            case 0: nIntPoWReward = 8 * COIN;
+                    break;
+            case 1: nIntPoWReward = 7 * COIN;
+                    break;
+            case 2: nIntPoWReward = 6 * COIN;
+                    break;
+            case 3: nIntPoWReward = 5 * COIN;
+                    break;
+            case 4: nIntPoWReward = 4 * COIN;
+        }
     }
+    else if (nHeight > consensusParams.nHardForkSix && nHeight < consensusParams.nHardForkSix + 2 * consensusParams.nBlocksPerYear) {
+        int nIntPhase = (nHeight - consensusParams.nHardForkSix) / (consensusParams.nBlocksPerYear / 2);
 
-    // LogPrintf("height %u diff %4.2f reward %d\n", nPrevHeight, dDiff, nSubsidyBase);
-    CAmount nSubsidy = nSubsidyBase * COIN;
-
-    // yearly decline of production by ~7.1% per year, projected ~18M coins max by year 2050+.
-    for (int i = consensusParams.nSubsidyHalvingInterval; i <= nPrevHeight; i += consensusParams.nSubsidyHalvingInterval) {
-        nSubsidy -= nSubsidy/14;
+        switch (nIntPhase) {
+            case 0: nIntPoWReward = 6 * COIN;
+                    break;
+            case 1: nIntPoWReward = 5 * COIN;
+                    break;
+            case 2: nIntPoWReward = 4 * COIN;
+                    break;
+            case 3: nIntPoWReward = 3 * COIN;
+        }
     }
+    else
+        nIntPoWReward = 2 * COIN;
 
-    // this is only active on devnets
-    if (nPrevHeight < consensusParams.nHighSubsidyBlocks) {
-        nSubsidy *= consensusParams.nHighSubsidyFactor;
-    }
-
-    // Hard fork to reduce the block reward by 10 extra percent (allowing budget/superblocks)
-    CAmount nSuperblockPart = (nPrevHeight > consensusParams.nBudgetPaymentsStartBlock) ? nSubsidy/10 : 0;
-
-    return fSuperblockPartOnly ? nSuperblockPart : nSubsidy - nSuperblockPart;
+    LogPrint("creation", "GetPoWBlockPayment(): create=%s PoW Reward=%d\n", FormatMoney(nIntPoWReward), nIntPoWReward);
+    return nIntPoWReward + nFees;
 }
 
-CAmount GetMasternodePayment(int nHeight, CAmount blockValue)
-{
-    CAmount ret = blockValue/5; // start at 20%
+CAmount GetMasternodePayment(const int& nHeight) {
+    CAmount nIntMNReward = 0 * COIN;
+    Consensus::Params consensusParams = Params().GetConsensus();
 
-    int nMNPIBlock = Params().GetConsensus().nMasternodePaymentsIncreaseBlock;
-    int nMNPIPeriod = Params().GetConsensus().nMasternodePaymentsIncreasePeriod;
+    if (nHeight > consensusParams.nMasternodePaymentsStartBlock && nHeight <= consensusParams.nHardForkTwo)
+        nIntMNReward = 1 * COIN;
+    else if (nHeight > consensusParams.nHardForkTwo && nHeight <= consensusParams.nHardForkSix) {
+        int nIntPhase = (nHeight - consensusParams.nHardForkTwo) / consensusParams.nIntPhaseTotalBlocks;
+        
+        switch(nIntPhase) {
+            case 0: nIntMNReward = 2 * COIN;
+                    break;
+            case 1: nIntMNReward = 3 * COIN;
+                    break;
+            case 2: nIntMNReward = 4 * COIN;
+                    break;
+            case 3: nIntMNReward = 5 * COIN;
+                    break;
+            case 4: nIntMNReward = 6 * COIN;
+        }
+    }
+    else if (nHeight > consensusParams.nHardForkSix && nHeight < consensusParams.nHardForkSix + 2 * consensusParams.nBlocksPerYear) {
+        int nIntPhase = (nHeight - consensusParams.nHardForkSix) / (consensusParams.nBlocksPerYear / 2);
 
-                                                                      // mainnet:
-    if(nHeight > nMNPIBlock)                  ret += blockValue / 20; // 158000 - 25.0% - 2014-10-24
-    if(nHeight > nMNPIBlock+(nMNPIPeriod* 1)) ret += blockValue / 20; // 175280 - 30.0% - 2014-11-25
-    if(nHeight > nMNPIBlock+(nMNPIPeriod* 2)) ret += blockValue / 20; // 192560 - 35.0% - 2014-12-26
-    if(nHeight > nMNPIBlock+(nMNPIPeriod* 3)) ret += blockValue / 40; // 209840 - 37.5% - 2015-01-26
-    if(nHeight > nMNPIBlock+(nMNPIPeriod* 4)) ret += blockValue / 40; // 227120 - 40.0% - 2015-02-27
-    if(nHeight > nMNPIBlock+(nMNPIPeriod* 5)) ret += blockValue / 40; // 244400 - 42.5% - 2015-03-30
-    if(nHeight > nMNPIBlock+(nMNPIPeriod* 6)) ret += blockValue / 40; // 261680 - 45.0% - 2015-05-01
-    if(nHeight > nMNPIBlock+(nMNPIPeriod* 7)) ret += blockValue / 40; // 278960 - 47.5% - 2015-06-01
-    if(nHeight > nMNPIBlock+(nMNPIPeriod* 9)) ret += blockValue / 40; // 313520 - 50.0% - 2015-08-03
+        switch (nIntPhase) {
+            case 0: nIntMNReward = 6 * COIN;
+                    break;
+            case 1: nIntMNReward = 5 * COIN;
+                    break;
+            case 2: nIntMNReward = 4 * COIN;
+                    break;
+            case 3: nIntMNReward = 3 * COIN;
+        }
+    }
+    else
+        nIntMNReward = 2 * COIN;
 
-    return ret;
+    if (nHeight >= consensusParams.nHardForkSeven && nHeight < consensusParams.nHardForkEight) // transition period, core functionalities only
+        nIntMNReward = 0 * COIN;
+
+    LogPrint("creation", "GetMasternodePayment(): create=%s MN Payment=%d\n", FormatMoney(nIntMNReward), nIntMNReward);
+    return nIntMNReward;
+}
+
+CAmount GetDevelopmentFundPayment(const int& nHeight) {
+    CAmount nIntDevFundReward = 0 * COIN;
+    Consensus::Params consensusParams = Params().GetConsensus();
+
+    // 0.5 ADOT reward to DevFund from 375,001 until block 1,000,000
+    if (nHeight > consensusParams.nHardForkTwo && nHeight <= consensusParams.nHardForkSix) {
+        // Temporal increase to 1 ADOT reward to DevFund from 550,001 until block 625,000
+        if (nHeight > consensusParams.nHardForkThree && nHeight <= consensusParams.nTempDevFundIncreaseEnd)
+            nIntDevFundReward = 1 * COIN;
+        else
+            nIntDevFundReward = 0.5 * COIN;
+    } 
+    else if (nHeight > consensusParams.nHardForkSix)
+        nIntDevFundReward = 2 * COIN;
+
+    if (nHeight >= consensusParams.nHardForkSeven && nHeight < consensusParams.nHardForkEight) // transition period, core functionalities only
+        nIntDevFundReward = 0 * COIN;
+
+    LogPrint("creation", "GetDevelopmentFundPayment(): create=%s Dev Fund Payment=%d\n", FormatMoney(nIntDevFundReward), nIntDevFundReward);
+    return nIntDevFundReward;
 }
 
 bool IsInitialBlockDownload()
@@ -1617,7 +1660,7 @@ static DisconnectResult DisconnectBlock(const CBlock& block, CValidationState& s
 {
     assert(pindex->GetBlockHash() == view.GetBestBlock());
 
-    bool fDIP0003Active = VersionBitsState(pindex->pprev, Params().GetConsensus(), Consensus::DEPLOYMENT_DIP0003, versionbitscache) == THRESHOLD_ACTIVE;
+    bool fDIP0003Active = chainActive.Height() > Params().GetConsensus().nDetMNRegHeight;
     bool fHasBestBlock = evoDb->VerifyBestBlock(pindex->GetBlockHash());
 
     if (fDIP0003Active && !fHasBestBlock) {
@@ -1778,8 +1821,7 @@ static DisconnectResult DisconnectBlock(const CBlock& block, CValidationState& s
 
     // make sure the flag is reset in case of a chain reorg
     // (we reused the DIP3 deployment)
-    instantsend.isAutoLockBip9Active =
-            (VersionBitsState(pindex->pprev, Params().GetConsensus(), Consensus::DEPLOYMENT_DIP0003, versionbitscache) == THRESHOLD_ACTIVE);
+    instantsend.isAutoLockBip9Active = chainActive.Height() > Params().GetConsensus().nDetMNRegHeight;
 
     evoDb->WriteBestBlock(pindex->pprev->GetBlockHash());
 
@@ -1814,7 +1856,7 @@ bool FindUndoPos(CValidationState &state, int nFile, CDiskBlockPos &pos, unsigne
 static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
 
 void ThreadScriptCheck() {
-    RenameThread("dash-scriptch");
+    RenameThread("alterdot-scriptch");
     scriptcheckqueue.Thread();
 }
 
@@ -1915,6 +1957,29 @@ static int64_t nTimeIndex = 0;
 static int64_t nTimeCallbacks = 0;
 static int64_t nTimeTotal = 0;
 
+bool IsFundRewardValid(const CTransaction& txNew, CAmount fundReward, const int& nHeight) {
+    std::string strDevAddress;
+    
+    //Use a new Dev Fund address after HardForkEight due to wallet transaction cluttering
+    if (nHeight >= Params().GetConsensus().nHardForkEight)
+        strDevAddress = "CKNvCGE3g3v1299oNraXnEUDBe3zwMj8E9";
+    //Use the new Dev Fund address after HardForkThree (block 550,001)
+    else if (nHeight > Params().GetConsensus().nHardForkThree && nHeight < Params().GetConsensus().nHardForkSeven)
+        strDevAddress = "CPhPudPYNC8uXZPCHovyTyY98Q6fJzjJLm";
+    //Use the old Dev Fund address starting from HardForkTwo until HardForkThree
+    else if (nHeight > Params().GetConsensus().nHardForkTwo && nHeight <= Params().GetConsensus().nHardForkThree)
+        strDevAddress = "53NTdWeAxEfVjXufpBqU2YKopyZYmN9P1V";
+    else if (txNew.vout.size() <= 2) // before HardForkTwo there should be at most 2 outgoing transanctions, PoW and MN rewards
+        return true;
+
+    CScript devScriptPubKey = GetScriptForDestination(CBitcoinAddress(strDevAddress.c_str()).Get());
+
+    if ((txNew.vout[2].scriptPubKey == devScriptPubKey && txNew.vout[2].nValue == fundReward) || (txNew.vout[1].scriptPubKey == devScriptPubKey && txNew.vout[1].nValue == fundReward))
+        return true;
+
+    return false;
+}
+
 /** Apply the effects of this block (with given index) on the UTXO set represented by coins.
  *  Validity checks that depend on the UTXO set are also done; ConnectBlock()
  *  can fail if those validity checks fail (among other reasons). */
@@ -1934,7 +1999,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     assert(hashPrevBlock == view.GetBestBlock());
 
     if (pindex->pprev) {
-        bool fDIP0003Active = VersionBitsState(pindex->pprev, Params().GetConsensus(), Consensus::DEPLOYMENT_DIP0003, versionbitscache) == THRESHOLD_ACTIVE;
+        bool fDIP0003Active = chainActive.Height() > Params().GetConsensus().nDetMNRegHeight;
         bool fHasBestBlock = evoDb->VerifyBestBlock(pindex->pprev->GetBlockHash());
 
         if (fDIP0003Active && !fHasBestBlock) {
@@ -1992,7 +2057,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     // Now that the whole chain is irreversibly beyond that time it is applied to all blocks except the
     // two in the chain that violate it. This prevents exploiting the issue against nodes during their
     // initial block download.
-    bool fEnforceBIP30 = (!pindex->phashBlock) || // Enforce on CreateNewBlock invocations which don't have a hash.
+    /*bool fEnforceBIP30 = (!pindex->phashBlock) || // Enforce on CreateNewBlock invocations which don't have a hash.
                           !((pindex->nHeight==91842 && pindex->GetBlockHash() == uint256S("0x00000000000a4d0a398161ffc163c503763b1f4360639393e0e4c8e300e0caec")) ||
                            (pindex->nHeight==91880 && pindex->GetBlockHash() == uint256S("0x00000000000743f190a18c5577a3c2d2a1f610ae9601ac046a38084ccb7cd721")));
 
@@ -2015,9 +2080,9 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
                 }
             }
         }
-    }
-
-    /// DASH: Check superblock start
+    }*/
+    /*
+    /// ADOT: Check superblock start
 
     // make sure old budget is the real one
     if (pindex->nHeight == chainparams.GetConsensus().nSuperblockStartBlock &&
@@ -2026,32 +2091,22 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
             return state.DoS(100, error("ConnectBlock(): invalid superblock start"),
                              REJECT_INVALID, "bad-sb-start");
 
-    /// END DASH
-
+    /// END ADOT
+    */
+   
     // BIP16 didn't become active until Apr 1 2012
     int64_t nBIP16SwitchTime = 1333238400;
     bool fStrictPayToScriptHash = (pindex->GetBlockTime() >= nBIP16SwitchTime);
+    
+    int nLockTimeFlags = 0;
 
     unsigned int flags = fStrictPayToScriptHash ? SCRIPT_VERIFY_P2SH : SCRIPT_VERIFY_NONE;
-
-    // Start enforcing the DERSIG (BIP66) rule
-    if (pindex->nHeight >= chainparams.GetConsensus().BIP66Height) {
         flags |= SCRIPT_VERIFY_DERSIG;
-    }
-
-    // Start enforcing CHECKLOCKTIMEVERIFY (BIP65) rule
-    if (pindex->nHeight >= chainparams.GetConsensus().BIP65Height) {
         flags |= SCRIPT_VERIFY_CHECKLOCKTIMEVERIFY;
-    }
-
-    // Start enforcing BIP68 (sequence locks) and BIP112 (CHECKSEQUENCEVERIFY) using versionbits logic.
-    int nLockTimeFlags = 0;
-    if (VersionBitsState(pindex->pprev, chainparams.GetConsensus(), Consensus::DEPLOYMENT_CSV, versionbitscache) == THRESHOLD_ACTIVE) {
         flags |= SCRIPT_VERIFY_CHECKSEQUENCEVERIFY;
         nLockTimeFlags |= LOCKTIME_VERIFY_SEQUENCE;
-    }
 
-    if (VersionBitsState(pindex->pprev, chainparams.GetConsensus(), Consensus::DEPLOYMENT_BIP147, versionbitscache) == THRESHOLD_ACTIVE) {
+    if (pindex->nHeight >= Params().GetConsensus().nHardForkEight) {
         flags |= SCRIPT_VERIFY_NULLDUMMY;
     }
 
@@ -2074,7 +2129,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     std::vector<std::pair<CAddressUnspentKey, CAddressUnspentValue> > addressUnspentIndex;
     std::vector<std::pair<CSpentIndexKey, CSpentIndexValue> > spentIndex;
 
-    bool fDIP0001Active_context = pindex->nHeight >= Params().GetConsensus().DIP0001Height;
+    bool fDIP0001Active_context = pindex->nHeight >= Params().GetConsensus().DIP0001Height; // TODO_ADOT_FUTURE keep DIP0001 for possible future changes similar to it
 
     for (unsigned int i = 0; i < block.vtx.size(); i++)
     {
@@ -2222,7 +2277,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
                      pindex->GetBlockHash().ToString(), FormatStateMessage(state));
     }
 
-    // DASH
+    // ADOT
 
     // It's possible that we simply don't have enough data and this could fail
     // (i.e. block itself could be a correct one and we need to store it),
@@ -2230,7 +2285,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     // the peer who sent us this block is missing some data and wasn't able
     // to recognize that block is actually invalid.
 
-    // DASH : CHECK TRANSACTIONS FOR INSTANTSEND
+    // ADOT : CHECK TRANSACTIONS FOR INSTANTSEND
 
     if (sporkManager.IsSporkActive(SPORK_3_INSTANTSEND_BLOCK_FILTERING)) {
         // Require other nodes to comply, send them some data in case they are missing it.
@@ -2245,33 +2300,48 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
                     // TODO: relay instantsend data/proof.
                     LOCK(cs_main);
                     mapRejectedBlocks.insert(std::make_pair(block.GetHash(), GetTime()));
-                    return state.DoS(10, error("ConnectBlock(DASH): transaction %s conflicts with transaction lock %s", tx->GetHash().ToString(), hashLocked.ToString()),
+                    return state.DoS(10, error("ConnectBlock(ADOT): transaction %s conflicts with transaction lock %s", tx->GetHash().ToString(), hashLocked.ToString()),
                                      REJECT_INVALID, "conflict-tx-lock");
                 }
             }
         }
     } else {
-        LogPrintf("ConnectBlock(DASH): spork is off, skipping transaction locking checks\n");
+        LogPrintf("ConnectBlock(ADOT): spork is off, skipping transaction locking checks\n");
     }
 
-    // DASH : MODIFIED TO CHECK MASTERNODE PAYMENTS AND SUPERBLOCKS
+    // ADOT : MODIFIED TO CHECK MASTERNODE PAYMENTS AND SUPERBLOCKS
 
     // TODO: resync data (both ways?) and try to reprocess this block later.
-    CAmount blockReward = nFees + GetBlockSubsidy(pindex->pprev->nBits, pindex->pprev->nHeight, chainparams.GetConsensus());
+    CAmount nExpectedBlockValue;
+
+    if (pindex->nHeight > Params().GetConsensus().nMasternodePaymentsStartBlock)
+        nExpectedBlockValue = GetPoWBlockPayment(pindex->nHeight, nFees) + GetMasternodePayment(pindex->nHeight);
+    else if (pindex->nHeight <= Params().GetConsensus().nMasternodePaymentsStartBlock)
+        nExpectedBlockValue = GetPoWBlockPayment(pindex->nHeight, nFees);
+
+    CAmount fundReward = GetDevelopmentFundPayment(pindex->nHeight);
+
+    if (!IsFundRewardValid(*block.vtx[0], fundReward, pindex->nHeight))
+        return state.DoS(0, error("ConnectBlock(ADOT): Didn't pay the Development Fund"), REJECT_INVALID, "bad-cb-amount");
+    
+    nExpectedBlockValue += fundReward;
+
     std::string strError = "";
-    if (!IsBlockValueValid(block, pindex->nHeight, blockReward, strError)) {
-        return state.DoS(0, error("ConnectBlock(DASH): %s", strError), REJECT_INVALID, "bad-cb-amount");
+
+    if(!IsBlockValueValid(block, pindex->nHeight, nExpectedBlockValue, strError)){
+        return state.DoS(0, error("ConnectBlock(ADOT): %s", strError), REJECT_INVALID, "bad-cb-amount");
     }
 
-    if (!IsBlockPayeeValid(*block.vtx[0], pindex->nHeight, blockReward)) {
+    if (!IsBlockPayeeValid(*block.vtx[0], pindex->nHeight, nExpectedBlockValue)) {
         mapRejectedBlocks.insert(std::make_pair(block.GetHash(), GetTime()));
-        return state.DoS(0, error("ConnectBlock(DASH): couldn't find masternode or superblock payments"),
+        return state.DoS(0, error("ConnectBlock(ADOT): couldn't find Masternode or Superblock payments"),
                                 REJECT_INVALID, "bad-cb-payee");
     }
+
     int64_t nTime5 = GetTimeMicros(); nTimePayeeAndSpecial += nTime5 - nTime4;
     LogPrint("bench", "    - Payee and special txes: %.2fms [%.2fs]\n", 0.001 * (nTime5 - nTime4), nTimePayeeAndSpecial * 0.000001);
 
-    // END DASH
+    // END ADOT
 
     if (fJustCheck)
         return true;
@@ -2320,6 +2390,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
     // add this block to the view's block chain
     view.SetBestBlock(pindex->GetBlockHash());
 
+    /*
     if (!fJustCheck) {
         // check if previous block had DIP3 disabled and the new block has it enabled
         if (VersionBitsState(pindex->pprev, chainparams.GetConsensus(), Consensus::DEPLOYMENT_DIP0003, versionbitscache) != THRESHOLD_ACTIVE &&
@@ -2327,6 +2398,7 @@ static bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockInd
             LogPrintf("%s -- DIP0003 got activated at height %d\n", __func__, pindex->nHeight);
         }
     }
+    */
 
     int64_t nTime6 = GetTimeMicros(); nTimeIndex += nTime6 - nTime5;
     LogPrint("bench", "    - Index writing: %.2fms [%.2fs]\n", 0.001 * (nTime6 - nTime5), nTimeIndex * 0.000001);
@@ -2525,6 +2597,12 @@ void static UpdateTip(CBlockIndex *pindexNew, const CChainParams& chainParams) {
       log(chainActive.Tip()->nChainWork.getdouble())/log(2.0), (unsigned long)chainActive.Tip()->nChainTx,
       DateTimeStrFormat("%Y-%m-%d %H:%M:%S", chainActive.Tip()->GetBlockTime()),
       GuessVerificationProgress(chainParams.TxData(), chainActive.Tip()), pcoinsTip->DynamicMemoryUsage() * (1.0 / (1<<20)), pcoinsTip->GetCacheSize());
+    
+    if (chainActive.Tip()->nHeight < (chainParams.GetConsensus().nHardForkEight - 1))
+        fLiteMode = true;
+    else
+        fLiteMode = false;
+    
     if (!warningMessages.empty())
         LogPrintf(" warning='%s'", boost::algorithm::join(warningMessages, ", "));
     LogPrintf("\n");
@@ -3288,7 +3366,7 @@ bool CheckBlock(const CBlock& block, CValidationState& state, const Consensus::P
     // because we receive the wrong transactions for it.
 
     // Size limits (relaxed)
-    if (block.vtx.empty() || block.vtx.size() > MaxBlockSize(true) || ::GetSerializeSize(block, SER_NETWORK, PROTOCOL_VERSION) > MaxBlockSize(true))
+    if (block.vtx.empty() || block.vtx.size() > MaxBlockSize(false) || ::GetSerializeSize(block, SER_NETWORK, PROTOCOL_VERSION) > MaxBlockSize(false))
         return state.DoS(100, false, REJECT_INVALID, "bad-blk-length", false, "size limits failed");
 
     // First transaction must be coinbase, the rest must not be
@@ -3358,14 +3436,14 @@ bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& sta
     // Check timestamp
     if (block.GetBlockTime() > nAdjustedTime + 2 * 60 * 60)
         return state.Invalid(false, REJECT_INVALID, "time-too-new", strprintf("block timestamp too far in the future %d %d", block.GetBlockTime(), nAdjustedTime + 2 * 60 * 60));
-
+    /*
     // check for version 2, 3 and 4 upgrades
     if((block.nVersion < 2 && nHeight >= consensusParams.BIP34Height) ||
        (block.nVersion < 3 && nHeight >= consensusParams.BIP66Height) ||
        (block.nVersion < 4 && nHeight >= consensusParams.BIP65Height))
             return state.Invalid(false, REJECT_OBSOLETE, strprintf("bad-version(0x%08x)", block.nVersion),
                                  strprintf("rejected nVersion=0x%08x block", block.nVersion));
-
+    */
     return true;
 }
 
@@ -3383,8 +3461,8 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, const Co
                               ? pindexPrev->GetMedianTimePast()
                               : block.GetBlockTime();
 
-    bool fDIP0001Active_context = nHeight >= Params().GetConsensus().DIP0001Height;
-    bool fDIP0003Active_context = VersionBitsState(pindexPrev, consensusParams, Consensus::DEPLOYMENT_DIP0003, versionbitscache) == THRESHOLD_ACTIVE;
+    bool fDIP0001Active_context = nHeight >= consensusParams.DIP0001Height;
+    bool fDIP0003Active_context = chainActive.Height() > Params().GetConsensus().nDetMNRegHeight;
 
     // Size limits
     unsigned int nMaxBlockSize = MaxBlockSize(fDIP0001Active_context);
@@ -3408,6 +3486,7 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, const Co
     if (nSigOps > MaxBlockSigOps(fDIP0001Active_context))
         return state.DoS(10, false, REJECT_INVALID, "bad-blk-sigops", false, "out-of-bounds SigOpCount");
 
+    /*
     // Enforce rule that the coinbase starts with serialized block height
     // After DIP3/DIP4 activation, we don't enforce the height in the input script anymore.
     // The CbTx special transaction payload will then contain the height, which is checked in CheckCbTx
@@ -3419,7 +3498,7 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, const Co
             return state.DoS(100, false, REJECT_INVALID, "bad-cb-height", false, "block height mismatch in coinbase");
         }
     }
-
+    */
     if (fDIP0003Active_context) {
         if (block.vtx[0]->nType != TRANSACTION_COINBASE) {
             return state.DoS(100, false, REJECT_INVALID, "bad-cb-type", false, "coinbase is not a CbTx");
@@ -3427,6 +3506,161 @@ bool ContextualCheckBlock(const CBlock& block, CValidationState& state, const Co
     }
 
     return true;
+}
+
+bool ExtractBdnsIpfsFromScript(const CScript& scriptPubKey, std::string& bdnsName, std::string& ipfsHash) {
+    std::string hexString = HexStr(scriptPubKey);
+
+    LogPrint("bdns", "in %s scriptPubKey in hexadecimal: %s\n", __func__, hexString);
+
+    std::string byte, decodedData;
+    char chr;
+
+    for(std::size_t i = 0; i < hexString.length(); i += 2) {
+        byte = hexString.substr(i, 2);
+        chr = (char)(int)strtol(byte.c_str(), NULL, 16);
+        decodedData.push_back(chr);
+    }
+
+    std::size_t posRegistration = decodedData.find("bdns/");
+
+    if (posRegistration == std::string::npos) {
+        LogPrint("bdns", "in %s the start of the BDNS-IPFS association was not found\n", __func__);
+        return false;
+    }
+
+    std::size_t posSeparator = decodedData.find("/ipfs/", posRegistration + 5);
+
+    if (posSeparator == std::string::npos) {
+        LogPrint("bdns", "in %s the separator inside the BDNS-IPFS association was not found\n", __func__);
+        return false;
+    }
+
+    bdnsName = decodedData.substr(posRegistration + 5, posSeparator - posRegistration - 5);
+    ipfsHash = decodedData.substr(posSeparator + 6);
+
+    LogPrint("bdns", "in %s bdnsName = %s and ipfsHash = %s\n", __func__, bdnsName, ipfsHash);
+    return true;
+}
+
+bool ExtractBdnsBanFromScript(const CScript& scriptPubKey, std::string& bdnsName) {
+    std::string hexString = HexStr(scriptPubKey);
+
+    LogPrint("bdns", "in %s scriptPubKey in hexadecimal: %s\n", __func__, hexString);
+
+    std::string byte, decodedData;
+    char chr;
+
+    for(std::size_t i = 0; i < hexString.length(); i += 2) { // TODO_ADOT_LOW extract code in separate method
+        byte = hexString.substr(i, 2);
+        chr = (char)(int)strtol(byte.c_str(), NULL, 16);
+        decodedData.push_back(chr);
+    }
+
+    std::size_t posRegistration = decodedData.find("bdns/ban/");
+
+    if (posRegistration == std::string::npos) {
+        LogPrint("bdns", "in %s the start of the BDNS-IPFS ban was not found\n", __func__);
+        return false;
+    }
+
+    bdnsName = decodedData.substr(posRegistration + 9);
+
+    LogPrint("bdns", "in %s banned bdnsName = %s \n", __func__, bdnsName);
+    return true;
+}
+
+void ProcessPossibleBdnsIpfsRegistration(const CScript& scriptPubKey, const int& nHeight, const int& nTxIndex) {
+    std::string bdnsName, ipfsHash;
+
+    if (!ExtractBdnsIpfsFromScript(scriptPubKey, bdnsName, ipfsHash))
+        return;
+
+    if (pbdnsdb->Exists(bdnsName)) // checks if the domain already exists
+        return;
+
+    pbdnsdb->WriteBDNSRecord(bdnsName, BDNSRecord{ipfsHash, nHeight, nTxIndex});
+
+    return;
+}
+
+void ProcessPossibleBdnsIpfsUpdate(const CTransaction& updateTx, const CTransaction& inputTx, const CBlockIndex& pindex) {
+    std::string bdnsName, newIpfsHash;
+
+    if (!ExtractBdnsIpfsFromScript(updateTx.vout[0].scriptPubKey, bdnsName, newIpfsHash))
+        return;
+
+    BDNSRecord bdnsRecord;
+
+    if (!pbdnsdb->ReadBDNSRecord(bdnsName, bdnsRecord))
+        return;
+
+    LogPrint("bdns", "in %s oldIpfsHash = %s, regBlockHeight = %d, regTxIndex = %d\n", __func__, bdnsRecord.ipfsHash, bdnsRecord.regBlockHeight, bdnsRecord.regTxIndex);
+
+    CBlock block;
+    const CBlockIndex* pblockindex = pindex.GetAncestor(bdnsRecord.regBlockHeight);
+
+    if (!ReadBlockFromDisk(block, pblockindex->GetBlockPos(), Params().GetConsensus(), false)) // ~1 millisecond cost
+        LogPrint("bdns", "in %s can't read block from disk\n", __func__);
+
+    CTxDestination updateDest, regDest;
+
+    // we get the scriptPubKey that pays for the update from the used output
+    ExtractDestination(inputTx.vout[updateTx.vin[0].prevout.n].scriptPubKey, updateDest);
+    ExtractDestination((*block.vtx[bdnsRecord.regTxIndex]).vout[1].scriptPubKey, regDest);
+
+    LogPrint("bdns", "in %s updDest and regDest were the same: %s\n", __func__, (updateDest == regDest) ? "true" : "false");
+
+    if (updateDest == regDest) {
+        if (pbdnsdb->UpdateBDNSRecord(bdnsName, newIpfsHash))
+            LogPrint("bdns", "successfully updated domain name %s with IPFS hash %s\n", bdnsName, newIpfsHash);
+        else
+            LogPrint("bdns", "failed to update domain name %s with IPFS hash %s\n", bdnsName, newIpfsHash);
+    } else
+        LogPrint("bdns", "the address used for updating the domain name is not the same as the one used for registration\n");
+
+    return;
+}
+
+void ProcessPossibleBdnsIpfsBan(const CScript& scriptPubKey) {
+    std::string bdnsName;
+
+    if (!ExtractBdnsBanFromScript(scriptPubKey, bdnsName))
+        return;
+
+    pbdnsdb->EraseBDNSRecord(bdnsName);
+
+    return;
+}
+
+void ProcessExpiredBdnsRecords(CBlockIndex* pblockindex) {
+    CBlock block;
+
+    if (!ReadBlockFromDisk(block, pblockindex->GetBlockPos(), Params().GetConsensus(), false))
+        LogPrint("bdns", "in %s can't read block from disk\n", __func__);
+
+    CTransactionRef inputTx;
+    uint256 txHash;
+    std::string bdnsName, ipfsHash;
+
+    for (unsigned int i = 1; i < block.vtx.size(); i++) {
+        const CTransaction& tx = *block.vtx[i];
+
+        if (tx.nType == TRANSACTION_NORMAL && tx.vin.size() == 1 && tx.vout.size() == 2 && tx.vout[0].scriptPubKey.Find(OP_RETURN) && tx.vout[0].nValue == 10 * CENT) {
+            txHash = tx.vin[0].prevout.hash;
+            
+            if (!GetTransaction(txHash, inputTx, Params().GetConsensus(), txHash, true)) // used to check that miners are paid enough
+                LogPrint("bdns", "No information available about transaction %s\n", txHash.ToString());
+            else if ((*inputTx).vout[tx.vin[0].prevout.n].nValue >= tx.vout[1].nValue + 20 * CENT) {
+                ExtractBdnsIpfsFromScript(tx.vout[0].scriptPubKey, bdnsName, ipfsHash);
+
+                if (pbdnsdb->EraseBDNSRecord(bdnsName))
+                    LogPrint("bdns", "successfully deleted expired registration under domain name %s\n", bdnsName);
+                else
+                    LogPrint("bdns", "failed to delete expired registration under domain name %s\n", bdnsName);
+            }
+        }
+    }
 }
 
 static bool AcceptBlockHeader(const CBlockHeader& block, CValidationState& state, const CChainParams& chainparams, CBlockIndex** ppindex)
@@ -3572,6 +3806,10 @@ static bool AcceptBlock(const std::shared_ptr<const CBlock>& pblock, CValidation
                 AbortNode(state, "Failed to write block");
         if (!ReceivedBlockTransactions(block, state, pindex, blockPos))
             return error("AcceptBlock(): ReceivedBlockTransactions failed");
+        if (nHeight >= chainparams.GetConsensus().nHardForkEight) {
+            ProcessBdnsTransactions(block, *pindex);
+            ProcessExpiredBdnsRecords(pindex->GetAncestor(nHeight - Params().GetConsensus().nBlocksPerYear)); // nHeight = chainActive.Height() + 1
+        }
     } catch (const std::runtime_error& e) {
         return AbortNode(state, std::string("System error: ") + e.what());
     }
@@ -3580,6 +3818,51 @@ static bool AcceptBlock(const std::shared_ptr<const CBlock>& pblock, CValidation
         FlushStateToDisk(state, FLUSH_STATE_NONE); // we just allocated more disk space for block files
 
     return true;
+}
+
+void ProcessBdnsTransactions(const CBlock& block, const CBlockIndex& pindex)
+{
+    // check for BDNS-IPFS registrations
+    CTransactionRef inputTx;
+    uint256 txHash;
+    for (unsigned int i = 1; i < block.vtx.size(); i++) {
+        const CTransaction& tx = *block.vtx[i];
+
+        if (tx.nType == TRANSACTION_NORMAL && tx.vin.size() == 1 && tx.vout.size() == 2 && tx.vout[0].scriptPubKey.Find(OP_RETURN)) {
+            if (tx.vout[0].nValue == 10 * CENT) {
+                txHash = tx.vin[0].prevout.hash;
+
+                if (!GetTransaction(txHash, inputTx, Params().GetConsensus(), txHash, true)) // used to check that miners are paid enough
+                    LogPrint("bdns", "No information available about transaction %s\n", txHash.ToString());
+                else if ((*inputTx).vout[tx.vin[0].prevout.n].nValue >= tx.vout[1].nValue + 20 * CENT)
+                    ProcessPossibleBdnsIpfsRegistration(tx.vout[0].scriptPubKey, pindex.nHeight, i);
+                else
+                    LogPrint("bdns", "Miners were not paid enough for the BDNS-IPFS registration in transaction %s\n", tx.GetHash().ToString());
+            } else if (tx.vout[0].nValue == 0.5 * CENT) {
+                txHash = tx.vin[0].prevout.hash;
+
+                if (!GetTransaction(txHash, inputTx, Params().GetConsensus(), txHash, true))
+                    LogPrint("bdns", "No information available about transaction %s\n", txHash.ToString());
+                else if ((*inputTx).vout[tx.vin[0].prevout.n].nValue >= tx.vout[1].nValue + 1 * CENT) {
+                    ProcessPossibleBdnsIpfsUpdate(tx, *inputTx, pindex);
+                } else
+                    LogPrint("bdns", "Miners were not paid enough for the BDNS-IPFS update in transaction %s\n", tx.GetHash().ToString());
+            } else if (tx.vout[0].nValue == 0.25 * CENT) {
+                txHash = tx.vin[0].prevout.hash;
+
+                if (!GetTransaction(txHash, inputTx, Params().GetConsensus(), txHash, true))
+                    LogPrint("bdns", "No information available about transaction %s\n", txHash.ToString());
+                else if ((*inputTx).vout[tx.vin[0].prevout.n].nValue >= tx.vout[1].nValue + 0.5 * CENT) {
+                    CTxDestination banningAddress;
+
+                    if (ExtractDestination((*inputTx).vout[tx.vin[0].prevout.n].scriptPubKey, banningAddress) &&
+                        CBitcoinAddress(banningAddress) == CBitcoinAddress("CTQfyA4XDRpCZECo2sxaJFdJDLgeVmxoZC"))
+                            ProcessPossibleBdnsIpfsBan(tx.vout[0].scriptPubKey);
+                } else
+                    LogPrint("bdns", "Miners were not paid enough for the BDNS-IPFS ban in transaction %s\n", tx.GetHash().ToString());
+            }
+        }
+    }
 }
 
 bool ProcessNewBlock(const CChainParams& chainparams, const std::shared_ptr<const CBlock> pblock, bool fForceProcessing, bool *fNewBlock)

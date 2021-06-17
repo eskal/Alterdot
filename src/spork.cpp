@@ -20,14 +20,14 @@ const std::string CSporkManager::SERIALIZATION_VERSION_STRING = "CSporkManager-V
 std::map<int, int64_t> mapSporkDefaults = {
     {SPORK_2_INSTANTSEND_ENABLED,            0},             // ON
     {SPORK_3_INSTANTSEND_BLOCK_FILTERING,    0},             // ON
-    {SPORK_5_INSTANTSEND_MAX_VALUE,          1000},          // 1000 Dash
+    {SPORK_5_INSTANTSEND_MAX_VALUE,          1000},          // 1000 Alterdot
     {SPORK_6_NEW_SIGS,                       4070908800ULL}, // OFF
     {SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT, 4070908800ULL}, // OFF
     {SPORK_9_SUPERBLOCKS_ENABLED,            4070908800ULL}, // OFF
     {SPORK_10_MASTERNODE_PAY_UPDATED_NODES,  4070908800ULL}, // OFF
     {SPORK_12_RECONSIDER_BLOCKS,             0},             // 0 BLOCKS
     {SPORK_14_REQUIRE_SENTINEL_FLAG,         4070908800ULL}, // OFF
-    {SPORK_15_DETERMINISTIC_MNS_ENABLED,     1047200},       // Hardened to mainnet activation height (we only did this for 0.13.x)
+    {SPORK_15_DETERMINISTIC_MNS_ENABLED,     1043000},       // Hardened to mainnet activation height (we only did this for 0.13.x) of Deterministic MNs
     {SPORK_16_INSTANTSEND_AUTOLOCKS,         4070908800ULL}, // OFF
     {SPORK_17_QUORUM_DKG_ENABLED,            4070908800ULL}, // OFF
 };
@@ -112,7 +112,7 @@ void CSporkManager::CheckAndRemove()
 
 void CSporkManager::ProcessSpork(CNode* pfrom, const std::string& strCommand, CDataStream& vRecv, CConnman& connman)
 {
-    if(fLiteMode) return; // disable all Dash specific functionality
+    if(fLiteMode) return; // disable all Alterdot specific functionality
 
     if (strCommand == NetMsgType::SPORK) {
 

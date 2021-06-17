@@ -6,9 +6,13 @@
 #ifndef BITCOIN_PRIMITIVES_BLOCK_H
 #define BITCOIN_PRIMITIVES_BLOCK_H
 
-#include "primitives/transaction.h"
+#include "hash.h"
 #include "serialize.h"
+#include "primitives/transaction.h"
 #include "uint256.h"
+#include "utilstrencodings.h"
+
+const uint32_t nTimeOfAlgorithmChange = 1612029600;
 
 /** Nodes collect new transactions into a block, hash them into a hash tree,
  * and scan through nonce values to make the block's hash satisfy proof-of-work
@@ -60,7 +64,13 @@ public:
         return (nBits == 0);
     }
 
-    uint256 GetHash() const;
+    uint256 GetHash() const
+    {
+        if (nTime > nTimeOfAlgorithmChange)
+            return hash_Argon2d(BEGIN(nVersion), END(nNonce), 2);
+        else
+            return hash_Argon2d(BEGIN(nVersion), END(nNonce), 1);
+    }
 
     int64_t GetBlockTime() const
     {

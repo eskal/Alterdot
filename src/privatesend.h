@@ -24,7 +24,7 @@ static const int PRIVATESEND_QUEUE_TIMEOUT = 30;
 static const int PRIVATESEND_SIGNING_TIMEOUT = 15;
 
 //! minimum peer version accepted by mixing pool
-static const int MIN_PRIVATESEND_PEER_PROTO_VERSION = 70213;
+static const int MIN_PRIVATESEND_PEER_PROTO_VERSION = 70013;
 
 static const size_t PRIVATESEND_ENTRY_MAX_SIZE = 9;
 
@@ -391,7 +391,7 @@ public:
     static std::vector<CAmount> GetStandardDenominations() { return vecStandardDenominations; }
     static CAmount GetSmallestDenomination() { return vecStandardDenominations.back(); }
 
-    /// Get the denominations for a specific amount of dash.
+    /// Get the denominations for a specific amount of alterdot.
     static int GetDenominationsByAmounts(const std::vector<CAmount>& vecAmount);
 
     static bool IsDenominatedAmount(CAmount nInputAmount);

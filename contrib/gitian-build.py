@@ -24,12 +24,12 @@ def setup():
     subprocess.check_call(['sudo', 'apt-get', 'install', '-qq'] + programs)
     if not os.path.isdir('gitian.sigs'):
         subprocess.check_call(['git', 'clone', 'https://github.com/dashpay/gitian.sigs.git'])
-    if not os.path.isdir('dash-detached-sigs'):
-        subprocess.check_call(['git', 'clone', 'https://github.com/dashpay/dash-detached-sigs.git'])
+    if not os.path.isdir('alterdot-detached-sigs'):
+        subprocess.check_call(['git', 'clone', 'https://github.com/dashpay/alterdot-detached-sigs.git'])
     if not os.path.isdir('gitian-builder'):
         subprocess.check_call(['git', 'clone', 'https://github.com/devrandom/gitian-builder.git'])
-    if not os.path.isdir('dash'):
-        subprocess.check_call(['git', 'clone', 'https://github.com/dashpay/dash.git'])
+    if not os.path.isdir('alterdot'):
+        subprocess.check_call(['git', 'clone', 'https://github.com/dashpay/alterdot.git'])
     os.chdir('gitian-builder')
     make_image_prog = ['bin/make-base-vm', '--suite', 'bionic', '--arch', 'amd64']
     if args.docker:
@@ -46,7 +46,7 @@ def setup():
 def build():
     global args, workdir
 
-    os.makedirs('dashcore-binaries/' + args.version, exist_ok=True)
+    os.makedirs('alterdot-binaries/' + args.version, exist_ok=True)
     print('\nBuilding Dependencies\n')
     os.chdir('gitian-builder')
     os.makedirs('inputs', exist_ok=True)
@@ -59,25 +59,25 @@ def build():
 
     if args.linux:
         print('\nCompiling ' + args.version + ' Linux')
-        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'dash='+args.commit, '--url', 'dash='+args.url, '../dash/contrib/gitian-descriptors/gitian-linux.yml'])
+        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'alterdot='+args.commit, '--url', 'alterdot='+args.url, '../dash/contrib/gitian-descriptors/gitian-linux.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-linux', '--destination', '../gitian.sigs/', '../dash/contrib/gitian-descriptors/gitian-linux.yml'])
-        subprocess.check_call('mv build/out/dashcore-*.tar.gz build/out/src/dashcore-*.tar.gz ../dashcore-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/alterdot-*.tar.gz build/out/src/alterdot-*.tar.gz ../alterdot-binaries/'+args.version, shell=True)
 
     if args.windows:
         print('\nCompiling ' + args.version + ' Windows')
-        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'dash='+args.commit, '--url', 'dash='+args.url, '../dash/contrib/gitian-descriptors/gitian-win.yml'])
+        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'alterdot='+args.commit, '--url', 'alterdot='+args.url, '../dash/contrib/gitian-descriptors/gitian-win.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-win-unsigned', '--destination', '../gitian.sigs/', '../dash/contrib/gitian-descriptors/gitian-win.yml'])
-        subprocess.check_call('mv build/out/dashcore-*-win-unsigned.tar.gz inputs/dashcore-win-unsigned.tar.gz', shell=True)
-        subprocess.check_call('mv build/out/dashcore-*.zip build/out/dashcore-*.exe ../dashcore-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/alterdot-*-win-unsigned.tar.gz inputs/alterdot-win-unsigned.tar.gz', shell=True)
+        subprocess.check_call('mv build/out/alterdot-*.zip build/out/alterdot-*.exe ../alterdot-binaries/'+args.version, shell=True)
 
     if args.macos:
         print('\nCompiling ' + args.version + ' MacOS')
         subprocess.check_call(['wget', '-N', '-P', 'inputs', 'https://bitcoincore.org/depends-sources/sdks/MacOSX10.11.sdk.tar.gz'])
         subprocess.check_output(["echo 'bec9d089ebf2e2dd59b1a811a38ec78ebd5da18cbbcd6ab39d1e59f64ac5033f inputs/MacOSX10.11.sdk.tar.gz' | sha256sum -c"], shell=True)
-        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'dash='+args.commit, '--url', 'dash='+args.url, '../dash/contrib/gitian-descriptors/gitian-osx.yml'])
+        subprocess.check_call(['bin/gbuild', '-j', args.jobs, '-m', args.memory, '--commit', 'alterdot='+args.commit, '--url', 'alterdot='+args.url, '../dash/contrib/gitian-descriptors/gitian-osx.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-osx-unsigned', '--destination', '../gitian.sigs/', '../dash/contrib/gitian-descriptors/gitian-osx.yml'])
-        subprocess.check_call('mv build/out/dashcore-*-osx-unsigned.tar.gz inputs/dashcore-osx-unsigned.tar.gz', shell=True)
-        subprocess.check_call('mv build/out/dashcore-*.tar.gz build/out/dashcore-*.dmg ../dashcore-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/alterdot-*-osx-unsigned.tar.gz inputs/alterdot-osx-unsigned.tar.gz', shell=True)
+        subprocess.check_call('mv build/out/alterdot-*.tar.gz build/out/alterdot-*.dmg ../alterdot-binaries/'+args.version, shell=True)
 
     os.chdir(workdir)
 
@@ -98,14 +98,14 @@ def sign():
         print('\nSigning ' + args.version + ' Windows')
         subprocess.check_call(['bin/gbuild', '-i', '--commit', 'signature='+args.commit, '../dash/contrib/gitian-descriptors/gitian-win-signer.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-win-signed', '--destination', '../gitian.sigs/', '../dash/contrib/gitian-descriptors/gitian-win-signer.yml'])
-        subprocess.check_call('mv build/out/dashcore-*win64-setup.exe ../dashcore-binaries/'+args.version, shell=True)
-        subprocess.check_call('mv build/out/dashcore-*win32-setup.exe ../dashcore-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/alterdot-*win64-setup.exe ../alterdot-binaries/'+args.version, shell=True)
+        subprocess.check_call('mv build/out/alterdot-*win32-setup.exe ../alterdot-binaries/'+args.version, shell=True)
 
     if args.macos:
         print('\nSigning ' + args.version + ' MacOS')
         subprocess.check_call(['bin/gbuild', '-i', '--commit', 'signature='+args.commit, '../dash/contrib/gitian-descriptors/gitian-osx-signer.yml'])
         subprocess.check_call(['bin/gsign', '-p', args.sign_prog, '--signer', args.signer, '--release', args.version+'-osx-signed', '--destination', '../gitian.sigs/', '../dash/contrib/gitian-descriptors/gitian-osx-signer.yml'])
-        subprocess.check_call('mv build/out/dashcore-osx-signed.dmg ../dashcore-binaries/'+args.version+'/dashcore-'+args.version+'-osx.dmg', shell=True)
+        subprocess.check_call('mv build/out/alterdot-osx-signed.dmg ../alterdot-binaries/'+args.version+'/alterdot-'+args.version+'-osx.dmg', shell=True)
 
     os.chdir(workdir)
 
@@ -140,7 +140,7 @@ def main():
     parser = argparse.ArgumentParser(usage='%(prog)s [options] signer version')
     parser.add_argument('-c', '--commit', action='store_true', dest='commit', help='Indicate that the version argument is for a commit or branch')
     parser.add_argument('-p', '--pull', action='store_true', dest='pull', help='Indicate that the version argument is the number of a github repository pull request')
-    parser.add_argument('-u', '--url', dest='url', default='https://github.com/dashpay/dash', help='Specify the URL of the repository. Default is %(default)s')
+    parser.add_argument('-u', '--url', dest='url', default='https://github.com/dashpay/alterdot', help='Specify the URL of the repository. Default is %(default)s')
     parser.add_argument('-v', '--verify', action='store_true', dest='verify', help='Verify the Gitian build')
     parser.add_argument('-b', '--build', action='store_true', dest='build', help='Do a Gitian build')
     parser.add_argument('-s', '--sign', action='store_true', dest='sign', help='Make signed binaries for Windows and MacOS')
@@ -216,10 +216,10 @@ def main():
     if not args.build and not args.sign and not args.verify:
         exit(0)
 
-    os.chdir('dash')
+    os.chdir('alterdot')
     if args.pull:
         subprocess.check_call(['git', 'fetch', args.url, 'refs/pull/'+args.version+'/merge'])
-        os.chdir('../gitian-builder/inputs/dash')
+        os.chdir('../gitian-builder/inputs/alterdot')
         subprocess.check_call(['git', 'fetch', args.url, 'refs/pull/'+args.version+'/merge'])
         args.commit = subprocess.check_output(['git', 'show', '-s', '--format=%H', 'FETCH_HEAD'], universal_newlines=True, encoding='utf8').strip()
         args.version = 'pull-' + args.version

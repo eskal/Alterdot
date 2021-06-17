@@ -148,8 +148,8 @@ void masternode_list_help()
             "  lastpaidblock  - Print the last block height a node was paid on the network\n"
             "  lastpaidtime   - Print the last time a node was paid on the network\n"
             "  lastseen       - Print timestamp of when a masternode was last seen on the network\n"
-            "  owneraddress   - Print the masternode owner Dash address\n"
-            "  payee          - Print the masternode payout Dash address (can be additionally filtered,\n"
+            "  owneraddress   - Print the masternode owner Alterdot address\n"
+            "  payee          - Print the masternode payout Alterdot address (can be additionally filtered,\n"
             "                   partial match)\n"
             "  protocol       - Print protocol of a masternode (can be additionally filtered, exact match)\n"
             "  keyid          - Print the masternode (not collateral) key id\n"
@@ -157,7 +157,7 @@ void masternode_list_help()
             "  sentinel       - Print sentinel version of a masternode (can be additionally filtered, exact match)\n"
             "  status         - Print masternode status: PRE_ENABLED / ENABLED / EXPIRED / SENTINEL_PING_EXPIRED / NEW_START_REQUIRED /\n"
             "                   UPDATE_REQUIRED / POSE_BAN / OUTPOINT_SPENT (can be additionally filtered, partial match)\n"
-            "  votingaddress  - Print the masternode voting Dash address\n"
+            "  votingaddress  - Print the masternode voting Alterdot address\n"
         );
 }
 
@@ -891,11 +891,13 @@ UniValue masternodelist(const JSONRPCRequest& request)
 
             CScript payeeScript;
             std::string collateralAddressStr = "UNKNOWN";
+            std::string proTxHash = "UNKNOWN";
             if (deterministicMNManager->IsDeterministicMNsSporkActive()) {
                 auto dmn = deterministicMNManager->GetListAtChainTip().GetMNByCollateral(mn.outpoint);
                 if (dmn) {
                     payeeScript = dmn->pdmnState->scriptPayout;
                     Coin coin;
+                    proTxHash = dmn->proTxHash.ToString();
                     if (GetUTXOCoin(dmn->collateralOutpoint, coin)) {
                         CTxDestination collateralDest;
                         if (ExtractDestination(coin.out.scriptPubKey, collateralDest)) {
@@ -994,6 +996,8 @@ UniValue masternodelist(const JSONRPCRequest& request)
                 objMN.push_back(Pair("owneraddress", CBitcoinAddress(mn.keyIDOwner).ToString()));
                 objMN.push_back(Pair("votingaddress", CBitcoinAddress(mn.keyIDVoting).ToString()));
                 objMN.push_back(Pair("collateraladdress", collateralAddressStr));
+                if (deterministicMNManager->IsDeterministicMNsSporkActive())
+                    objMN.push_back(Pair("proTxHash", proTxHash));
                 obj.push_back(Pair(strOutpoint, objMN));
             } else if (strMode == "keyid") {
                 if (strFilter !="" && strOutpoint.find(strFilter) == std::string::npos) continue;
@@ -1299,13 +1303,13 @@ UniValue sentinelping(const JSONRPCRequest& request)
 static const CRPCCommand commands[] =
 { //  category              name                      actor (function)         okSafe argNames
   //  --------------------- ------------------------  -----------------------  ------ ----------
-    { "dash",               "masternode",             &masternode,             true,  {} },
-    { "dash",               "masternodelist",         &masternodelist,         true,  {} },
-    { "dash",               "masternodebroadcast",    &masternodebroadcast,    true,  {} },
-    { "dash",               "getpoolinfo",            &getpoolinfo,            true,  {} },
-    { "dash",               "sentinelping",           &sentinelping,           true,  {} },
+    { "alterdot",               "masternode",             &masternode,             true,  {} },
+    { "alterdot",               "masternodelist",         &masternodelist,         true,  {} },
+    { "alterdot",               "masternodebroadcast",    &masternodebroadcast,    true,  {} },
+    { "alterdot",               "getpoolinfo",            &getpoolinfo,            true,  {} },
+    { "alterdot",               "sentinelping",           &sentinelping,           true,  {} },
 #ifdef ENABLE_WALLET
-    { "dash",               "privatesend",            &privatesend,            false, {} },
+    { "alterdot",               "privatesend",            &privatesend,            false, {} },
 #endif // ENABLE_WALLET
 };
 

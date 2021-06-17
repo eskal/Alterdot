@@ -449,7 +449,7 @@ bool CDeterministicMNManager::ProcessBlock(const CBlock& block, const CBlockInde
 {
     AssertLockHeld(cs_main);
 
-    bool fDIP0003Active = VersionBitsState(pindex->pprev, Params().GetConsensus(), Consensus::DEPLOYMENT_DIP0003, versionbitscache) == THRESHOLD_ACTIVE;
+    bool fDIP0003Active = chainActive.Height() > Params().GetConsensus().nDetMNRegHeight;
     if (!fDIP0003Active) {
         return true;
     }
@@ -573,7 +573,7 @@ bool CDeterministicMNManager::BuildNewListFromBlock(const CBlock& block, const C
             }
 
             Coin coin;
-            if (!proTx.collateralOutpoint.hash.IsNull() && (!GetUTXOCoin(dmn->collateralOutpoint, coin) || coin.out.nValue != 1000 * COIN)) {
+            if (!proTx.collateralOutpoint.hash.IsNull() && (!GetUTXOCoin(dmn->collateralOutpoint, coin) || coin.out.nValue != 10000 * COIN)) {
                 // should actually never get to this point as CheckProRegTx should have handled this case.
                 // We do this additional check nevertheless to be 100% sure
                 return _state.DoS(100, false, REJECT_INVALID, "bad-protx-collateral");
@@ -869,7 +869,7 @@ bool CDeterministicMNManager::IsProTxWithCollateral(const CTransactionRef& tx, u
     if (proTx.collateralOutpoint.n >= tx->vout.size() || proTx.collateralOutpoint.n != n) {
         return false;
     }
-    if (tx->vout[n].nValue != 1000 * COIN) {
+    if (tx->vout[n].nValue != 10000 * COIN) {
         return false;
     }
     return true;
@@ -884,7 +884,7 @@ bool CDeterministicMNManager::IsDeterministicMNsSporkActive(int nHeight)
     }
 
     int64_t spork15Value = GetSpork15Value();
-    return nHeight >= spork15Value;
+    return nHeight > spork15Value;
 }
 
 void CDeterministicMNManager::CleanupCache(int nHeight)

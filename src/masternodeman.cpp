@@ -991,7 +991,7 @@ void CMasternodeMan::ProcessMessage(CNode* pfrom, const std::string& strCommand,
     if (deterministicMNManager->IsDeterministicMNsSporkActive())
         return;
 
-    if(fLiteMode) return; // disable all Dash specific functionality
+    if(fLiteMode) return; // disable all Alterdot specific functionality
 
     if (strCommand == NetMsgType::MNANNOUNCE) { //Masternode Broadcast
 
@@ -1947,7 +1947,7 @@ void CMasternodeMan::WarnMasternodeDaemonUpdates()
     }
 
     // Warn only when at least half of known masternodes already updated
-    if (nUpdatedMasternodes < size() / 2)
+    if (nUpdatedMasternodes == 0 || nUpdatedMasternodes < size() / 2)
         return;
 
     std::string strWarning;
@@ -1996,7 +1996,7 @@ void CMasternodeMan::NotifyMasternodeUpdates(CConnman& connman, bool forceAddedC
 
 void CMasternodeMan::DoMaintenance(CConnman& connman)
 {
-    if(fLiteMode) return; // disable all Dash specific functionality
+    if(fLiteMode) return; // disable all Alterdot specific functionality
 
     if(!masternodeSync.IsBlockchainSynced() || ShutdownRequested())
         return;

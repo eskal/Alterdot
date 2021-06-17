@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Alterdot
+Comment=Alterdot P2P Cryptocurrency
+Comment[de]=Verbinde mit dem Alterdot peer-to-peer Netzwerk
+Comment[fr]=Alterdot, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=Alterdot, eşten eşe kriptografik sanal para birimi
+Exec=alterdot-qt %u
+Terminal=false
+Type=Application
+Icon=alterdot128
+MimeType=x-scheme-handler/alterdot;
+Categories=Office;Finance;

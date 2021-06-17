@@ -2,17 +2,18 @@
 *.sublime-workspace
 todo.txt
 reset-files.bash
+.vscode/settings.json
 
 *.tar.gz
 
 *.exe
-src/dash
-src/dashd
-src/dash-cli
-src/dash-tx
-src/test/test_dash
-src/qt/test/test_dash-qt
-src/bench/bench_dash
+src/alterdot
+src/alterdotd
+src/alterdot-cli
+src/alterdot-tx
+src/test/test_alterdot
+src/qt/test/test_alterdot-qt
+src/bench/bench_alterdot
 
 # autoreconf
 Makefile.in
@@ -35,8 +36,8 @@ config.log
 config.status
 configure
 libtool
-src/config/dash-config.h
-src/config/dash-config.h.in
+src/config/alterdot-config.h
+src/config/alterdot-config.h.in
 src/config/stamp-h1
 share/setup.nsi
 share/qt/Info.plist
@@ -81,12 +82,12 @@ libconftest.dylib*
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
-dash-qt
-Dash-Qt.app
+alterdot-qt
+Alterdot-Qt.app
 
 # Unit-tests
 Makefile.test
-dash-qt_test
+alterdot-qt_test
 src/test/buildenv.py
 
 # Resources cpp
@@ -100,7 +101,7 @@ build
 *.gcno
 *.gcda
 /*.info
-test_dash.coverage/
+test_alterdot.coverage/
 total.coverage/
 coverage_percent.txt
 
@@ -118,15 +119,15 @@ qa/cache/*
 .autotools
 /doc/doxygen/
 
-libdashconsensus.pc
+libalterdotconsensus.pc
 contrib/devtools/split-debug.sh
-src/qt/dash-qt.bash
+src/qt/alterdot-qt.bash
 qa/pull-tester/tests-config.sh
 
 #development symlinks
-dash-cli
-dashd
-dash-qt
+alterdot-cli
+alterdotd
+alterdot-qt
 make
 
 /docker/bin

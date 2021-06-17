@@ -75,7 +75,7 @@ bool IsOldBudgetBlockValueValid(const CBlock& block, int nBlockHeight, CAmount b
 *   Determine if coinbase outgoing created money is the correct value
 *
 *   Why is this needed?
-*   - In Dash some blocks are superblocks, which output much higher amounts of coins
+*   - In Alterdot some blocks are superblocks, which output much higher amounts of coins
 *   - Otherblocks are 10% lower in outgoing value, so in total, no extra coins are created
 *   - When non-superblocks are detected, the normal schedule should be maintained
 */
@@ -258,15 +258,35 @@ void FillBlockPayments(CMutableTransaction& txNew, int nBlockHeight, CAmount blo
 
     std::string voutMasternodeStr;
     for (const auto& txout : voutMasternodePaymentsRet) {
-        // subtract MN payment from miner reward
-        txNew.vout[0].nValue -= txout.nValue;
         if (!voutMasternodeStr.empty())
             voutMasternodeStr += ",";
         voutMasternodeStr += txout.ToString();
     }
 
+    if (nBlockHeight > Params().GetConsensus().nHardForkTwo && nBlockHeight < Params().GetConsensus().nHardForkSeven ||
+        nBlockHeight >= Params().GetConsensus().nHardForkEight) {
+        CTxOut devFundTx = CTxOut();
+        devFundTx.nValue = GetDevelopmentFundPayment(nBlockHeight);
+        devFundTx.scriptPubKey = GetDevFundScriptPubKey(nBlockHeight);
+
+        txNew.vout.insert(txNew.vout.end(), devFundTx);
+    }
+
     LogPrint("mnpayments", "%s -- nBlockHeight %d blockReward %lld voutMasternodePaymentsRet \"%s\" txNew %s", __func__,
                             nBlockHeight, blockReward, voutMasternodeStr, txNew.ToString());
+}
+
+CScript GetDevFundScriptPubKey(const int& nBlockHeight) {
+    std::string strDevFundAddress;
+
+    if (nBlockHeight <= Params().GetConsensus().nHardForkThree)
+        strDevFundAddress = "53NTdWeAxEfVjXufpBqU2YKopyZYmN9P1V";
+    else if (nBlockHeight > Params().GetConsensus().nHardForkThree && nBlockHeight < Params().GetConsensus().nHardForkSeven)
+        strDevFundAddress = "CPhPudPYNC8uXZPCHovyTyY98Q6fJzjJLm";
+    else // the Dev Fund won't be paid until nHardForkEight is reached
+        strDevFundAddress = "CKNvCGE3g3v1299oNraXnEUDBe3zwMj8E9";
+
+    return GetScriptForDestination(CBitcoinAddress(strDevFundAddress.c_str()).Get());
 }
 
 std::string GetLegacyRequiredPaymentsString(int nBlockHeight)
@@ -366,6 +386,9 @@ bool CMasternodePayments::GetMasternodeTxOuts(int nBlockHeight, CAmount blockRew
     // make sure it's not filled yet
     voutMasternodePaymentsRet.clear();
 
+    if (fLiteMode)
+        return false;
+
     if(!GetBlockTxOuts(nBlockHeight, blockReward, voutMasternodePaymentsRet)) {
         if (deterministicMNManager->IsDeterministicMNsSporkActive(nBlockHeight)) {
             LogPrintf("CMasternodePayments::%s -- deterministic masternode lists enabled and no payee\n", __func__);
@@ -382,7 +405,7 @@ bool CMasternodePayments::GetMasternodeTxOuts(int nBlockHeight, CAmount blockRew
         }
         // fill payee with locally calculated winner and hope for the best
         CScript payee = GetScriptForDestination(mnInfo.keyIDCollateralAddress);
-        CAmount masternodePayment = GetMasternodePayment(nBlockHeight, blockReward);
+        CAmount masternodePayment = GetMasternodePayment(nBlockHeight);
         voutMasternodePaymentsRet.emplace_back(masternodePayment, payee);
     }
 
@@ -408,7 +431,7 @@ void CMasternodePayments::ProcessMessage(CNode* pfrom, const std::string& strCom
     if (deterministicMNManager->IsDeterministicMNsSporkActive())
         return;
 
-    if(fLiteMode) return; // disable all Dash specific functionality
+    if(fLiteMode) return; // disable all Alterdot specific functionality
 
     if (strCommand == NetMsgType::MASTERNODEPAYMENTSYNC) { //Masternode Payments Request Sync
 
@@ -590,7 +613,7 @@ bool CMasternodePayments::GetBlockTxOuts(int nBlockHeight, CAmount blockReward, 
 {
     voutMasternodePaymentsRet.clear();
 
-    CAmount masternodeReward = GetMasternodePayment(nBlockHeight, blockReward);
+    CAmount masternodeReward = GetMasternodePayment(nBlockHeight);
 
     if (deterministicMNManager->IsDeterministicMNsSporkActive(nBlockHeight)) {
         uint256 blockHash;
@@ -759,7 +782,7 @@ bool CMasternodeBlockPayees::IsTransactionValid(const CTransaction& txNew) const
     int nMaxSignatures = 0;
     std::string strPayeesPossible = "";
 
-    CAmount nMasternodePayment = GetMasternodePayment(nBlockHeight, txNew.GetValueOut());
+    CAmount nMasternodePayment = GetMasternodePayment(nBlockHeight);
 
     //require at least MNPAYMENTS_SIGNATURES_REQUIRED signatures
 
@@ -793,7 +816,7 @@ bool CMasternodeBlockPayees::IsTransactionValid(const CTransaction& txNew) const
         }
     }
 
-    LogPrintf("CMasternodeBlockPayees::%s -- ERROR: Missing required payment, possible payees: '%s', amount: %f DASH\n", __func__, strPayeesPossible, (float)nMasternodePayment/COIN);
+    LogPrintf("CMasternodeBlockPayees::%s -- ERROR: Missing required payment, possible payees: '%s', amount: %f ADOT\n", __func__, strPayeesPossible, (float)nMasternodePayment/COIN);
     return false;
 }
 
