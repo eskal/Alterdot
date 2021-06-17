@@ -579,7 +579,6 @@ bool CheckTransaction(const CTransaction& tx, CValidationState &state)
 bool ContextualCheckTransaction(const CTransaction& tx, CValidationState &state, const Consensus::Params& consensusParams, const CBlockIndex* pindexPrev)
 {
     int nHeight = pindexPrev == NULL ? 0 : pindexPrev->nHeight + 1;
-    bool fCheckOversizedTx = nHeight >= consensusParams.nHardForkEight;
     bool fDIP0003Active_context = nHeight > Params().GetConsensus().nDetMNRegHeight;
 
     if (fDIP0003Active_context) {
@@ -602,7 +601,7 @@ bool ContextualCheckTransaction(const CTransaction& tx, CValidationState &state,
     }
 
     // Size limits
-    if (fCheckOversizedTx && ::GetSerializeSize(tx, SER_NETWORK, PROTOCOL_VERSION) > MAX_STANDARD_TX_SIZE)
+    if (::GetSerializeSize(tx, SER_NETWORK, PROTOCOL_VERSION) > MAX_STANDARD_TX_SIZE)
         return state.DoS(100, false, REJECT_INVALID, "bad-txns-oversize");
 
     return true;
@@ -3807,7 +3806,7 @@ static bool AcceptBlock(const std::shared_ptr<const CBlock>& pblock, CValidation
                 AbortNode(state, "Failed to write block");
         if (!ReceivedBlockTransactions(block, state, pindex, blockPos))
             return error("AcceptBlock(): ReceivedBlockTransactions failed");
-        if (nHeight > chainparams.GetConsensus().nHardForkSeven) {
+        if (nHeight >= chainparams.GetConsensus().nHardForkEight) {
             ProcessBdnsTransactions(block, *pindex);
             ProcessExpiredBdnsRecords(pindex->GetAncestor(nHeight - Params().GetConsensus().nBlocksPerYear)); // nHeight = chainActive.Height() + 1
         }
