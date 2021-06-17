@@ -891,11 +891,13 @@ UniValue masternodelist(const JSONRPCRequest& request)
 
             CScript payeeScript;
             std::string collateralAddressStr = "UNKNOWN";
+            std::string proTxHash = "UNKNOWN";
             if (deterministicMNManager->IsDeterministicMNsSporkActive()) {
                 auto dmn = deterministicMNManager->GetListAtChainTip().GetMNByCollateral(mn.outpoint);
                 if (dmn) {
                     payeeScript = dmn->pdmnState->scriptPayout;
                     Coin coin;
+                    proTxHash = dmn->proTxHash.ToString();
                     if (GetUTXOCoin(dmn->collateralOutpoint, coin)) {
                         CTxDestination collateralDest;
                         if (ExtractDestination(coin.out.scriptPubKey, collateralDest)) {
@@ -994,6 +996,8 @@ UniValue masternodelist(const JSONRPCRequest& request)
                 objMN.push_back(Pair("owneraddress", CBitcoinAddress(mn.keyIDOwner).ToString()));
                 objMN.push_back(Pair("votingaddress", CBitcoinAddress(mn.keyIDVoting).ToString()));
                 objMN.push_back(Pair("collateraladdress", collateralAddressStr));
+                if (deterministicMNManager->IsDeterministicMNsSporkActive())
+                    objMN.push_back(Pair("proTxHash", proTxHash));
                 obj.push_back(Pair(strOutpoint, objMN));
             } else if (strMode == "keyid") {
                 if (strFilter !="" && strOutpoint.find(strFilter) == std::string::npos) continue;

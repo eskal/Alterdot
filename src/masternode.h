@@ -33,7 +33,7 @@ static const int MASTERNODE_MAX_MIXING_TXES             = 5;
 // sentinel version before implementation of nSentinelVersion in CMasternodePing
 #define DEFAULT_SENTINEL_VERSION 0x010001
 // daemon version before implementation of nDaemonVersion in CMasternodePing
-#define DEFAULT_DAEMON_VERSION 1080000
+#define DEFAULT_DAEMON_VERSION 01000000
 
 class CMasternodePing
 {

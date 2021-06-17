@@ -1123,53 +1123,73 @@ UniValue getmemoryinfo(const JSONRPCRequest& request)
     return obj;
 }
 
-UniValue registerbdnsipfs(const JSONRPCRequest& request)
+UniValue registerdomain(const JSONRPCRequest& request)
 {
-    if (request.fHelp || request.params.size() != 3)
+    if (request.fHelp || request.params.size() < 2 || request.params.size() > 3)
         throw std::runtime_error(
-            "registerbdnsipfs \"bitcredsaddress\" \"bdnsname\" \"ipfshash\"\n"
-            "\nRegisters a BDNS address with a corresponding IPFS or IPNS hash and pays for it with the required amount.\n"
+            "registerdomain \"name\" \"hash\" \"address\"\n"
+            "\nRegisters a BDNS address with a corresponding IPFS or IPNS hash and pays for it with the required amount (0.2).\n"
+            "The specified Bitcreds address will be used to pay for the transaction otherwise an available address that holds the required amount will be used.\n"
             "It creates the BDNS-IPFS register transaction, signs it and then sends it to the network.\n"
             "The wallet must be unlocked by passphrase before registering.\n"
             "Returns the hex-encoded hash of the registration transaction if it was completed successfully.\n"
             "\nArguments:\n"
-            "1. \"bitcredsaddress\" (string, required) The Bitcreds address used to pay for the registration.\n"
-            "2. \"bdnsname\" (string, required) The blockchain domain name that will be registered. It must not contain \"/\" character.\n"
-            "3. \"ipfshash\" (string, required) The IPFS hash where the BDNS name will point to.\n"
+            "1. \"name\" (string, required) The blockchain domain name that will be registered. It must not contain \"/\" character.\n"
+            "2. \"hash\" (string, required) The IPFS/IPNS hash where the BDNS name will point to.\n"
+            "3. \"address\" (string, optional) The Bitcreds address used to pay for the registration.\n"
             "\nResult:\n"
             "\"hex\" (string) The hex-encoded hash of the registration transaction.\n"
             "\nExample:\n"
-            "registerbdnsipfs \"CXAMcudgejBnG5P5z6ENNGtQxdKD1sZRAo\" \"ipfs.org\" \"QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG\""
+            "registerdomain \"ipfs.org\" \"QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG\" \"CXAMcudgejBnG5P5z6ENNGtQxdKD1sZRAo\""
         );
 
 #ifdef ENABLE_WALLET
     LOCK2(cs_main, pwalletMain ? &pwalletMain->cs_wallet : NULL);
 
-    if (request.params[0].isNull() || request.params[1].isNull() || request.params[2].isNull())
-        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, arguments 1, 2 and 3 must be non-null.");
+    if (request.params[0].isNull() || request.params[1].isNull())
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, arguments 1 and 2 must be non-null.");
 
-    if (request.params[0].get_str().length() != 34)
-        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, argument 1 does not have the required length of a Bitcreds address (34 characters).");
+    if (request.params[0].get_str().length() > 80)
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, argument 1 can have at most 80 characters.");
 
-    if (request.params[1].get_str().length() > 80)
-        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, argument 2 can have at most 80 characters.");
+    if (request.params[1].get_str().length() > 69)
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, argument 2 can have at most 69 characters.");
 
-    if (request.params[2].get_str().length() > 69)
-        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, argument 3 can have at most 69 characters.");
-
-    std::string bdnsName = request.params[1].get_str();
-    std::string ipfsHash = request.params[2].get_str();
-    CBitcoinAddress payingAddress(request.params[0].get_str());
-
-    if (!payingAddress.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid Bitcreds address: ") + payingAddress.ToString());
+    std::string bdnsName = request.params[0].get_str();
+    std::string ipfsHash = request.params[1].get_str();
 
     if (pbdnsdb->Exists(bdnsName))
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Blockchain domain name already registered!");
 
+    CBitcoinAddress payingAddress;
+
+    if (!request.params[2].isNull()) {
+        if (request.params[2].get_str().length() != 34)
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, argument 3 does not have the required length of a Bitcreds address (34 characters).");
+
+        payingAddress.SetString(request.params[2].get_str());
+
+        if (!payingAddress.IsValid())
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid Bitcreds address."));
+
+        // TODO_BCRS_LOW implement payments with script keys
+
+        if (payingAddress.IsScript())
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Only pub-key Bitcreds addresses are allowed in domain name registrations (no multi-sig)."));
+
+        CKeyID keyID;
+
+        if (!payingAddress.GetKeyID(keyID))
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Can't get the key ID of the registration address."));
+
+        assert(pwalletMain != NULL);
+
+        if (!pwalletMain->HaveKey(keyID))
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Wallet does not own the specified address."));
+    }
+
     CMutableTransaction rawTx;
-    CTxIn in;
-    CAmount change;
+    CAmount change = 0 * COIN;
     std::vector<COutput> vecOutputs;
 
     assert(pwalletMain != NULL);
@@ -1180,9 +1200,9 @@ UniValue registerbdnsipfs(const JSONRPCRequest& request)
         CTxDestination address;
         if (!ExtractDestination(out.tx->tx->vout[out.i].scriptPubKey, address))
             continue;
-        // if an unsepent output corresponding to the parameter address is found
+        // if an unspent output corresponding to the parameter address is found
         // we can try to use it
-        if (!(payingAddress == CBitcoinAddress(address)))
+        if (payingAddress.IsValid() && !(payingAddress == CBitcoinAddress(address)))
             continue;
 
         CAmount nValue = out.tx->tx->vout[out.i].nValue;
@@ -1191,8 +1211,11 @@ UniValue registerbdnsipfs(const JSONRPCRequest& request)
         // half of it gets burned and the other goes to the miners as transaction fee
         if (nValue >= 20 * CENT) {
             change = nValue - 20 * CENT;
-            in = CTxIn(out.tx->GetHash(), out.i);
-            rawTx.vin.push_back(in);
+            rawTx.vin.push_back(CTxIn(out.tx->GetHash(), out.i));
+
+            if (!payingAddress.IsValid())
+                payingAddress = CBitcoinAddress(address);
+
             break;
         }
     }
@@ -1209,7 +1232,7 @@ UniValue registerbdnsipfs(const JSONRPCRequest& request)
 
         rawTx.vout.push_back(outChange);
     } else
-        throw JSONRPCError(RPC_WALLET_INSUFFICIENT_FUNDS, "The specified address is invalid or it does not have enough funds.");
+        throw JSONRPCError(RPC_WALLET_INSUFFICIENT_FUNDS, "No transaction output holding at least the required amount was found. If you do have enough funds first send them to a single address and then retry the registration.");
 
     JSONRPCRequest signReqeust;
     signReqeust.params.setArray();
@@ -1225,78 +1248,79 @@ UniValue registerbdnsipfs(const JSONRPCRequest& request)
 #endif
 }
 
-UniValue updatebdnsipfs(const JSONRPCRequest& request)
+UniValue updatedomain(const JSONRPCRequest& request)
 {
-    if (request.fHelp || request.params.size() != 3)
+    if (request.fHelp || request.params.size() != 2)
         throw std::runtime_error(
-            "updatebdnsipfs \"bitcredsaddress\" \"bdnsname\" \"ipfshash\"\n"
-            "\nUpdate the corresponding IPFS or IPNS hash of a BDNS address and pay for it with the required amount.\n"
+            "updatedomain \"name\" \"hash\"\n"
+            "\nUpdate the corresponding IPFS or IPNS hash of a BDNS address and pay for it with the required amount (0.01).\n"
             "It creates the BDNS-IPFS update transaction, signs it and then sends it to the network.\n"
             "The wallet must be unlocked by passphrase before updating.\n"
             "Returns the hex-encoded hash of the update transaction if it was completed successfully.\n"
             "\nArguments:\n"
-            "1. \"bitcredsaddress\" (string, required) The Bitcreds address used to pay for the update.\n"
-            "2. \"bdnsname\" (string, required) The BDNS domain name that will be updated.\n"
-            "3. \"ipfshash\" (string, required) The IPFS hash where the BDNS name will point to.\n"
+            "1. \"name\" (string, required) The BDNS domain name that will be updated.\n"
+            "2. \"hash\" (string, required) The IPFS/IPNS hash where the BDNS name will point to.\n"
             "\nResult:\n"
             "\"hex\" (string) The hex-encoded hash of the update transaction.\n"
             "\nExample:\n"
-            "updatebdnsipfs \"CXAMcudgejBnG5P5z6ENNGtQxdKD1sZRAo\" \"ipfs.org\" \"QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG\""
+            "updatedomain \"ipfs.org\" \"QmYwAPJzv5CZsnA625s3Xf2nemtYgPpHdWEz79ojWnPbdG\""
         );
 
 #ifdef ENABLE_WALLET
     LOCK2(cs_main, pwalletMain ? &pwalletMain->cs_wallet : NULL);
 
-    if (request.params[0].isNull() || request.params[1].isNull() || request.params[2].isNull())
-        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, arguments 1, 2 and 3 must be non-null.");
+    if (request.params[0].isNull() || request.params[1].isNull())
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, arguments 1 and 2 must be non-null.");
 
-    if (request.params[0].get_str().length() != 34)
-        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, argument 1 does not have the required length of a Bitcreds address (34 characters).");
+    if (request.params[0].get_str().length() > 80)
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, argument 1 can have at most 80 characters.");
 
-    if (request.params[1].get_str().length() > 80)
-        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, argument 2 can have at most 80 characters.");
+    if (request.params[1].get_str().length() > 69)
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, argument 2 can have at most 69 characters.");
 
-    if (request.params[2].get_str().length() > 69)
-        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, argument 3 can have at most 69 characters.");
-
-    std::string bdnsName = request.params[1].get_str();
-    std::string newIpfsHash = request.params[2].get_str();
-    CBitcoinAddress payingAddress(request.params[0].get_str());
-
-    if (!payingAddress.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid Bitcreds address: ") + payingAddress.ToString());
-
+    std::string bdnsName = request.params[0].get_str();
+    std::string newIpfsHash = request.params[1].get_str();
     BDNSRecord bdnsRecord;
 
     if (!pbdnsdb->ReadBDNSRecord(bdnsName, bdnsRecord))
         throw JSONRPCError(RPC_INVALID_PARAMETER, "The blockchain domain name is not registered");
 
-    CBlock block;
+    if (chainActive.Height() < bdnsRecord.regBlockHeight)
+        throw JSONRPCError(RPC_INTERNAL_ERROR, "Registration block height not found.");
+
     CBlockIndex* pblockindex = chainActive[bdnsRecord.regBlockHeight];
 
     if (fHavePruned && !(pblockindex->nStatus & BLOCK_HAVE_DATA) && pblockindex->nTx > 0)
         throw JSONRPCError(RPC_INTERNAL_ERROR, "Block not available (pruned data).");
+
+    CBlock block;
 
     if (!ReadBlockFromDisk(block, pblockindex, Params().GetConsensus()))
         throw JSONRPCError(RPC_INTERNAL_ERROR, "Can't read block from disk.");
 
     CTxDestination regAddress;
 
-    // checks for possible segmentation fault because of erronous regTxIndex or regBlockHeight
+    if (block.vtx.size() - 1 < bdnsRecord.regTxIndex)
+        throw JSONRPCError(RPC_INTERNAL_ERROR, "Registration transaction not found in block, invalid tx index.");
 
     if (!ExtractDestination((*block.vtx[bdnsRecord.regTxIndex]).vout[1].scriptPubKey, regAddress))
         throw JSONRPCError(RPC_INTERNAL_ERROR, "Can't extract Bitcreds address from registration transaction." + std::to_string(bdnsRecord.regBlockHeight) + " txI " + std::to_string(bdnsRecord.regTxIndex) +
             " prevPubKey " + HexStr((*block.vtx[bdnsRecord.regTxIndex]).vout[1].scriptPubKey));
 
-    if (!(CBitcoinAddress(regAddress) == payingAddress))
-        throw JSONRPCError(RPC_INTERNAL_ERROR, "The Bitcreds address used for updating the BDNS domain is not the same as the one used at registration.");
+    assert(pwalletMain != NULL);
+
+    CKeyID keyID;
+
+    if (!CBitcoinAddress(regAddress).GetKeyID(keyID))
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Can't get the key ID of the registration address."));
+
+    if (!pwalletMain->HaveKey(keyID))
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Wallet does not own the registration address of this domain."));
 
     CMutableTransaction rawTx;
-    CTxIn in;
-    CAmount change;
+    CAmount change = 0 * COIN;
     std::vector<COutput> vecOutputs;
 
-    assert(pwalletMain != NULL);
     pwalletMain->AvailableCoins(vecOutputs, false, NULL, true);
 
     // going through all unspent outputs
@@ -1304,9 +1328,9 @@ UniValue updatebdnsipfs(const JSONRPCRequest& request)
         CTxDestination address;
         if (!ExtractDestination(out.tx->tx->vout[out.i].scriptPubKey, address))
             continue;
-        // if an unsepent output corresponding to the parameter address is found
+        // if an unspent output corresponding to the registration address is found
         // we can try to use it
-        if (!(payingAddress == CBitcoinAddress(address)))
+        if (regAddress != address)
             continue;
 
         CAmount nValue = out.tx->tx->vout[out.i].nValue;
@@ -1315,8 +1339,7 @@ UniValue updatebdnsipfs(const JSONRPCRequest& request)
         // half of it gets burned and the other goes to the miners as transaction fee
         if (nValue >= 1 * CENT) {
             change = nValue - 1 * CENT;
-            in = CTxIn(out.tx->GetHash(), out.i);
-            rawTx.vin.push_back(in);
+            rawTx.vin.push_back(CTxIn(out.tx->GetHash(), out.i));
             break;
         }
     }
@@ -1328,12 +1351,12 @@ UniValue updatebdnsipfs(const JSONRPCRequest& request)
 
         rawTx.vout.push_back(outUpdate);
 
-        CScript scriptPubKey = GetScriptForDestination(payingAddress.Get());
+        CScript scriptPubKey = GetScriptForDestination(regAddress);
         CTxOut outChange(change, scriptPubKey);
 
         rawTx.vout.push_back(outChange);
     } else
-        throw JSONRPCError(RPC_WALLET_INSUFFICIENT_FUNDS, "The specified address is invalid or it does not have enough funds.");
+        throw JSONRPCError(RPC_WALLET_INSUFFICIENT_FUNDS, "No transaction output holding at least the required amount was found. If you do have enough funds first re-send them to the address you used for registering the domain name and then retry the update.");
 
     JSONRPCRequest signReqeust;
     signReqeust.params.setArray();
@@ -1349,101 +1372,17 @@ UniValue updatebdnsipfs(const JSONRPCRequest& request)
 #endif
 }
 
-UniValue banbdns(const JSONRPCRequest& request)
-{
+UniValue resolvedomain(const JSONRPCRequest& request) {
     if (request.fHelp || request.params.size() != 1)
         throw std::runtime_error(
-            "banbdns \"bdnsname\"\n"
-            "\nBans the BDNS domain with the given name and pays for the operation with the required amount.\n"
-            "It creates the BDNS-IPFS ban transaction, signs it and then sends it to the network.\n"
-            "The wallet must be unlocked by passphrase before banning.\n"
-            "Returns the hex-encoded hash of the update transaction if it was completed successfully.\n"
-            "\nArguments:\n"
-            "1. \"bdnsname\" (string, required) The BDNS domain name that will be banned.\n"
-            "\nResult:\n"
-            "\"hex\" (string) The hex-encoded hash of the ban transaction.\n"
-            "\nExample:\n"
-            "banbdnsipfs \"ipfs.org\""
-        );
-
-#ifdef ENABLE_WALLET
-    LOCK2(cs_main, pwalletMain ? &pwalletMain->cs_wallet : NULL);
-
-    std::string bdnsName = request.params[0].get_str();
-    CBitcoinAddress payingAddress("CT8Cq2dTk5mGLLKTcDWcFVMcyTeDYF7oRq");
-
-    if (!pbdnsdb->Exists(bdnsName))
-        throw JSONRPCError(RPC_INVALID_PARAMETER, "Blockchain domain name not registered!");
-
-    CMutableTransaction rawTx;
-    CTxIn in;
-    CAmount change;
-    std::vector<COutput> vecOutputs;
-
-    assert(pwalletMain != NULL);
-    pwalletMain->AvailableCoins(vecOutputs, false, NULL, true);
-
-    // going through all unspent outputs
-    BOOST_FOREACH(const COutput& out, vecOutputs) {
-        CTxDestination address;
-        if (!ExtractDestination(out.tx->tx->vout[out.i].scriptPubKey, address))
-            continue;
-        // if an unsepent output corresponding to the parameter address is found
-        // we can try to use it
-        if (!(payingAddress == CBitcoinAddress(address)))
-            continue;
-
-        CAmount nValue = out.tx->tx->vout[out.i].nValue;
-
-        // price of updating is 0.01 Bitcreds or 1 cent so the output has to hold at least that amount
-        // half of it gets burned and the other goes to the miners as transaction fee
-        if (nValue >= 0.5 * CENT) {
-            change = nValue - 0.5 * CENT;
-            in = CTxIn(out.tx->GetHash(), out.i);
-            rawTx.vin.push_back(in);
-            break;
-        }
-    }
-
-    // if CTxIn exists only then we can register
-    if (rawTx.vin.size() == 1) {
-        std::string hexToRegister = HexStr("bdns/ban/" + bdnsName);
-        CTxOut outUpdate(0.25 * CENT, CScript() << OP_RETURN << ParseHex(hexToRegister));
-
-        rawTx.vout.push_back(outUpdate);
-
-        CScript scriptPubKey = GetScriptForDestination(payingAddress.Get());
-        CTxOut outChange(change, scriptPubKey);
-
-        rawTx.vout.push_back(outChange);
-    } else
-        throw JSONRPCError(RPC_WALLET_INSUFFICIENT_FUNDS, "The specified address is invalid or it does not have enough funds.");
-
-    JSONRPCRequest signReqeust;
-    signReqeust.params.setArray();
-    signReqeust.params.push_back(EncodeHexTx(rawTx));
-    UniValue signResult = signrawtransaction(signReqeust);
-
-    JSONRPCRequest sendRequest;
-    sendRequest.params.setArray();
-    sendRequest.params.push_back(signResult["hex"].get_str());
-    return sendrawtransaction(sendRequest);
-#else
-    throw JSONRPCError(RPC_INTERNAL_ERROR, "Banning blockchain domain names is not possible without enabling the wallet.");
-#endif
-}
-
-UniValue getipfsofbdns(const JSONRPCRequest& request) {
-    if (request.fHelp || request.params.size() != 1)
-        throw std::runtime_error(
-            "getipfsofbdns \"bdnsname\"\n"
+            "resolvedomain \"name\"\n"
             "\nGet the corresponding IPFS or IPNS hash of a registered BDNS address.\n"
             "\nArguments:\n"
-            "1. \"bdnsname\" (string, required) The blockchain domain name.\n"
+            "1. \"name\" (string, required) The blockchain domain name.\n"
             "\nResult:\n"
             "\n (string) The IPFS or IPNS hash of the registered domain.\n"
             "\nExample:\n"
-            "getipfsofbdns \"ipfs.org\""
+            "resolvedomain \"ipfs.org\""
         );
 
     if (request.params[0].isNull())
@@ -1490,12 +1429,11 @@ static const CRPCCommand commands[] =
     { "addressindex",       "getaddressbalance",      &getaddressbalance,      false, {"addresses"} },
 
     /* Bitcreds features */
-    { "bitcreds",               "mnsync",                 &mnsync,                 true,  {} },
-    { "bitcreds",               "spork",                  &spork,                  true,  {"value"} },
-    { "bitcreds",               "registerbdnsipfs",       &registerbdnsipfs,       true,  {"paying_address","domain_name","ipfs_hash"} },
-    { "bitcreds",               "updatebdnsipfs",         &updatebdnsipfs,         true,  {"paying_address","domain_name","ipfs_hash"} },
-    { "bitcreds",               "banbdns",                &banbdns,                true,  {"domain_name"} },
-    { "bitcreds",               "getipfsofbdns",          &getipfsofbdns,          true,  {"domain_name"} },
+    { "bitcreds",               "mnsync",               &mnsync,               true,  {} },
+    { "bitcreds",               "spork",                &spork,                true,  {"value"} },
+    { "bitcreds",               "registerdomain",       &registerdomain,       true,  {"name","hash","address"} },
+    { "bitcreds",               "updatedomain",         &updatedomain,         true,  {"name","hash"} },
+    { "bitcreds",               "resolvedomain",        &resolvedomain,        true,  {"name"} },
 
     /* Not shown in help */
     { "hidden",             "setmocktime",            &setmocktime,            true,  {"timestamp"}},

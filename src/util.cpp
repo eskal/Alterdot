@@ -556,13 +556,13 @@ void PrintExceptionContinue(const std::exception* pex, const char* pszThread)
 boost::filesystem::path GetDefaultDataDir()
 {
     namespace fs = boost::filesystem;
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\BitcredsCore
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\BitcredsCore
-    // Mac: ~/Library/Application Support/BitcredsCore
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\Bitcreds
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\Bitcreds
+    // Mac: ~/Library/Application Support/Bitcreds
     // Unix: ~/.bitcreds
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "BitcredsCore";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "Bitcreds";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -572,7 +572,7 @@ boost::filesystem::path GetDefaultDataDir()
         pathRet = fs::path(pszHome);
 #ifdef MAC_OSX
     // Mac
-    return pathRet / "Library/Application Support/BitcredsCore";
+    return pathRet / "Library/Application Support/Bitcreds";
 #else
     // Unix
     return pathRet / ".bitcreds";
@@ -583,6 +583,43 @@ boost::filesystem::path GetDefaultDataDir()
 static boost::filesystem::path pathCached;
 static boost::filesystem::path pathCachedNetSpecific;
 static CCriticalSection csPathCached;
+
+static std::string GenerateRandomString(unsigned int len) {
+    if (len == 0){
+        len = 24;
+    }
+    srand(time(NULL) + len); //seed srand before using
+    char s[len];
+    static const char alphanum[] =
+        "0123456789"
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        "abcdefghijklmnopqrstuvwxyz";
+
+    for (unsigned int i = 0; i < len; ++i) {
+        s[i] = alphanum[rand() % (sizeof(alphanum) - 1)];
+    }
+    s[len] = 0;
+    std::string sPassword(s);
+    return sPassword;
+}
+
+static unsigned int RandomIntegerRange(unsigned int nMin, unsigned int nMax)
+{
+  srand(time(NULL) + nMax); //seed srand before using
+  return nMin + rand() % (nMax - nMin) + 1;
+}
+
+static void WriteConfigFile(FILE* configFile)
+{
+    fputs ("#Do not use special characters with username/password\n", configFile);
+    std::string sRPCpassword = "rpcpassword=" + GenerateRandomString(RandomIntegerRange(18, 24)) + "\n";
+    std::string sUserID = "rpcuser=" + GenerateRandomString(RandomIntegerRange(7, 11)) + "\n";
+    fputs (sUserID.c_str(), configFile);
+    fputs (sRPCpassword.c_str(), configFile);
+    fputs ("rpcport=31050\n", configFile);
+    fputs ("port=31000\n",configFile);
+    fclose(configFile);
+}
 
 const boost::filesystem::path &GetDataDir(bool fNetSpecific)
 {
@@ -655,9 +692,13 @@ void ReadConfigFile(const std::string& confPath)
     if (!streamConfig.good()){
         // Create empty bitcreds.conf if it does not excist
         FILE* configFile = fopen(GetConfigFile(confPath).string().c_str(), "a");
-        if (configFile != NULL)
-            fclose(configFile);
-        return; // Nothing to read, so just return
+        if (configFile != NULL) {
+            // Write bitcreds.conf file with random username and password.
+            WriteConfigFile(configFile);
+            // New bitcreds.conf file written, now read it.
+            ReadConfigFile(confPath);
+            return;
+        }
     }
 
     {

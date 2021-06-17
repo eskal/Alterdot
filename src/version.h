@@ -47,6 +47,6 @@ static const int DIP0001_PROTOCOL_VERSION = 70208;
 static const int SHORT_IDS_BLOCKS_VERSION = 70209;
 
 //! introduction of DIP3/deterministic masternodes
-static const int DMN_PROTO_VERSION = 70213;
+static const int DMN_PROTO_VERSION = 70013;
 
 #endif // BITCOIN_VERSION_H

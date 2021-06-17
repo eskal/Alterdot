@@ -60,7 +60,7 @@ PID file:            `/var/run/bitcredsd/bitcredsd.pid` (OpenRC and Upstart) or 
 Lock file:           `/var/lock/subsys/bitcredsd` (CentOS)  
 
 The configuration file, PID directory (if applicable) and data directory
-should all be owned by the bitcredscore user and group.  It is advised for security
+should all be owned by the bitcreds user and group.  It is advised for security
 reasons to make the configuration file and data directory only readable by the
 bitcreds user and group.  Access to bitcreds-cli and other bitcredsd rpc clients
 can then be controlled by group membership.
@@ -68,9 +68,9 @@ can then be controlled by group membership.
 3b) Mac OS X
 
 Binary:              `/usr/local/bin/bitcredsd`  
-Configuration file:  `~/Library/Application Support/BitcredsCore/bitcreds.conf`  
-Data directory:      `~/Library/Application Support/BitcredsCore`
-Lock file:           `~/Library/Application Support/BitcredsCore/.lock`
+Configuration file:  `~/Library/Application Support/Bitcreds/bitcreds.conf`  
+Data directory:      `~/Library/Application Support/Bitcreds`
+Lock file:           `~/Library/Application Support/Bitcreds/.lock`
 
 4. Installing Service Configuration
 -----------------------------------
@@ -116,7 +116,7 @@ This Launch Agent will cause bitcredsd to start whenever the user logs in.
 
 NOTE: This approach is intended for those wanting to run bitcredsd as the current user.
 You will need to modify org.bitcreds.bitcredsd.plist if you intend to use it as a
-Launch Daemon with a dedicated bitcredscore user.
+Launch Daemon with a dedicated bitcreds user.
 
 5. Auto-respawn
 -----------------------------------

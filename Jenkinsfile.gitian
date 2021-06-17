@@ -37,7 +37,7 @@ for(int i = 0; i < targets.size(); i++) {
         dir('gitian-builder') {
           git url: 'https://github.com/dashpay/gitian-builder.git'
         }
-        sh "mkdir -p bitcredscore-binaries"
+        sh "mkdir -p bitcreds-binaries"
         if (target == "osx") {
           dir('gitian-builder') {
             sh 'mkdir -p inputs'
