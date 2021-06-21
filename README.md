@@ -8,7 +8,7 @@
 
 Note for version v1.7.3: This version was the first part of a transition process that will result in upgrading our codebase to newer standards from Dash, this version by itself will be rejected by the network by block 1,040,000 (or earlier) so it is necessary to upgrade right away when the next version gets released. After block 1,034,000 all Alterdot nodes running this version will switch to lite mode, disabling Masternodes, InstantSend, PrivateSend and allowing only the basic operations inherited from Bitcoin.
 
-What are Alterdot?
+What is Alterdot?
 ----------------
 * Coin Suffix: ADOT
 * PoW Mining Algorithm: Argon2d250 until January 30, 2021 6:00:00 PM UTC; Argon2d16000 afterwards
@@ -130,7 +130,10 @@ Dependency Build Instructions: Ubuntu & Debian
 ----------------------------------------------
 Build requirements:
 
-    sudo apt-get install build-essential libtool automake autotools-dev autoconf pkg-config libssl-dev libcrypto++-dev libevent-dev git
+    sudo apt-get install curl build-essential libtool autotools-dev automake pkg-config python3 bsdmainutils cmake git
+
+**! Important !**
+Go to [doc](https://github.com/Alterdot/Alterdot/doc) folder for more information, some of the instructions below are outdated but might be helpful to some.
 
 for Ubuntu 12.04 and later or Debian 7 and later libboost-all-dev has to be installed:
 
