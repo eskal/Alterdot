@@ -1,6 +1,6 @@
 # **Alterdot (ADOT) v1.8.0.0**
 
-![ADOT logo](https://github.com/Alterdot/Alterdot/blob/master/src/qt/res/icons/light/about.png) **master** [![Build Status](https://travis-ci.org/Alterdot/Alterdot.svg?branch=master)](https://travis-ci.org/Alterdot/Alterdot) **develop** [![Build Status](https://travis-ci.org/Alterdot/Alterdot.svg?branch=develop)](https://travis-ci.org/Alterdot/Alterdot)
+![ADOT logo](https://github.com/Alterdot/Alterdot/blob/master/src/qt/res/icons/light/about.png) **master** [![Build Status](https://travis-ci.com/Alterdot/Alterdot.svg?branch=master)](https://travis-ci.com/Alterdot/Alterdot) **develop** [![Build Status](https://travis-ci.com/Alterdot/Alterdot.svg?branch=develop)](https://travis-ci.com/Alterdot/Alterdot)
 
 **Copyright (c) 2017-2021 Alterdot Developers**
 
@@ -133,7 +133,7 @@ Build requirements:
     sudo apt-get install curl build-essential libtool autotools-dev automake pkg-config python3 bsdmainutils cmake git
 
 **! Important !**
-Go to [doc](https://github.com/Alterdot/Alterdot/doc) folder for more information, some of the instructions below are outdated but might be helpful to some.
+Go to [doc](https://github.com/Alterdot/Alterdot/tree/master/doc) folder for more information, some of the instructions below are outdated but might be helpful to some.
 
 for Ubuntu 12.04 and later or Debian 7 and later libboost-all-dev has to be installed:
 

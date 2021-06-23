@@ -169,8 +169,8 @@ AC_ARG_WITH([system-univalue],
   [AS_HELP_STRING([--with-system-univalue],
   [Build with system UniValue (default is no)])],
   [system_univalue=$withval],
-  [system_univalue=no]
-)
+  [system_univalue=no])
+
 AC_ARG_ENABLE([zmq],
   [AS_HELP_STRING([--disable-zmq],
   [disable ZMQ notifications])],
@@ -617,18 +617,6 @@ if test x$use_reduce_exports = xyes; then
   [AC_MSG_ERROR([Cannot set default symbol visibility. Use --disable-reduce-exports.])])
 fi
 
-if test "$have_ssse3" = "yes"; then
-    AX_CHECK_COMPILE_FLAG([-mssse3],[CFLAGS="$CFLAGS -mssse3"])
-fi
-
-if test "$have_avx2" = "yes"; then
-    AX_CHECK_COMPILE_FLAG([-mavx2],[CFLAGS="$CFLAGS -mavx2" && CXXFLAGS="$CXXFLAGS -mavx2" && CPPFLAGS="$CPPFLAGS -mavx2"])
-fi
-
-if test "$have_avx512f" = "yes"; then
-    AX_CHECK_COMPILE_FLAG([-mavx512f],[CFLAGS="$CFLAGS -mavx512f" && CPPFLAGS="$CPPFLAGS -mavx512f"])
-fi
-
 LEVELDB_CPPFLAGS=
 LIBLEVELDB=
 LIBMEMENV=
@@ -995,6 +983,24 @@ if test "x$use_ccache" = "xyes"; then
     AX_CHECK_PREPROC_FLAG([-Qunused-arguments],[CPPFLAGS="-Qunused-arguments $CPPFLAGS"])
 fi
 
+dnl set windres CPP flags before setting processor-specific instructions like -mavx2
+dnl these instructions are not recognized by windres
+WINDRES_CPPFLAGS="$CPPFLAGS"
+
+if test "$have_ssse3" = "yes"; then
+    AX_CHECK_COMPILE_FLAG([-mssse3],[CFLAGS="$CFLAGS -mssse3"])
+fi
+
+if test "$have_avx2" = "yes"; then
+    AX_CHECK_COMPILE_FLAG([-mavx2],[CFLAGS="$CFLAGS -mavx2" && CXXFLAGS="$CXXFLAGS -mavx2" && CPPFLAGS="$CPPFLAGS -mavx2"])
+fi
+
+if test "$have_avx512f" = "yes"; then
+    AX_CHECK_COMPILE_FLAG([-mavx512f],[CFLAGS="$CFLAGS -mavx512f" && CPPFLAGS="$CPPFLAGS -mavx512f"])
+fi
+
+AX_CHECK_COMPILE_FLAG([-msse2],[CFLAGS="$CFLAGS -msse2"])
+
 dnl enable wallet
 AC_MSG_CHECKING([if wallet should be enabled])
 if test x$enable_wallet != xno; then
@@ -1153,6 +1159,7 @@ AC_SUBST(EVENT_PTHREADS_LIBS)
 AC_SUBST(ZMQ_LIBS)
 AC_SUBST(PROTOBUF_LIBS)
 AC_SUBST(QR_LIBS)
+AC_SUBST(WINDRES_CPPFLAGS)
 AC_CONFIG_FILES([Makefile src/Makefile doc/man/Makefile share/setup.nsi share/qt/Info.plist src/test/buildenv.py])
 AC_CONFIG_FILES([qa/pull-tester/tests_config.py],[chmod +x qa/pull-tester/tests_config.py])
 AC_CONFIG_FILES([contrib/devtools/split-debug.sh],[chmod +x contrib/devtools/split-debug.sh])

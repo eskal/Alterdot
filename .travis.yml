@@ -4,11 +4,8 @@ os: linux
 sudo: required
 dist: xenial
 install:
-  - apt-get update
-  - apt-get install curl build-essential libtool autotools-dev automake pkg-config python3 bsdmainutils cmake
-  - add-apt-repository -y ppa:bitcoin/bitcoin
-  - apt-get update -y && sudo apt-get install -y libdb4.8-dev libdb4.8++-dev libzmq3-dev
-  - apt-get install -y libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler libcrypto++-dev libqrencode-dev
+  - sudo apt-get update
+  - sudo apt-get install curl build-essential libtool autotools-dev automake pkg-config python3 bsdmainutils cmake git
 script:
   - cd depends && make
   - cd .. && ./autogen.sh && ./configure --enable-avx2 --with-gui && make
