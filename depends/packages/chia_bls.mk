@@ -1,7 +1,7 @@
 package=chia_bls
 $(package)_version=v20181101
 # It's actually from https://github.com/Chia-Network/bls-signatures, but we have so many patches atm that it's forked
-$(package)_download_path=https://github.com/dashpay/bls-signatures/archive 
+$(package)_download_path=https://github.com/dashpay/bls-signatures/archive
 # TODO_ADOT_MEDIUM create Alterdot bls-signatures repo on GitHub
 $(package)_download_file=$($(package)_version).tar.gz
 $(package)_file_name=$(package)-$($(package)_download_file)
