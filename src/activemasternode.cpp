@@ -288,8 +288,8 @@ bool CActiveLegacyMasternodeManager::SendMasternodePing(CConnman& connman)
 
     CMasternodePing mnp(activeMasternodeInfo.outpoint);
     mnp.nSentinelVersion = nSentinelVersion;
-    mnp.fSentinelIsCurrent =
-        (abs(GetAdjustedTime() - nSentinelPingTime) < MASTERNODE_SENTINEL_PING_MAX_SECONDS);
+    mnp.fSentinelIsActive =
+        (abs(GetAdjustedTime() - nSentinelCallTime) < MASTERNODE_SENTINEL_CALL_MAX_SECONDS);
     if (!mnp.Sign(activeMasternodeInfo.legacyKeyOperator, activeMasternodeInfo.legacyKeyIDOperator)) {
         LogPrintf("CActiveLegacyMasternodeManager::SendMasternodePing -- ERROR: Couldn't sign Masternode Ping\n");
         return false;
@@ -309,10 +309,10 @@ bool CActiveLegacyMasternodeManager::SendMasternodePing(CConnman& connman)
     return true;
 }
 
-bool CActiveLegacyMasternodeManager::UpdateSentinelPing(int version)
+bool CActiveLegacyMasternodeManager::UpdateSentinelCall(int version)
 {
     nSentinelVersion = version;
-    nSentinelPingTime = GetAdjustedTime();
+    nSentinelCallTime = GetAdjustedTime();
 
     return true;
 }
