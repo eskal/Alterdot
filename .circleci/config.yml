@@ -1,0 +1,19 @@
+version: 2.1
+jobs:
+  build:
+    machine:
+      image: ubuntu-2004:202104-01
+    steps:
+      - checkout
+      - run:
+          name: "Update"
+          command: sudo apt-get update
+      - run:
+          name: "Install tools"
+          command: sudo apt-get install curl build-essential libtool autotools-dev automake pkg-config python3 bsdmainutils cmake git
+      - run:
+          name: "Build depends"
+          command: cd depends && make -j 2 && cd ..
+      - run:
+          name: "Build"
+          command: ./autogen.sh && ./configure --prefix `pwd`/depends/x86_64-pc-linux-gnu --enable-avx2 --with-gui && make

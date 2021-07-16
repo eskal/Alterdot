@@ -1,6 +1,30 @@
 # **Alterdot (ADOT) v1.8.0.1**
 
-![ADOT logo](https://github.com/Alterdot/Alterdot/blob/master/src/qt/res/icons/light/about.png) **master** [![Build Status](https://travis-ci.com/Alterdot/Alterdot.svg?branch=master)](https://travis-ci.com/Alterdot/Alterdot) **develop** [![Build Status](https://travis-ci.com/Alterdot/Alterdot.svg?branch=develop)](https://travis-ci.com/Alterdot/Alterdot)
+<table>
+ <tr>
+  <th rowspan=2>
+   <img src="https://github.com/Alterdot/Alterdot/blob/master/src/qt/res/icons/bitcoin.png" width="76" height="76">
+  </th>
+  <th>
+   master
+  </th>
+  <th>
+   develop
+  </th>
+ </tr>
+ <tr>
+  <th>
+   
+   [![CircleCI](https://circleci.com/gh/Alterdot/Alterdot/tree/master.svg?style=svg)](https://circleci.com/gh/Alterdot/Alterdot/master)
+   
+  </th>
+  <th>
+   
+   [![CircleCI](https://circleci.com/gh/Alterdot/Alterdot/tree/develop.svg?style=svg)](https://circleci.com/gh/Alterdot/Alterdot/develop)
+   
+  </th>
+ </tr>
+</table>
 
 **Copyright (c) 2017-2021 Alterdot Developers**
 
