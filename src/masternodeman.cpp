@@ -1840,6 +1840,9 @@ void CMasternodeMan::UpdateLastPaid(const CBlockIndex* pindex)
 void CMasternodeMan::UpdateLastSentinelCallTime()
 {
     LOCK(cs);
+    if (deterministicMNManager->IsDeterministicMNsSporkActive())
+        return;
+        
     nLastSentinelCallTime = GetTime();
 }
 

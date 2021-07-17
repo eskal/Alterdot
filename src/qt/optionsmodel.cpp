@@ -87,7 +87,7 @@ void OptionsModel::Init(bool resetSettings)
 
 #ifdef ENABLE_WALLET
     if (!settings.contains("fCoinControlFeatures"))
-        settings.setValue("fCoinControlFeatures", false);
+        settings.setValue("fCoinControlFeatures", true);
     fCoinControlFeatures = settings.value("fCoinControlFeatures", false).toBool();
 
     if (!settings.contains("digits"))

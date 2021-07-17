@@ -986,18 +986,21 @@ UniValue masternodelist(const JSONRPCRequest& request)
                 objMN.push_back(Pair("payee", payeeStr));
                 objMN.push_back(Pair("status", mn.GetStatus()));
                 objMN.push_back(Pair("protocol", mn.nProtocolVersion));
-                objMN.push_back(Pair("daemonversion", mn.lastPing.GetDaemonString()));
-                objMN.push_back(Pair("sentinelversion", mn.lastPing.GetSentinelString()));
-                objMN.push_back(Pair("sentinelstate", (mn.lastPing.fSentinelIsActive ? "active" : "expired")));
-                objMN.push_back(Pair("lastseen", (int64_t)mn.lastPing.sigTime));
-                objMN.push_back(Pair("activeseconds", (int64_t)(mn.lastPing.sigTime - mn.sigTime)));
+                if (!deterministicMNManager->IsDeterministicMNsSporkActive()) { // no more pings after Det MN gets activated
+                    objMN.push_back(Pair("daemonversion", mn.lastPing.GetDaemonString()));
+                    objMN.push_back(Pair("sentinelversion", mn.lastPing.GetSentinelString()));
+                    objMN.push_back(Pair("sentinelstate", (mn.lastPing.fSentinelIsActive ? "active" : "expired")));
+                    objMN.push_back(Pair("lastseen", (int64_t)mn.lastPing.sigTime));
+                    objMN.push_back(Pair("activeseconds", (int64_t)(mn.lastPing.sigTime - mn.sigTime)));
+                }
                 objMN.push_back(Pair("lastpaidtime", mn.GetLastPaidTime()));
                 objMN.push_back(Pair("lastpaidblock", mn.GetLastPaidBlock()));
                 objMN.push_back(Pair("owneraddress", CBitcoinAddress(mn.keyIDOwner).ToString()));
                 objMN.push_back(Pair("votingaddress", CBitcoinAddress(mn.keyIDVoting).ToString()));
                 objMN.push_back(Pair("collateraladdress", collateralAddressStr));
-                if (deterministicMNManager->IsDeterministicMNsSporkActive())
+                if (deterministicMNManager->IsDeterministicMNsSporkActive()) {
                     objMN.push_back(Pair("proTxHash", proTxHash));
+                }
                 obj.push_back(Pair(strOutpoint, objMN));
             } else if (strMode == "keyid") {
                 if (strFilter !="" && strOutpoint.find(strFilter) == std::string::npos) continue;

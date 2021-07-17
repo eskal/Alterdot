@@ -272,7 +272,7 @@ void CMasternode::Check(bool fForce)
             if(nActiveStatePrev != nActiveState) {
                 LogPrint("masternode", "CMasternode::Check -- Masternode %s is in %s state now\n", outpoint.ToStringShort(), GetStateString());
             }
-            return;
+            return; // TODO_ADOT_FUTURE
             */
         }
     }
