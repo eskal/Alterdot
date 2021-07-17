@@ -28,7 +28,7 @@ private:
 
     static const int LAST_PAID_SCAN_BLOCKS;
 
-    static const int MIN_POSE_PROTO_VERSION     = 70203;
+    static const int MIN_POSE_PROTO_VERSION     = 70014;
     static const int MAX_POSE_CONNECTIONS       = 10;
     static const int MAX_POSE_RANK              = 10;
     static const int MAX_POSE_BLOCKS            = 10;
@@ -74,7 +74,7 @@ private:
 
     std::vector<uint256> vecDirtyGovernanceObjectHashes;
 
-    int64_t nLastSentinelPingTime;
+    int64_t nLastSentinelCallTime;
 
     friend class CMasternodeSync;
     /// Find an entry
@@ -118,7 +118,7 @@ public:
         READWRITE(mWeAskedForMasternodeListEntry);
         READWRITE(mMnbRecoveryRequests);
         READWRITE(mMnbRecoveryGoodReplies);
-        READWRITE(nLastSentinelPingTime);
+        READWRITE(nLastSentinelCallTime);
         READWRITE(nDsqCount);
 
         READWRITE(mapSeenMasternodeBroadcast);
@@ -229,8 +229,8 @@ public:
         return vecTmp;
     }
 
-    bool IsSentinelPingActive();
-    void UpdateLastSentinelPingTime();
+    bool IsSentinelWorkerActive();
+    void UpdateLastSentinelCallTime();
     bool AddGovernanceVote(const COutPoint& outpoint, uint256 nGovernanceObjectHash);
     void RemoveGovernanceObject(uint256 nGovernanceObjectHash);
 

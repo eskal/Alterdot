@@ -94,8 +94,8 @@ private:
     /// Ping Masternode
     bool SendMasternodePing(CConnman& connman);
 
-    //  sentinel ping data
-    int64_t nSentinelPingTime;
+    //  sentinel call data
+    int64_t nSentinelCallTime;
     uint32_t nSentinelVersion;
 
 public:
@@ -117,7 +117,7 @@ public:
     std::string GetStatus() const;
     std::string GetTypeString() const;
 
-    bool UpdateSentinelPing(int version);
+    bool UpdateSentinelCall(int version);
 
     void DoMaintenance(CConnman& connman);
 

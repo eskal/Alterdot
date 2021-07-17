@@ -10,7 +10,7 @@
  * network protocol versioning
  */
 
-static const int PROTOCOL_VERSION = 70013;
+static const int PROTOCOL_VERSION = 70014;
 
 //! initial proto version, to be increased after version/verack negotiation
 static const int INIT_PROTO_VERSION = 209;
@@ -44,7 +44,7 @@ static const int SENDHEADERS_VERSION = 70000;
 static const int DIP0001_PROTOCOL_VERSION = 70208;
 
 //! short-id-based block download starts with this version
-static const int SHORT_IDS_BLOCKS_VERSION = 70209;
+static const int SHORT_IDS_BLOCKS_VERSION = 70014;
 
 //! introduction of DIP3/deterministic masternodes
 static const int DMN_PROTO_VERSION = 70013;

@@ -201,7 +201,7 @@ void CMasternode::Check(bool fForce)
 
     if(fWaitForPing && !fOurMasternode) {
         // ...but if it was already expired before the initial check - return right away
-        if(IsExpired() || IsSentinelPingExpired() || IsNewStartRequired()) {
+        if(IsExpired() || IsSentinelWorkerExpired() || IsNewStartRequired()) {
             LogPrint("masternode", "CMasternode::Check -- Masternode %s is in %s state, waiting for ping\n", outpoint.ToStringShort(), GetStateString());
             return;
         }
@@ -227,17 +227,21 @@ void CMasternode::Check(bool fForce)
         }
 
         // part 1: expire based on alterdotd ping
-        bool fSentinelPingActive = masternodeSync.IsSynced() && mnodeman.IsSentinelPingActive();
-        bool fSentinelPingExpired = fSentinelPingActive && !IsPingedWithin(MASTERNODE_SENTINEL_PING_MAX_SECONDS);
-        LogPrint("masternode", "CMasternode::Check -- outpoint=%s, GetAdjustedTime()=%d, fSentinelPingExpired=%d\n",
-                outpoint.ToStringShort(), GetAdjustedTime(), fSentinelPingExpired);
+        bool fSentinelWorkerActive = masternodeSync.IsSynced() && mnodeman.IsSentinelWorkerActive();
+        bool fSentinelWorkerExpired = fSentinelWorkerActive && !IsPingedWithin(MASTERNODE_SENTINEL_CALL_MAX_SECONDS);
+        LogPrint("masternode", "CMasternode::Check -- outpoint=%s, GetAdjustedTime()=%d, fSentinelWorkerExpired=%d\n",
+                outpoint.ToStringShort(), GetAdjustedTime(), fSentinelWorkerExpired);
 
-        if(fSentinelPingExpired) {
-            nActiveState = MASTERNODE_SENTINEL_PING_EXPIRED;
+        if(fSentinelWorkerExpired) {
+            LogPrint("masternode", "CMasternode::Check -- The sentinel worker of masternode %s is expired\n", outpoint.ToStringShort());
+            /*
+            nActiveState = MASTERNODE_SENTINEL_CALL_EXPIRED;
             if(nActiveStatePrev != nActiveState) {
                 LogPrint("masternode", "CMasternode::Check -- Masternode %s is in %s state now\n", outpoint.ToStringShort(), GetStateString());
             }
             return;
+            TODO_ADOT_FUTURE implement sentinel worker and expiration
+            */
         }
     }
 
@@ -255,18 +259,21 @@ void CMasternode::Check(bool fForce)
 
     if(!fWaitForPing || fOurMasternode) {
         // part 2: expire based on sentinel info
-        bool fSentinelPingActive = masternodeSync.IsSynced() && mnodeman.IsSentinelPingActive();
-        bool fSentinelPingExpired = fSentinelPingActive && !lastPing.fSentinelIsCurrent;
+        bool fSentinelWorkerActive = masternodeSync.IsSynced() && mnodeman.IsSentinelWorkerActive();
+        bool fSentinelWorkerExpired = fSentinelWorkerActive && !lastPing.fSentinelIsActive;
 
-        LogPrint("masternode", "CMasternode::Check -- outpoint=%s, GetAdjustedTime()=%d, fSentinelPingExpired=%d\n",
-                outpoint.ToStringShort(), GetAdjustedTime(), fSentinelPingExpired);
+        LogPrint("masternode", "CMasternode::Check -- outpoint=%s, GetAdjustedTime()=%d, fSentinelWorkerExpired=%d\n",
+                outpoint.ToStringShort(), GetAdjustedTime(), fSentinelWorkerExpired);
 
-        if(fSentinelPingExpired) {
-            nActiveState = MASTERNODE_SENTINEL_PING_EXPIRED;
+        if(fSentinelWorkerExpired) {
+            LogPrint("masternode", "CMasternode::Check -- The sentinel worker of masternode %s is expired\n", outpoint.ToStringShort());
+            /*
+            nActiveState = MASTERNODE_SENTINEL_CALL_EXPIRED;
             if(nActiveStatePrev != nActiveState) {
                 LogPrint("masternode", "CMasternode::Check -- Masternode %s is in %s state now\n", outpoint.ToStringShort(), GetStateString());
             }
-            return;
+            return; // TODO_ADOT_FUTURE
+            */
         }
     }
 
@@ -305,7 +312,7 @@ std::string CMasternode::StateToString(int nStateIn)
         case MASTERNODE_EXPIRED:                return "EXPIRED";
         case MASTERNODE_OUTPOINT_SPENT:         return "OUTPOINT_SPENT";
         case MASTERNODE_UPDATE_REQUIRED:        return "UPDATE_REQUIRED";
-        case MASTERNODE_SENTINEL_PING_EXPIRED:  return "SENTINEL_PING_EXPIRED";
+        case MASTERNODE_SENTINEL_CALL_EXPIRED:  return "SENTINEL_CALL_EXPIRED";
         case MASTERNODE_NEW_START_REQUIRED:     return "NEW_START_REQUIRED";
         case MASTERNODE_POSE_BAN:               return "POSE_BAN";
         default:                                return "UNKNOWN";
@@ -738,7 +745,7 @@ uint256 CMasternodePing::GetHash() const
         ss << masternodeOutpoint;
         ss << blockHash;
         ss << sigTime;
-        ss << fSentinelIsCurrent;
+        ss << fSentinelIsActive;
         ss << nSentinelVersion;
         ss << nDaemonVersion;
     } else {
@@ -933,8 +940,8 @@ bool CMasternodePing::CheckAndUpdate(CMasternode* pmn, bool fFromNewBroadcast, i
 
     // force update, ignoring cache
     pmn->Check(true);
-    // relay ping for nodes in ENABLED/EXPIRED/SENTINEL_PING_EXPIRED state only, skip everyone else
-    if (!pmn->IsEnabled() && !pmn->IsExpired() && !pmn->IsSentinelPingExpired()) return false;
+    // relay ping for nodes in ENABLED/EXPIRED/SENTINEL_CALL_EXPIRED state only, skip everyone else
+    if (!pmn->IsEnabled() && !pmn->IsExpired() && !pmn->IsSentinelWorkerExpired()) return false;
 
     LogPrint("masternode", "CMasternodePing::CheckAndUpdate -- Masternode ping acceepted and relayed, masternode=%s\n", masternodeOutpoint.ToStringShort());
     Relay(connman);

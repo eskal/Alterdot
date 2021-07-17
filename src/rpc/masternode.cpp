@@ -958,7 +958,7 @@ UniValue masternodelist(const JSONRPCRequest& request)
                                (int64_t)mn.lastPing.sigTime << " " << std::setw(8) <<
                                (int64_t)(mn.lastPing.sigTime - mn.sigTime) << " " <<
                                mn.lastPing.GetSentinelString() << " "  <<
-                               (mn.lastPing.fSentinelIsCurrent ? "current" : "expired") << " " <<
+                               (mn.lastPing.fSentinelIsActive ? "active" : "expired") << " " <<
                                mn.addr.ToString();
                 std::string strInfo = streamInfo.str();
                 if (strFilter !="" && strInfo.find(strFilter) == std::string::npos &&
@@ -972,7 +972,7 @@ UniValue masternodelist(const JSONRPCRequest& request)
                                mn.nProtocolVersion << " " <<
                                mn.lastPing.nDaemonVersion << " " <<
                                mn.lastPing.GetSentinelString() << " " <<
-                               (mn.lastPing.fSentinelIsCurrent ? "current" : "expired") << " " <<
+                               (mn.lastPing.fSentinelIsActive ? "active" : "expired") << " " <<
                                (int64_t)mn.lastPing.sigTime << " " <<
                                (int64_t)(mn.lastPing.sigTime - mn.sigTime) << " " <<
                                mn.GetLastPaidTime() << " " <<
@@ -986,18 +986,21 @@ UniValue masternodelist(const JSONRPCRequest& request)
                 objMN.push_back(Pair("payee", payeeStr));
                 objMN.push_back(Pair("status", mn.GetStatus()));
                 objMN.push_back(Pair("protocol", mn.nProtocolVersion));
-                objMN.push_back(Pair("daemonversion", mn.lastPing.GetDaemonString()));
-                objMN.push_back(Pair("sentinelversion", mn.lastPing.GetSentinelString()));
-                objMN.push_back(Pair("sentinelstate", (mn.lastPing.fSentinelIsCurrent ? "current" : "expired")));
-                objMN.push_back(Pair("lastseen", (int64_t)mn.lastPing.sigTime));
-                objMN.push_back(Pair("activeseconds", (int64_t)(mn.lastPing.sigTime - mn.sigTime)));
+                if (!deterministicMNManager->IsDeterministicMNsSporkActive()) { // no more pings after Det MN gets activated
+                    objMN.push_back(Pair("daemonversion", mn.lastPing.GetDaemonString()));
+                    objMN.push_back(Pair("sentinelversion", mn.lastPing.GetSentinelString()));
+                    objMN.push_back(Pair("sentinelstate", (mn.lastPing.fSentinelIsActive ? "active" : "expired")));
+                    objMN.push_back(Pair("lastseen", (int64_t)mn.lastPing.sigTime));
+                    objMN.push_back(Pair("activeseconds", (int64_t)(mn.lastPing.sigTime - mn.sigTime)));
+                }
                 objMN.push_back(Pair("lastpaidtime", mn.GetLastPaidTime()));
                 objMN.push_back(Pair("lastpaidblock", mn.GetLastPaidBlock()));
                 objMN.push_back(Pair("owneraddress", CBitcoinAddress(mn.keyIDOwner).ToString()));
                 objMN.push_back(Pair("votingaddress", CBitcoinAddress(mn.keyIDVoting).ToString()));
                 objMN.push_back(Pair("collateraladdress", collateralAddressStr));
-                if (deterministicMNManager->IsDeterministicMNsSporkActive())
+                if (deterministicMNManager->IsDeterministicMNsSporkActive()) {
                     objMN.push_back(Pair("proTxHash", proTxHash));
+                }
                 obj.push_back(Pair(strOutpoint, objMN));
             } else if (strMode == "keyid") {
                 if (strFilter !="" && strOutpoint.find(strFilter) == std::string::npos) continue;
@@ -1280,23 +1283,23 @@ UniValue masternodebroadcast(const JSONRPCRequest& request)
     return NullUniValue;
 }
 
-UniValue sentinelping(const JSONRPCRequest& request)
+UniValue sentinelcall(const JSONRPCRequest& request)
 {
     if (request.fHelp || request.params.size() != 1) {
         throw std::runtime_error(
-            "sentinelping version\n"
-            "\nSentinel ping.\n"
+            "sentinelcall version\n"
+            "\nSentinel call.\n"
             "\nArguments:\n"
             "1. version           (string, required) Sentinel version in the form \"x.x.x\"\n"
             "\nResult:\n"
-            "state                (boolean) Ping result\n"
+            "state                (boolean) Call result\n"
             "\nExamples:\n"
-            + HelpExampleCli("sentinelping", "1.0.2")
-            + HelpExampleRpc("sentinelping", "1.0.2")
+            + HelpExampleCli("sentinelcall", "1.0.2")
+            + HelpExampleRpc("sentinelcall", "1.0.2")
         );
     }
 
-    legacyActiveMasternodeManager.UpdateSentinelPing(StringVersionToInt(request.params[0].get_str()));
+    legacyActiveMasternodeManager.UpdateSentinelCall(StringVersionToInt(request.params[0].get_str()));
     return true;
 }
 
@@ -1307,7 +1310,7 @@ static const CRPCCommand commands[] =
     { "alterdot",               "masternodelist",         &masternodelist,         true,  {} },
     { "alterdot",               "masternodebroadcast",    &masternodebroadcast,    true,  {} },
     { "alterdot",               "getpoolinfo",            &getpoolinfo,            true,  {} },
-    { "alterdot",               "sentinelping",           &sentinelping,           true,  {} },
+    { "alterdot",               "sentinelcall",           &sentinelcall,           true,  {} },
 #ifdef ENABLE_WALLET
     { "alterdot",               "privatesend",            &privatesend,            false, {} },
 #endif // ENABLE_WALLET
