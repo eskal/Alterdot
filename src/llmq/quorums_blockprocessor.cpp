@@ -121,9 +121,19 @@ bool CQuorumBlockProcessor::ProcessBlock(const CBlock& block, const CBlockIndex*
     AssertLockHeld(cs_main);
 
     bool fDIP0003Active = pindex->nHeight >= Params().GetConsensus().DIP0003Height;
+    bool fDIP0008Active = pindex->nHeight >= Params().GetConsensus().DIP0008Height;
+
     if (!fDIP0003Active) {
         evoDb.Write(DB_BEST_BLOCK_UPGRADE, block.GetHash());
         return true;
+    }
+
+    std::vector<Consensus::LLMQType> usedLLMQs;
+
+    if (!fDIP0008Active) {
+        usedLLMQs.insert(usedLLMQs.end(), { Consensus::LLMQ_50_60, Consensus::LLMQ_400_60, Consensus::LLMQ_400_85 });
+    } else {
+        usedLLMQs.insert(usedLLMQs.end(), { Consensus::LLMQ_10_60 });
     }
 
     std::map<Consensus::LLMQType, CFinalCommitment> qcs;
@@ -134,12 +144,10 @@ bool CQuorumBlockProcessor::ProcessBlock(const CBlock& block, const CBlockIndex*
     // The following checks make sure that there is always a (possibly null) commitment while in the mining phase
     // until the first non-null commitment has been mined. After the non-null commitment, no other commitments are
     // allowed, including null commitments.
-    for (const auto& p : Params().GetConsensus().llmqs) {
-        auto type = p.first;
-
+    for (auto llmqType : usedLLMQs) {
         // does the currently processed block contain a (possibly null) commitment for the current session?
-        bool hasCommitmentInNewBlock = qcs.count(type) != 0;
-        bool isCommitmentRequired = IsCommitmentRequired(type, pindex->nHeight);
+        bool hasCommitmentInNewBlock = qcs.count(llmqType) != 0;
+        bool isCommitmentRequired = IsCommitmentRequired(llmqType, pindex->nHeight);
 
         if (hasCommitmentInNewBlock && !isCommitmentRequired) {
             // If we're either not in the mining phase or a non-null commitment was mined already, reject the block
