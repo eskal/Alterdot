@@ -2,4 +2,6 @@
 
 This file contains old notes that came together with previous versions of Alterdot which were included in the main README.md file of the repository.
 
+**v1.8.0.1**: This update contains two fixes for the initial version of Alterdot. The first one is for a Masternode status flag that could be triggered across the whole network due to some incorrect communication between the Alterdot daemon and the sentinel therefore this version comes together with a sentinel update (v1.4.2). This problem didn't actually hinder functionality but it made Masternodes look as if they weren't working properly. The second fix is a lot more important as it addresses an InstantSend problem. These payments were failing as they were not getting verified by the Masternode network. After a majority of Masternodes get upgraded to this version InstantSend will be working again.
+
 **v1.7.3**: This version was the first part of a transition process that will result in upgrading our codebase to newer standards from Dash, this version by itself will be rejected by the network by block 1,040,000 (or earlier) so it is necessary to upgrade right away when the next version gets released. After block 1,034,000 all Bitcreds nodes running this version will switch to lite mode, disabling Masternodes, InstantSend, PrivateSend and allowing only the basic operations inherited from Bitcoin.

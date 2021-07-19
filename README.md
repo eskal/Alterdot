@@ -30,8 +30,6 @@
 
 **Project previously known as [Bitcreds](https://github.com/Bitcreds/Bitcreds).**
 
-Note for version v1.8.0.1: This update contains two fixes for the initial version of Alterdot. The first one is for a Masternode status flag that could be triggered across the whole network due to some incorrect communication between the Alterdot daemon and the sentinel therefore this version comes together with a sentinel update (v1.4.2). This problem didn't actually hinder functionality but it made Masternodes look as if they weren't working properly. The second fix is a lot more important as it addresses an InstantSend problem. These payments were failing as they were not getting verified by the Masternode network. After a majority of Masternodes get upgraded to this version InstantSend will be working again.
-
 What is Alterdot?
 ----------------
 * Coin Suffix: ADOT
