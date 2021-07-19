@@ -332,7 +332,7 @@
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <location filename="../dash.cpp" line="+551"/>
+        <location filename="../alterdot.cpp" line="+551"/>
         <source>A fatal error occurred. Alterdot can no longer continue safely and will quit.</source>
         <translation>A fatal error occurred. Alterdot can no longer continue safely and will quit.</translation>
     </message>
@@ -2448,7 +2448,7 @@ https://www.transifex.com/projects/p/dash/</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../dash.cpp" line="+176"/>
+        <location filename="../alterdot.cpp" line="+176"/>
         <source>%1 didn&apos;t yet exit safely...</source>
         <translation>%1 didn&apos;t yet exit safely...</translation>
     </message>
@@ -2561,7 +2561,7 @@ https://www.transifex.com/projects/p/dash/</translation>
 <context>
     <name>QObject::QObject</name>
     <message>
-        <location filename="../dash.cpp" line="-81"/>
+        <location filename="../alterdot.cpp" line="-81"/>
         <source>Error: Specified data directory &quot;%1&quot; does not exist.</source>
         <translation>Error: Specified data directory &quot;%1&quot; does not exist.</translation>
     </message>

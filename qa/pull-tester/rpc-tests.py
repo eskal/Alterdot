@@ -28,7 +28,7 @@ import re
 BASE_SCRIPTS= [
     # Scripts that are run by the travis build process.
     # Longest test should go first, to favor running tests in parallel
-    'dip3-deterministicmns.py', # NOTE: needs dash_hash to pass
+    'dip3-deterministicmns.py', # NOTE: needs alterdot_hash to pass
     'wallet-hd.py',
     'walletbackup.py',
     # vv Tests less than 5m vv
@@ -44,13 +44,13 @@ BASE_SCRIPTS= [
     'wallet-dump.py',
     'listtransactions.py',
     'multikeysporks.py',
-    'llmq-signing.py', # NOTE: needs dash_hash to pass
-    'llmq-chainlocks.py', # NOTE: needs dash_hash to pass
-    'llmq-simplepose.py', # NOTE: needs dash_hash to pass
-    'llmq-is-cl-conflicts.py', # NOTE: needs dash_hash to pass
-    'llmq-is-retroactive.py', # NOTE: needs dash_hash to pass
-    'llmq-dkgerrors.py', # NOTE: needs dash_hash to pass
-    'dip4-coinbasemerkleroots.py', # NOTE: needs dash_hash to pass
+    'llmq-signing.py', # NOTE: needs alterdot_hash to pass
+    'llmq-chainlocks.py', # NOTE: needs alterdot_hash to pass
+    'llmq-simplepose.py', # NOTE: needs alterdot_hash to pass
+    'llmq-is-cl-conflicts.py', # NOTE: needs alterdot_hash to pass
+    'llmq-is-retroactive.py', # NOTE: needs alterdot_hash to pass
+    'llmq-dkgerrors.py', # NOTE: needs alterdot_hash to pass
+    'dip4-coinbasemerkleroots.py', # NOTE: needs alterdot_hash to pass
     # vv Tests less than 60s vv
     'sendheaders.py', # NOTE: needs alterdot_hash to pass
     'zapwallettxes.py',
@@ -102,7 +102,7 @@ BASE_SCRIPTS= [
 ]
 
 ZMQ_SCRIPTS = [
-    # ZMQ test can only be run if Dash Core was built with zmq-enabled.
+    # ZMQ test can only be run if Alterdot was built with zmq-enabled.
     # call rpc_tests.py with -nozmq to explicitly exclude these tests.
     "zmq_test.py"]
 
@@ -234,7 +234,7 @@ def run_tests(test_list, src_dir, build_dir, exeext, jobs=1, enable_coverage=Fal
 
     #Set env vars
     if "BITCOIND" not in os.environ:
-        os.environ["BITCOIND"] = build_dir + '/src/dashd' + exeext
+        os.environ["BITCOIND"] = build_dir + '/src/alterdotd' + exeext
 
     tests_dir = src_dir + '/qa/rpc-tests/'
 

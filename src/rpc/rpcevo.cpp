@@ -102,7 +102,7 @@ std::string GetHelpString(int nParamNum, std::string strParamName)
     return strprintf(it->second, nParamNum);
 }
 
-// Allows to specify Alterdot address or priv key. In case of Dash address, the priv key is taken from the wallet
+// Allows to specify Alterdot address or priv key. In case of Alterdot address, the priv key is taken from the wallet
 static CKey ParsePrivKey(CWallet* pwallet, const std::string &strKeyOrAddress, bool allowAddresses = true) {
     CBitcoinAddress address;
     if (allowAddresses && address.SetString(strKeyOrAddress) && address.IsValid()) {

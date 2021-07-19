@@ -243,10 +243,10 @@ Berkeley DB
 It is recommended to use Berkeley DB 4.8. If you have to build it yourself:
 
 ```bash
-ALTERDOT_ROOT=$(pwd)
+ADOT_ROOT=$(pwd)
 
 # Pick some path to install BDB to, here we create a directory within the Alterdot directory
-BDB_PREFIX="${ALTERDOT_ROOT}/db4"
+BDB_PREFIX="${ADOT_ROOT}/db4"
 mkdir -p $BDB_PREFIX
 
 # Fetch the source and verify that it is not tampered with

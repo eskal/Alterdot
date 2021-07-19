@@ -371,7 +371,7 @@ def assert_start_raises_init_error(i, dirname, extra_args=None, expected_msg=Non
             node = start_node(i, dirname, extra_args, stderr=log_stderr)
             stop_node(node, i)
         except Exception as e:
-            assert 'dashd exited' in str(e) #node must have shutdown
+            assert 'alterdotd exited' in str(e) #node must have shutdown
             if expected_msg is not None:
                 log_stderr.seek(0)
                 stderr = log_stderr.read().decode('utf-8')
@@ -379,9 +379,9 @@ def assert_start_raises_init_error(i, dirname, extra_args=None, expected_msg=Non
                     raise AssertionError("Expected error \"" + expected_msg + "\" not found in:\n" + stderr)
         else:
             if expected_msg is None:
-                assert_msg = "dashd should have exited with an error"
+                assert_msg = "alterdotd should have exited with an error"
             else:
-                assert_msg = "dashd should have exited with expected error " + expected_msg
+                assert_msg = "alterdotd should have exited with expected error " + expected_msg
             raise AssertionError(assert_msg)
 
 def start_nodes(num_nodes, dirname, extra_args=None, rpchost=None, timewait=None, binary=None, redirect_stderr=False):

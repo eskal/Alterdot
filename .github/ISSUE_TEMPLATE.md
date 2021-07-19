@@ -2,7 +2,7 @@
 
 This issue tracker is only for technical issues related to Alterdot.
 
-General Alterdot questions and/or support requests and are best directed to the [Alterdotpay Reddit](https://www.reddit.com/r/dashpay/).
+General Alterdot questions and/or support requests and are best directed to the [Alterdot Reddit](https://www.reddit.com/r/alterdot/).
 
 To report critical security issues, email andrewtookay@gmail.com instead of creating Github issues.
 

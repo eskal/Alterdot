@@ -284,7 +284,7 @@ bool LogAcceptCategory(const char* category)
                 const std::vector<std::string>& categories = mapMultiArgs.at("-debug");
                 ptrCategory.reset(new std::set<std::string>(categories.begin(), categories.end()));
                 // thread_specific_ptr automatically deletes the set when the thread ends.
-                // "dash" is a composite category enabling all Dash-related debug output
+                // "alterdot" is a composite category enabling all Alterdot-related debug output
                 if(ptrCategory->count(std::string("alterdot"))) {
                     ptrCategory->insert(std::string("chainlocks"));
                     ptrCategory->insert(std::string("gobject"));
@@ -1054,6 +1054,10 @@ std::string CopyrightHolders(const std::string& strPrefix, unsigned int nStartYe
 {
     std::string strCopyrightHolders = strPrefix + strprintf(" %u-%u ", nStartYear, nEndYear) + strprintf(_(COPYRIGHT_HOLDERS), _(COPYRIGHT_HOLDERS_SUBSTITUTION));
 
+    // Check for untranslated substitution to make sure Alterdot copyright is not removed by accident
+    if (strprintf(COPYRIGHT_HOLDERS, COPYRIGHT_HOLDERS_SUBSTITUTION).find("Alterdot") == std::string::npos) {
+        strCopyrightHolders += "\n" + strPrefix + strprintf(" %u-%u ", 2017, nEndYear) + "The Alterdot developers";
+    }
     // Check for untranslated substitution to make sure Dash Core copyright is not removed by accident
     if (strprintf(COPYRIGHT_HOLDERS, COPYRIGHT_HOLDERS_SUBSTITUTION).find("Dash Core") == std::string::npos) {
         strCopyrightHolders += "\n" + strPrefix + strprintf(" %u-%u ", 2014, nEndYear) + "The Dash Core developers";

@@ -21,9 +21,9 @@ BITCOIN_TX_NAME=alterdot-tx
 
 AC_CANONICAL_HOST
 
-AH_TOP([#ifndef ALTERDOT_CONFIG_H])
-AH_TOP([#define ALTERDOT_CONFIG_H])
-AH_BOTTOM([#endif //ALTERDOT_CONFIG_H])
+AH_TOP([#ifndef ADOT_CONFIG_H])
+AH_TOP([#define ADOT_CONFIG_H])
+AH_BOTTOM([#endif //ADOT_CONFIG_H])
 
 dnl faketime breaks configure and is only needed for make. Disable it here.
 unset FAKETIME

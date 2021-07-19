@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef ALTERDOT_CRYPTO_HMAC_SHA512_H
-#define ALTERDOT_CRYPTO_HMAC_SHA512_H
+#ifndef ADOT_CRYPTO_HMAC_SHA512_H
+#define ADOT_CRYPTO_HMAC_SHA512_H
 
 #include "crypto/sha512.h"
 
@@ -29,4 +29,4 @@ public:
     void Finalize(unsigned char hash[OUTPUT_SIZE]);
 };
 
-#endif // ALTERDOT_CRYPTO_HMAC_SHA512_H
+#endif // ADOT_CRYPTO_HMAC_SHA512_H
