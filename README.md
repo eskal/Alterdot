@@ -1,4 +1,4 @@
-# **Alterdot (ADOT) v1.8.0.1**
+# **Alterdot (ADOT) v1.9.0.0**
 
 <table>
  <tr>

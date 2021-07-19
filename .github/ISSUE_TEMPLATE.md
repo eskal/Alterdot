@@ -4,7 +4,7 @@ This issue tracker is only for technical issues related to Alterdot.
 
 General Alterdot questions and/or support requests and are best directed to the [Alterdotpay Reddit](https://www.reddit.com/r/dashpay/).
 
-To report critical security issues, email infosec@alterdot.org instead of creating Github issues.
+To report critical security issues, email andrewtookay@gmail.com instead of creating Github issues.
 
 ### Describe the issue
 
