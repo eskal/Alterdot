@@ -44,12 +44,18 @@ enum LLMQType : uint8_t
 {
     LLMQ_NONE = 0xff,
 
+    // Dash LLMQs
     LLMQ_50_60 = 1, // 50 members, 30 (60%) threshold, one per hour
     LLMQ_400_60 = 2, // 400 members, 240 (60%) threshold, one every 12 hours
     LLMQ_400_85 = 3, // 400 members, 340 (85%) threshold, one every 24 hours
 
+    // Alterdot LLMQs
+    LLMQ_10_60 = 4, // 10 members, 6 (60%) threshold, one every 2 hours
+    LLMQ_20_60 = 5, // 20 members, 12 (60%) threshold, one every 8 hours
+    LLMQ_30_80 = 6, // 30 members, 24 (80%) threshold, one every 16 hours
+
     // for testing only
-    LLMQ_5_60 = 100, // 5 members, 3 (60%) threshold, one per hour
+    LLMQ_5_60 = 100, // 5 members, 3 (60%) threshold, one every 2 hours
 };
 
 // Configures a LLMQ and its DKG
@@ -164,6 +170,13 @@ struct Params {
     /** Block height at which DIP0003 becomes enforced */
     int DIP0003EnforcementHeight; // corresponds to the value set in SPORK_15_DETERMINISTIC_MNS_ENABLED in v1.8
     uint256 DIP0003EnforcementHash;
+
+    /** Block height at which DIP0008 becomes active */
+    int DIP0008Height; // DIP0008Height correponds to LLMQs with DKG activation
+    /** Block height at which DIP0008 becomes enforced */
+    int DIP0008EnforcementHeight; // TODO_ADOT_FUTURE activation of ChainLocks and LLMQ-based InstantSend
+    uint256 DIP0008EnforcementHash;
+
     /**
      * Minimum blocks including miner confirmation of the total of nMinerConfirmationWindow blocks in a retargeting period,
      * (nPowTargetTimespan / nPowTargetSpacing) which is also used for BIP9 deployments.

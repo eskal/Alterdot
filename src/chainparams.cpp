@@ -114,11 +114,11 @@ static Consensus::LLMQParams llmq5_60 = {
         .minSize = 3,
         .threshold = 3,
 
-        .dkgInterval = 24, // one DKG per hour TODO_ADOT_FUTURE update LLMQs in accordance with Alterdot block times
+        .dkgInterval = 10 * 2, // one DKG every 2 hours
         .dkgPhaseBlocks = 2,
         .dkgMiningWindowStart = 10, // dkgPhaseBlocks * 5 = after finalization
         .dkgMiningWindowEnd = 18,
-        .dkgBadVotesThreshold = 8,
+        .dkgBadVotesThreshold = 3,
 
         .signingActiveQuorumCount = 2, // just a few ones to allow easier testing
 
@@ -180,6 +180,59 @@ static Consensus::LLMQParams llmq400_85 = {
         .keepOldConnections = 5,
 };
 
+static Consensus::LLMQParams llmq10_60 = {
+        .type = Consensus::LLMQ_10_60,
+        .name = "llmq_10_60",
+        .size = 10,
+        .minSize = 8,
+        .threshold = 6,
+
+        .dkgInterval = 10 * 2, // one DKG every 2 hours
+        .dkgPhaseBlocks = 2,
+        .dkgMiningWindowStart = 10, // dkgPhaseBlocks * 5 = after finalization
+        .dkgMiningWindowEnd = 18,
+        .dkgBadVotesThreshold = 7,
+
+        .signingActiveQuorumCount = 4, // 8 hours worth of LLMQs
+
+        .keepOldConnections = 5,
+};
+
+static Consensus::LLMQParams llmq20_60 = {
+        .type = Consensus::LLMQ_20_60,
+        .name = "llmq_20_60",
+        .size = 20,
+        .minSize = 16,
+        .threshold = 12,
+
+        .dkgInterval = 10 * 8, // one DKG every 8 hours
+        .dkgPhaseBlocks = 4,
+        .dkgMiningWindowStart = 20, // dkgPhaseBlocks * 5 = after finalization
+        .dkgMiningWindowEnd = 32,
+        .dkgBadVotesThreshold = 14,
+
+        .signingActiveQuorumCount = 2, // 16 hours worth of LLMQs
+
+        .keepOldConnections = 3,
+};
+
+static Consensus::LLMQParams llmq30_80 = {
+        .type = Consensus::LLMQ_30_80,
+        .name = "llmq_30_80",
+        .size = 30,
+        .minSize = 26,
+        .threshold = 24,
+
+        .dkgInterval = 10 * 16, // one DKG every 16 hours
+        .dkgPhaseBlocks = 4,
+        .dkgMiningWindowStart = 20, // dkgPhaseBlocks * 5 = after finalization
+        .dkgMiningWindowEnd = 42, // give it a larger mining window to make sure it is mined
+        .dkgBadVotesThreshold = 25,
+
+        .signingActiveQuorumCount = 2, // 32 hours worth of LLMQs
+
+        .keepOldConnections = 3,
+};
 
 /**
  * Main network
@@ -221,15 +274,23 @@ public:
         consensus.nOldMasternodeCollateral = 50000;
         consensus.nNewMasternodeCollateral = 10000;
         consensus.nMasternodeMinimumConfirmations = 15; // TODO_ADOT_FUTURE
+        consensus.powLimit = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 16
+        
         //consensus.BIP34Height = 951; TODO_ADOT_LOW implemented from genesis
         //consensus.BIP34Hash = uint256S("0x000001f35e70f7c5705f64c6c5cc3dea9449e74d5b5c7cf74dad1bcca14a8012");
         //consensus.BIP65Height = 619382; // 00000000000076d8fcea02ec0963de4abfd01e771fec0863f960c2c64fe6f357 TODO_ADOT_LOW implemented from genesis
         //consensus.BIP66Height = 245817; // 00000000000b1fa2dfa312863570e13fae9ca7b5566cb27e55422620b469aefa TODO_ADOT_LOW implemented from genesis
+
         consensus.DIP0001Height = 5000000; // TODO_ADOT_LOW not currently used
-        consensus.powLimit = uint256S("0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 16
+
         consensus.DIP0003Height = 1040000; // corresponds to nDetMNRegHeight in v1.8
         consensus.DIP0003EnforcementHeight = 1043000;
         consensus.DIP0003EnforcementHash = uint256S("000000000000002d1734087b4c5afc3133e4e1c3e1a89218f62bcd9bb3d17f81"); // TODO_ADOT_HIGH not mined yet, Dash value
+        
+        consensus.DIP0008Height = 1050000; // corresponds to LLMQs with DKG activation
+        //consensus.DIP0003EnforcementHeight = 110000; TODO_ADOT_FUTURE
+        //consensus.DIP0003EnforcementHash = uint256S("000000000000002d1734087b4c5afc3133e4e1c3e1a89218f62bcd9bb3d17f81"); // TODO_ADOT_FUTURE
+        
         //consensus.nPowTargetTimespan = 24 * 60 * 60; // Alterdot: 1 day, not used in Alterdot
         consensus.nDifficultyAdjustmentInterval = 576; // biggest time frame used by the DELTA retargeting algo, we switched to LWMA but this is used for older blocks
         consensus.nOldPowTargetSpacing = 2 * 64; // 128 seconds
@@ -320,12 +381,19 @@ public:
 
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
 
-        // long living quorum params TODO_ADOT_FUTURE
+        // Long Living Masternode Quorum params
+        // Dash LLMQs
         consensus.llmqs[Consensus::LLMQ_50_60] = llmq50_60;
         consensus.llmqs[Consensus::LLMQ_400_60] = llmq400_60;
         consensus.llmqs[Consensus::LLMQ_400_85] = llmq400_85;
-        consensus.llmqChainLocks = Consensus::LLMQ_400_60;
-        consensus.llmqForInstantSend = Consensus::LLMQ_50_60;
+
+        // Alterdot LLMQs
+        consensus.llmqs[Consensus::LLMQ_10_60] = llmq10_60;
+        consensus.llmqs[Consensus::LLMQ_20_60] = llmq20_60;
+        consensus.llmqs[Consensus::LLMQ_30_80] = llmq30_80;
+        
+        consensus.llmqChainLocks = Consensus::LLMQ_30_80;
+        consensus.llmqForInstantSend = Consensus::LLMQ_10_60;
 
         fMiningRequiresPeers = true;
         fDefaultConsistencyChecks = false;
