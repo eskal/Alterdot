@@ -173,9 +173,19 @@ UniValue quorum_dkgstatus(const JSONRPCRequest& request)
     LOCK(cs_main);
     int tipHeight = chainActive.Height();
 
+    bool fLLMQSwitch = tipHeight >= Params().GetConsensus().LLMQSwitchHeight;
+
+    std::vector<Consensus::LLMQType> usedLLMQs;
+
+    if (!fLLMQSwitch) {
+        usedLLMQs.insert(usedLLMQs.end(), { Consensus::LLMQ_50_60, Consensus::LLMQ_400_60, Consensus::LLMQ_400_85 });
+    } else {
+        usedLLMQs.insert(usedLLMQs.end(), { Consensus::LLMQ_10_60 });
+    }
+
     UniValue minableCommitments(UniValue::VOBJ);
-    for (const auto& p : Params().GetConsensus().llmqs) {
-        auto& params = p.second;
+    for (auto llmqType : usedLLMQs) {
+        auto& params = Params().GetConsensus().llmqs.at(llmqType);
         llmq::CFinalCommitment fqc;
         if (llmq::quorumBlockProcessor->GetMinableCommitment(params.type, tipHeight, fqc)) {
             UniValue obj(UniValue::VOBJ);

@@ -866,7 +866,7 @@ void CDeterministicMNManager::HandleQuorumCommitment(llmq::CFinalCommitment& qc,
             // The idea is to immediately ban a MN when it fails 2 DKG sessions with only a few blocks in-between
             // If there were enough blocks between failures, the MN has a chance to recover as he reduces his penalty by 1 for every block
             // If it however fails 3 times in the timespan of a single payment cycle, it should definitely get banned
-            mnList.PoSePunish(members[i]->proTxHash, mnList.CalcPenalty(66), debugLogs);
+            mnList.PoSePunish(members[i]->proTxHash, mnList.CalcPenalty(70), debugLogs);
         }
     }
 }

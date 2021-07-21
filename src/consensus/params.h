@@ -165,16 +165,26 @@ struct Params {
     int nIntPhaseTotalBlocks;
     int nBlocksPerYear; // expected blocks per year
 
+    // ADOT_COMMENT in Dash certain features were activated in two steps:
+    // first came the network signaling which provided the fDIPXXXX context or enablement (e.g. start of registration of Deterministic MNs)
+    // second came the spork activation which provides the DIP enforcement (e.g. switch from the old MN system to Det. MNs)
+    // in order to maintain consistency we will use this model for major activations and enforcements
+
     /** Block height at which DIP0003 becomes active */
-    int DIP0003Height; // DIP0003Height correponds to nDetMNRegHeight
+    int DIP0003Height; // DIP0003Height correponds to nDetMNRegHeight in v1.8 + 1
     /** Block height at which DIP0003 becomes enforced */
-    int DIP0003EnforcementHeight; // corresponds to the value set in SPORK_15_DETERMINISTIC_MNS_ENABLED in v1.8
+    int DIP0003EnforcementHeight; // corresponds to the value set in SPORK_15_DETERMINISTIC_MNS_ENABLED in v1.8 + 1
     uint256 DIP0003EnforcementHash;
 
+    int LLMQSwitchHeight; // height at which the used set of LLMQs changes
+
+    int DIP0006EnforcementHeight; // corresponds to DKG Quorums activation SPORK_17_QUORUM_DKG_ENABLED
+    uint256 DIP0006EnforcementHash;
+
     /** Block height at which DIP0008 becomes active */
-    int DIP0008Height; // DIP0008Height correponds to LLMQs with DKG activation
+    int DIP0008Height; // ChainLocks context enabled
     /** Block height at which DIP0008 becomes enforced */
-    int DIP0008EnforcementHeight; // TODO_ADOT_FUTURE activation of ChainLocks and LLMQ-based InstantSend
+    int DIP0008EnforcementHeight; // TODO_ADOT_FUTURE ChainLocks and LLMQ-based InstantSend
     uint256 DIP0008EnforcementHash;
 
     /**

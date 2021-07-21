@@ -27,7 +27,7 @@ private:
 
     std::map<Consensus::LLMQType, CDKGSessionHandler> dkgSessionHandlers;
 
-    CCriticalSection contributionsCacheCs;
+    mutable CCriticalSection sessionManagerCs;
     struct ContributionsCacheKey {
         Consensus::LLMQType llmqType;
         uint256 quorumHash;
@@ -46,9 +46,13 @@ private:
     };
     std::map<ContributionsCacheKey, ContributionsCacheEntry> contributionsCache;
 
+    const CBlockIndex* tipIndex{nullptr};
+
 public:
     CDKGSessionManager(CDBWrapper& _llmqDb, CBLSWorker& _blsWorker);
     ~CDKGSessionManager();
+
+    bool IsDIP6Enforced(int nHeight = -1) const;
 
     void StartMessageHandlerPool();
     void StopMessageHandlerPool();

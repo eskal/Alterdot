@@ -31,6 +31,16 @@ CDKGSessionManager::~CDKGSessionManager()
 {
 }
 
+bool CDKGSessionManager::IsDIP6Enforced(int nHeight) const {
+    LOCK(sessionManagerCs);
+
+    if (nHeight == -1) {
+        nHeight = tipIndex->nHeight;
+    }
+
+    return nHeight >= Params().GetConsensus().DIP0006EnforcementHeight;
+}
+
 void CDKGSessionManager::StartMessageHandlerPool()
 {
     for (const auto& qt : Params().GetConsensus().llmqs) {
@@ -50,6 +60,9 @@ void CDKGSessionManager::StopMessageHandlerPool()
 
 void CDKGSessionManager::UpdatedBlockTip(const CBlockIndex* pindexNew, bool fInitialDownload)
 {
+    LOCK(sessionManagerCs);
+
+    tipIndex = pindexNew;
     const auto& consensus = Params().GetConsensus();
 
     CleanupCache();
@@ -58,7 +71,7 @@ void CDKGSessionManager::UpdatedBlockTip(const CBlockIndex* pindexNew, bool fIni
         return;
     if (!deterministicMNManager->IsDIP3Enforced(pindexNew->nHeight))
         return;
-    if (!sporkManager.IsSporkActive(SPORK_17_QUORUM_DKG_ENABLED))
+    if (!IsDIP6Enforced())
         return;
 
     for (auto& qt : dkgSessionHandlers) {
@@ -68,7 +81,7 @@ void CDKGSessionManager::UpdatedBlockTip(const CBlockIndex* pindexNew, bool fIni
 
 void CDKGSessionManager::ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStream& vRecv, CConnman& connman)
 {
-    if (!sporkManager.IsSporkActive(SPORK_17_QUORUM_DKG_ENABLED))
+    if (!IsDIP6Enforced())
         return;
 
     if (strCommand != NetMsgType::QCONTRIB
@@ -103,7 +116,7 @@ void CDKGSessionManager::ProcessMessage(CNode* pfrom, const std::string& strComm
 
 bool CDKGSessionManager::AlreadyHave(const CInv& inv) const
 {
-    if (!sporkManager.IsSporkActive(SPORK_17_QUORUM_DKG_ENABLED))
+    if (!IsDIP6Enforced())
         return false;
 
     for (const auto& p : dkgSessionHandlers) {
@@ -120,7 +133,7 @@ bool CDKGSessionManager::AlreadyHave(const CInv& inv) const
 
 bool CDKGSessionManager::GetContribution(const uint256& hash, CDKGContribution& ret) const
 {
-    if (!sporkManager.IsSporkActive(SPORK_17_QUORUM_DKG_ENABLED))
+    if (!IsDIP6Enforced())
         return false;
 
     for (const auto& p : dkgSessionHandlers) {
@@ -140,7 +153,7 @@ bool CDKGSessionManager::GetContribution(const uint256& hash, CDKGContribution& 
 
 bool CDKGSessionManager::GetComplaint(const uint256& hash, CDKGComplaint& ret) const
 {
-    if (!sporkManager.IsSporkActive(SPORK_17_QUORUM_DKG_ENABLED))
+    if (!IsDIP6Enforced())
         return false;
 
     for (const auto& p : dkgSessionHandlers) {
@@ -160,7 +173,7 @@ bool CDKGSessionManager::GetComplaint(const uint256& hash, CDKGComplaint& ret) c
 
 bool CDKGSessionManager::GetJustification(const uint256& hash, CDKGJustification& ret) const
 {
-    if (!sporkManager.IsSporkActive(SPORK_17_QUORUM_DKG_ENABLED))
+    if (!IsDIP6Enforced())
         return false;
 
     for (const auto& p : dkgSessionHandlers) {
@@ -180,7 +193,7 @@ bool CDKGSessionManager::GetJustification(const uint256& hash, CDKGJustification
 
 bool CDKGSessionManager::GetPrematureCommitment(const uint256& hash, CDKGPrematureCommitment& ret) const
 {
-    if (!sporkManager.IsSporkActive(SPORK_17_QUORUM_DKG_ENABLED))
+    if (!IsDIP6Enforced())
         return false;
 
     for (const auto& p : dkgSessionHandlers) {
@@ -236,7 +249,7 @@ bool CDKGSessionManager::GetVerifiedContributions(Consensus::LLMQType llmqType, 
 
 bool CDKGSessionManager::GetVerifiedContribution(Consensus::LLMQType llmqType, const CBlockIndex* pindexQuorum, const uint256& proTxHash, BLSVerificationVectorPtr& vvecRet, CBLSSecretKey& skContributionRet)
 {
-    LOCK(contributionsCacheCs);
+    LOCK(sessionManagerCs);
     ContributionsCacheKey cacheKey = {llmqType, pindexQuorum->GetBlockHash(), proTxHash};
     auto it = contributionsCache.find(cacheKey);
     if (it != contributionsCache.end()) {
@@ -263,7 +276,7 @@ bool CDKGSessionManager::GetVerifiedContribution(Consensus::LLMQType llmqType, c
 
 void CDKGSessionManager::CleanupCache()
 {
-    LOCK(contributionsCacheCs);
+    LOCK(sessionManagerCs);
     auto curTime = GetTimeMillis();
     for (auto it = contributionsCache.begin(); it != contributionsCache.end(); ) {
         if (curTime - it->second.entryTime > MAX_CONTRIBUTION_CACHE_TIME) {

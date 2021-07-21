@@ -120,17 +120,17 @@ bool CQuorumBlockProcessor::ProcessBlock(const CBlock& block, const CBlockIndex*
 {
     AssertLockHeld(cs_main);
 
-    bool fDIP0003Active = pindex->nHeight >= Params().GetConsensus().DIP0003Height;
-    bool fDIP0008Active = pindex->nHeight >= Params().GetConsensus().DIP0008Height;
+    bool fDIP0003Active_context = pindex->nHeight >= Params().GetConsensus().DIP0003Height;
+    bool fLLMQSwitch = pindex->nHeight >= Params().GetConsensus().LLMQSwitchHeight;
 
-    if (!fDIP0003Active) {
+    if (!fDIP0003Active_context) {
         evoDb.Write(DB_BEST_BLOCK_UPGRADE, block.GetHash());
         return true;
     }
 
     std::vector<Consensus::LLMQType> usedLLMQs;
 
-    if (!fDIP0008Active) {
+    if (!fLLMQSwitch) {
         usedLLMQs.insert(usedLLMQs.end(), { Consensus::LLMQ_50_60, Consensus::LLMQ_400_60, Consensus::LLMQ_400_85 });
     } else {
         usedLLMQs.insert(usedLLMQs.end(), { Consensus::LLMQ_10_60 });

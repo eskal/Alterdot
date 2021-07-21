@@ -1898,11 +1898,6 @@ bool AppInitMain(boost::thread_group& threadGroup, CScheduler& scheduler)
     // lite mode disables all Alterdot-specific functionality
     fLiteMode = GetBoolArg("-litemode", false);
 
-    if (chainActive.Height() < (chainparams.GetConsensus().nHardForkEight - 1))
-        fLiteMode = true;
-
-    LogPrintf("fLiteMode %d, currentHeight %d, heightToPass %d\n", fLiteMode, chainActive.Height(), chainparams.GetConsensus().nHardForkEight - 1);
-
     if(fLiteMode) {
         InitWarning(_("You are starting in lite mode, all Alterdot-specific functionality is disabled."));
     }

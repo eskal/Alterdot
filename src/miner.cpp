@@ -152,6 +152,7 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
 
     bool fDIP0003Active_context = nHeight >= chainparams.GetConsensus().DIP0003Height;
     bool fDIP0008Active_context = nHeight >= chainparams.GetConsensus().DIP0008Height;
+    bool fLLMQSwitch = nHeight >= chainparams.GetConsensus().LLMQSwitchHeight;
 
     pblock->nVersion = ComputeBlockVersion(pindexPrev, chainparams.GetConsensus(), chainparams.BIP9CheckMasternodesUpgraded());
     // -regtest only: allow overriding block.nVersion with
@@ -169,7 +170,7 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
     if (fDIP0003Active_context) {
         std::vector<Consensus::LLMQType> usedLLMQs;
 
-        if (!fDIP0008Active_context) {
+        if (!fLLMQSwitch) {
             usedLLMQs.insert(usedLLMQs.end(), { Consensus::LLMQ_50_60, Consensus::LLMQ_400_60, Consensus::LLMQ_400_85 });
         } else {
             usedLLMQs.insert(usedLLMQs.end(), { Consensus::LLMQ_10_60 });

@@ -206,18 +206,18 @@ void CChainLocksHandler::UpdatedBlockTip(const CBlockIndex* pindexNew)
 
 void CChainLocksHandler::CheckActiveState()
 {
-    bool fDIP0008Active;
+    bool fDIP0008Active_context;
     {
         LOCK(cs_main);
-        fDIP0008Active = chainActive.Tip()->nHeight >= Params().GetConsensus().DIP0008Height;
+        fDIP0008Active_context = chainActive.Tip()->nHeight >= Params().GetConsensus().DIP0008Height;
     }
 
     LOCK(cs);
     bool oldIsEnforced = isEnforced;
-    isSporkActive = sporkManager.IsSporkActive(SPORK_19_CHAINLOCKS_ENABLED);
+    isSporkActive = sporkManager.IsSporkActive(SPORK_19_CHAINLOCKS_ENABLED); // TODO_ADOT_FUTURE DIP0008 Enforcement
     // TODO remove this after DIP8 is active
     bool fEnforcedBySpork = (Params().NetworkIDString() == CBaseChainParams::TESTNET) && (sporkManager.GetSporkValue(SPORK_19_CHAINLOCKS_ENABLED) == 1);
-    isEnforced = (fDIP0008Active && isSporkActive) || fEnforcedBySpork;
+    isEnforced = (fDIP0008Active_context && isSporkActive) || fEnforcedBySpork;
 
     if (!oldIsEnforced && isEnforced) {
         // ChainLocks got activated just recently, but it's possible that it was already running before, leaving

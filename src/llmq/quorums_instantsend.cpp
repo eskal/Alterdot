@@ -1144,9 +1144,9 @@ void CInstantSendManager::NotifyChainLock(const CBlockIndex* pindexChainLock)
 void CInstantSendManager::UpdatedBlockTip(const CBlockIndex* pindexNew)
 {
     // TODO remove this after DIP8 has activated
-    bool fDIP0008Active = pindexNew->nHeight >= Params().GetConsensus().DIP0008Height;
+    bool fDIP0008Active_context = pindexNew->nHeight >= Params().GetConsensus().DIP0008Height;
 
-    if (sporkManager.IsSporkActive(SPORK_19_CHAINLOCKS_ENABLED) && fDIP0008Active) {
+    if (sporkManager.IsSporkActive(SPORK_19_CHAINLOCKS_ENABLED) && fDIP0008Active_context) { // TODO_ADOT_FUTURE SPORK_19 replaced with enforcement height
         // Nothing to do here. We should keep all islocks and let chainlocks handle them.
         return;
     }

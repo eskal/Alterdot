@@ -125,6 +125,7 @@ static Consensus::LLMQParams llmq5_60 = {
         .keepOldConnections = 3,
 };
 
+/* DASH LLMQs */
 static Consensus::LLMQParams llmq50_60 = {
         .type = Consensus::LLMQ_50_60,
         .name = "llmq_50_60",
@@ -180,6 +181,7 @@ static Consensus::LLMQParams llmq400_85 = {
         .keepOldConnections = 5,
 };
 
+/* ADOT LLMQs */
 static Consensus::LLMQParams llmq10_60 = {
         .type = Consensus::LLMQ_10_60,
         .name = "llmq_10_60",
@@ -252,14 +254,14 @@ public:
         strNetworkID = "main";
         consensus.nHardForkOne = 250000; // block
         consensus.nHardForkTwo = 375000; // block
-        consensus.nHardForkThree = 550000; //block
-        consensus.nHardForkFour = 665000; //block
-        consensus.nHardForkFive = 850000; //block
-        consensus.nHardForkSix = 1000000; //block
+        consensus.nHardForkThree = 550000; // block
+        consensus.nHardForkFour = 665000; // block
+        consensus.nHardForkFive = 850000; // block
+        consensus.nHardForkSix = 1000000; // block
         consensus.nHardForkSeven = 1034000; // block core-mode network, LWMA switch
-        consensus.nHardForkEight = 1037000; // block Alterdot-rebase in effect, old Alterdot rejected
-        consensus.nTempDevFundIncreaseEnd = 625000; //block
-        consensus.nMasternodePaymentsStartBlock = 100; // Masternode Payments begin on block 100.
+        consensus.nHardForkEight = 1037000; // block Alterdot-rebase in effect, Bitcreds rejected
+        consensus.nTempDevFundIncreaseEnd = 625000; // block
+        consensus.nMasternodePaymentsStartBlock = 100; // Masternode Payments begin on block 100
         consensus.nInstantSendConfirmationsRequired = 6;
         consensus.nInstantSendKeepLock = 24;
         consensus.nInstantSendSigsRequired = 6;
@@ -283,13 +285,18 @@ public:
 
         consensus.DIP0001Height = 5000000; // TODO_ADOT_LOW not currently used
 
-        consensus.DIP0003Height = 1040000; // corresponds to nDetMNRegHeight in v1.8
-        consensus.DIP0003EnforcementHeight = 1043000;
-        consensus.DIP0003EnforcementHash = uint256S("000000000000002d1734087b4c5afc3133e4e1c3e1a89218f62bcd9bb3d17f81"); // TODO_ADOT_HIGH not mined yet, Dash value
+        consensus.DIP0003Height = 1040001; // Deterministic MNs system activation height, enables registration, corresponds to nDetMNRegHeight from v1.8 + 1
+        consensus.DIP0003EnforcementHeight = 1043001; // Deterministic Masternodes system enforcement height, fixed value of Spork 15 from v1.8 + 1
+        consensus.DIP0003EnforcementHash = uint256S("00000f20ec12a2fa668926a95df6bfb85604a99af8f82c9a81e72ea6e947691b");
         
-        consensus.DIP0008Height = 1050000; // corresponds to LLMQs with DKG activation
-        //consensus.DIP0003EnforcementHeight = 110000; TODO_ADOT_FUTURE
-        //consensus.DIP0003EnforcementHash = uint256S("000000000000002d1734087b4c5afc3133e4e1c3e1a89218f62bcd9bb3d17f81"); // TODO_ADOT_FUTURE
+        consensus.LLMQSwitchHeight = 1050000; // switch from Dash LLMQs to Alterdot LLMQs, will probably be used for future switches
+
+        consensus.DIP0006EnforcementHeight = 1051000;
+        //consensus.DIP0006EnforcementHash = uint256S("000000000000002d1734087b4c5afc3133e4e1c3e1a89218f62bcd9bb3d17f81"); // TODO_ADOT_FUTURE to be mined
+
+        consensus.DIP0008Height = 2000000; // corresponds to ChainLocks activation TODO_ADOT_FUTURE
+        //consensus.DIP0008EnforcementHeight = 1100000; TODO_ADOT_FUTURE to be implemented
+        //consensus.DIP0008EnforcementHash = uint256S("000000000000002d1734087b4c5afc3133e4e1c3e1a89218f62bcd9bb3d17f81"); // TODO_ADOT_FUTURE
         
         //consensus.nPowTargetTimespan = 24 * 60 * 60; // Alterdot: 1 day, not used in Alterdot
         consensus.nDifficultyAdjustmentInterval = 576; // biggest time frame used by the DELTA retargeting algo, we switched to LWMA but this is used for older blocks
@@ -381,7 +388,6 @@ public:
 
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
 
-        // Long Living Masternode Quorum params
         // Dash LLMQs
         consensus.llmqs[Consensus::LLMQ_50_60] = llmq50_60;
         consensus.llmqs[Consensus::LLMQ_400_60] = llmq400_60;
@@ -442,7 +448,7 @@ public:
 static CMainParams mainParams;
 
 /**
- * Testnet (v3)
+ * Testnet (v3) TODO_ADOT_FUTURE update params for TestNet, DevNet and RegTest
  */
 class CTestNetParams : public CChainParams {
 public:
