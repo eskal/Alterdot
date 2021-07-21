@@ -1440,6 +1440,18 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
         return true;
     }
 
+    bool fLLMQSwitch; // TODO_ADOT_FUTURE next LLMQ switches
+    {
+        LOCK(cs_main);
+        fLLMQSwitch = chainActive.Height() > Params().GetConsensus().LLMQSwitchHeight;
+    }
+
+    int nMinPeerProtoVersion = MIN_PEER_PROTO_VERSION;
+
+    if (fLLMQSwitch) {
+        nMinPeerProtoVersion = MIN_PEER_PROTO_VERSION_LLMQ_SWITCH;
+    }
+
     if (!(pfrom->GetLocalServices() & NODE_BLOOM) &&
               (strCommand == NetMsgType::FILTERLOAD ||
                strCommand == NetMsgType::FILTERADD))
