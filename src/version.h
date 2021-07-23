@@ -21,6 +21,7 @@ static const int GETHEADERS_VERSION = 70000;
 //! disconnect from peers older than this proto version
 static const int MIN_PEER_PROTO_VERSION = 70014;
 
+// if the network doesn't reject older versions after the switch, verifying and rejecting incoming messages from forks might cause lag 
 //! disconnect from peers older than this proto version after LLMQ set switch
 static const int MIN_PEER_PROTO_VERSION_LLMQ_SWITCH = 70015;
 

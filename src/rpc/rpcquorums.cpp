@@ -171,7 +171,7 @@ UniValue quorum_dkgstatus(const JSONRPCRequest& request)
     auto ret = status.ToJson(detailLevel);
 
     LOCK(cs_main);
-    int tipHeight = chainActive.Height();
+    int tipHeight = chainActive.Height() + 1;
 
     bool fLLMQSwitch = tipHeight >= Params().GetConsensus().LLMQSwitchHeight;
 

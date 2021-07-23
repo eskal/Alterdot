@@ -285,8 +285,8 @@ public:
 
         consensus.DIP0001Height = 5000000; // TODO_ADOT_LOW not currently used
 
-        consensus.DIP0003Height = 1040001; // Deterministic MNs system activation height, enables registration, corresponds to nDetMNRegHeight from v1.8 + 1
-        consensus.DIP0003EnforcementHeight = 1043001; // Deterministic Masternodes system enforcement height, fixed value of Spork 15 from v1.8 + 1
+        consensus.DIP0003Height = 1040002; // Deterministic MNs system activation height, enables registration, corresponds to nDetMNRegHeight from v1.8 (adjusted)
+        consensus.DIP0003EnforcementHeight = 1043001; // Deterministic Masternodes system enforcement height, corresponds to the value of Spork 15 from v1.8 (adjusted)
         consensus.DIP0003EnforcementHash = uint256S("00000f20ec12a2fa668926a95df6bfb85604a99af8f82c9a81e72ea6e947691b");
         
         consensus.LLMQSwitchHeight = 1050000; // switch from Dash LLMQs to Alterdot LLMQs, will probably be used for future switches
