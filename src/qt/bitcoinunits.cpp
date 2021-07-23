@@ -22,7 +22,7 @@ QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
     unitlist.append(ADOT);
     unitlist.append(mADOT);
     unitlist.append(uADOT);
-    unitlist.append(duffs);
+    unitlist.append(dots);
     return unitlist;
 }
 
@@ -33,7 +33,7 @@ bool BitcoinUnits::valid(int unit)
     case ADOT:
     case mADOT:
     case uADOT:
-    case duffs:
+    case dots:
         return true;
     default:
         return false;
@@ -49,7 +49,7 @@ QString BitcoinUnits::name(int unit)
             case ADOT: return QString("ADOT");
             case mADOT: return QString("mADOT");
             case uADOT: return QString::fromUtf8("μADOT");
-            case duffs: return QString("duffs");
+            case dots: return QString("dots");
             default: return QString("???");
         }
     }
@@ -60,7 +60,7 @@ QString BitcoinUnits::name(int unit)
             case ADOT: return QString("tADOT");
             case mADOT: return QString("mtADOT");
             case uADOT: return QString::fromUtf8("μtADOT");
-            case duffs: return QString("tduffs");
+            case dots: return QString("tdots");
             default: return QString("???");
         }
     }
@@ -75,7 +75,7 @@ QString BitcoinUnits::description(int unit)
             case ADOT: return QString("Alterdot");
             case mADOT: return QString("Milli-Alterdot (1 / 1" THIN_SP_UTF8 "000)");
             case uADOT: return QString("Micro-Alterdot (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-            case duffs: return QString("Ten Nano-Alterdot (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case dots: return QString("Ten Nano-Alterdot (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
             default: return QString("???");
         }
     }
@@ -86,7 +86,7 @@ QString BitcoinUnits::description(int unit)
             case ADOT: return QString("TestAlterdots");
             case mADOT: return QString("Milli-TestAlterdot (1 / 1" THIN_SP_UTF8 "000)");
             case uADOT: return QString("Micro-TestAlterdot (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-            case duffs: return QString("Ten Nano-TestAlterdot (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case dots: return QString("Ten Nano-TestAlterdot (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
             default: return QString("???");
         }
     }
@@ -99,7 +99,7 @@ qint64 BitcoinUnits::factor(int unit)
     case ADOT:  return 100000000;
     case mADOT: return 100000;
     case uADOT: return 100;
-    case duffs: return 1;
+    case dots: return 1;
     default:   return 100000000;
     }
 }
@@ -111,7 +111,7 @@ int BitcoinUnits::decimals(int unit)
     case ADOT: return 8;
     case mADOT: return 5;
     case uADOT: return 2;
-    case duffs: return 0;
+    case dots: return 0;
     default: return 0;
     }
 }

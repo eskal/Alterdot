@@ -60,7 +60,7 @@ public:
         ADOT,
         mADOT,
         uADOT,
-        duffs
+        dots
     };
 
     enum SeparatorStyle
