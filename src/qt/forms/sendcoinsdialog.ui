@@ -62,12 +62,12 @@
          <number>10</number>
         </property>
         <property name="topMargin">
-         <number>10</number>
+         <number>20</number>
         </property>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayoutCoinControl1">
           <property name="bottomMargin">
-           <number>15</number>
+           <number>5</number>
           </property>
           <item>
            <widget class="QLabel" name="labelCoinControlFeatures">
@@ -85,6 +85,9 @@
             </property>
             <property name="styleSheet">
              <string notr="true">font-weight:bold;</string>
+            </property>
+            <property name="leftMargin">
+             <number>40</number>
             </property>
             <property name="text">
              <string>Coin Control Features</string>
