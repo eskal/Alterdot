@@ -40,9 +40,11 @@ QT_TRANSLATE_NOOP("alterdot", ""
 "Bind to given address and whitelist peers connecting to it. Use [host]:port "
 "notation for IPv6"),
 QT_TRANSLATE_NOOP("alterdot", ""
-"Bind to given address to listen for JSON-RPC connections. Use [host]:port "
-"notation for IPv6. This option can be specified multiple times (default: "
-"bind to all interfaces)"),
+"Bind to given address to listen for JSON-RPC connections. This option is "
+"ignored unless -rpcallowip is also passed. Port is optional and overrides -"
+"rpcport. Use [host]:port notation for IPv6. This option can be specified "
+"multiple times (default: 127.0.0.1 and ::1 i.e., localhost, or if -"
+"rpcallowip has been specified, 0.0.0.0 and :: i.e., all addresses)"),
 QT_TRANSLATE_NOOP("alterdot", ""
 "Cannot obtain a lock on data directory %s. %s is probably already running."),
 QT_TRANSLATE_NOOP("alterdot", ""
@@ -303,13 +305,6 @@ QT_TRANSLATE_NOOP("alterdot", ""
 "Wallet will not create transactions that violate mempool chain limits "
 "(default: %u)"),
 QT_TRANSLATE_NOOP("alterdot", ""
-"Warning: At least %d of %d masternodes are running on a newer software "
-"version. Please check latest releases, you might need to update too."),
-QT_TRANSLATE_NOOP("alterdot", ""
-"Warning: Every masternode (out of %d known ones) is running on a newer "
-"software version. Please check latest releases, it's very likely that you "
-"missed a major/critical update."),
-QT_TRANSLATE_NOOP("alterdot", ""
 "Warning: The network does not appear to fully agree! Some miners appear to "
 "be experiencing issues."),
 QT_TRANSLATE_NOOP("alterdot", ""
@@ -331,9 +326,6 @@ QT_TRANSLATE_NOOP("alterdot", ""
 QT_TRANSLATE_NOOP("alterdot", ""
 "You are starting in lite mode, all Alterdot-specific functionality is disabled."),
 QT_TRANSLATE_NOOP("alterdot", ""
-"You must specify a masternodeprivkey in the configuration. Please see "
-"documentation for help."),
-QT_TRANSLATE_NOOP("alterdot", ""
 "You need to rebuild the database using -reindex to go back to unpruned "
 "mode.  This will redownload the entire blockchain"),
 QT_TRANSLATE_NOOP("alterdot", ""
@@ -344,15 +336,14 @@ QT_TRANSLATE_NOOP("alterdot", ""
 QT_TRANSLATE_NOOP("alterdot", "%s corrupt, salvage failed"),
 QT_TRANSLATE_NOOP("alterdot", "%s is not a valid backup folder!"),
 QT_TRANSLATE_NOOP("alterdot", "%s is set very high!"),
-QT_TRANSLATE_NOOP("alterdot", "(%d could be used only on mainnet)"),
 QT_TRANSLATE_NOOP("alterdot", "(default: %s)"),
 QT_TRANSLATE_NOOP("alterdot", "(default: %u)"),
-QT_TRANSLATE_NOOP("alterdot", "(must be %d for mainnet)"),
 QT_TRANSLATE_NOOP("alterdot", "(press q to shutdown and continue later)"),
 QT_TRANSLATE_NOOP("alterdot", "-devnet can only be specified once"),
 QT_TRANSLATE_NOOP("alterdot", "-maxmempool must be at least %d MB"),
 QT_TRANSLATE_NOOP("alterdot", "-port must be specified when -devnet and -listen are specified"),
 QT_TRANSLATE_NOOP("alterdot", "-rpcport must be specified when -devnet and -server are specified"),
+QT_TRANSLATE_NOOP("alterdot", "-wallet parameter must only specify a filename (not a path)"),
 QT_TRANSLATE_NOOP("alterdot", "<category> can be:"),
 QT_TRANSLATE_NOOP("alterdot", "Accept command line and JSON-RPC commands"),
 QT_TRANSLATE_NOOP("alterdot", "Accept public REST requests (default: %u)"),
@@ -381,7 +372,6 @@ QT_TRANSLATE_NOOP("alterdot", "Connect to a node to retrieve peer addresses, and
 QT_TRANSLATE_NOOP("alterdot", "Connection options:"),
 QT_TRANSLATE_NOOP("alterdot", "Copyright (C)"),
 QT_TRANSLATE_NOOP("alterdot", "Corrupted block database detected"),
-QT_TRANSLATE_NOOP("alterdot", "Could not parse masternode.conf"),
 QT_TRANSLATE_NOOP("alterdot", "Debugging/Testing options:"),
 QT_TRANSLATE_NOOP("alterdot", "Do not load the wallet and disable wallet RPC calls"),
 QT_TRANSLATE_NOOP("alterdot", "Do you want to rebuild the block database now?"),
@@ -420,9 +410,7 @@ QT_TRANSLATE_NOOP("alterdot", "Failed to load InstantSend data cache from"),
 QT_TRANSLATE_NOOP("alterdot", "Failed to load fulfilled requests cache from"),
 QT_TRANSLATE_NOOP("alterdot", "Failed to load governance cache from"),
 QT_TRANSLATE_NOOP("alterdot", "Failed to load masternode cache from"),
-QT_TRANSLATE_NOOP("alterdot", "Failed to load masternode payments cache from"),
 QT_TRANSLATE_NOOP("alterdot", "Failed to load sporks cache from"),
-QT_TRANSLATE_NOOP("alterdot", "Failed to parse host:port string"),
 QT_TRANSLATE_NOOP("alterdot", "Failed to start a new mixing queue"),
 QT_TRANSLATE_NOOP("alterdot", "Fee (in %s/kB) to add to transactions you send (default: %s)"),
 QT_TRANSLATE_NOOP("alterdot", "Found enough users, signing ( waiting %s )"),
@@ -439,16 +427,15 @@ QT_TRANSLATE_NOOP("alterdot", "Initialization sanity check failed. %s is shuttin
 QT_TRANSLATE_NOOP("alterdot", "Input is not valid."),
 QT_TRANSLATE_NOOP("alterdot", "InstantSend options:"),
 QT_TRANSLATE_NOOP("alterdot", "Insufficient funds."),
-QT_TRANSLATE_NOOP("alterdot", "Invalid -onion address: '%s'"),
-QT_TRANSLATE_NOOP("alterdot", "Invalid -proxy address: '%s'"),
+QT_TRANSLATE_NOOP("alterdot", "Invalid -onion address or hostname: '%s'"),
+QT_TRANSLATE_NOOP("alterdot", "Invalid -proxy address or hostname: '%s'"),
 QT_TRANSLATE_NOOP("alterdot", "Invalid amount for -%s=<amount>: '%s'"),
 QT_TRANSLATE_NOOP("alterdot", "Invalid amount for -fallbackfee=<amount>: '%s'"),
 QT_TRANSLATE_NOOP("alterdot", "Invalid amount for -paytxfee=<amount>: '%s' (must be at least %s)"),
+QT_TRANSLATE_NOOP("alterdot", "Invalid characters in -wallet filename"),
 QT_TRANSLATE_NOOP("alterdot", "Invalid masternodeblsprivkey. Please see documenation."),
-QT_TRANSLATE_NOOP("alterdot", "Invalid masternodeprivkey. Please see documenation."),
 QT_TRANSLATE_NOOP("alterdot", "Invalid minimum number of spork signers specified with -minsporkkeys"),
 QT_TRANSLATE_NOOP("alterdot", "Invalid netmask specified in -whitelist: '%s'"),
-QT_TRANSLATE_NOOP("alterdot", "Invalid port detected in masternode.conf"),
 QT_TRANSLATE_NOOP("alterdot", "Invalid script detected."),
 QT_TRANSLATE_NOOP("alterdot", "Invalid spork address specified with -sporkaddr"),
 QT_TRANSLATE_NOOP("alterdot", "KeePassHttp id for the established association"),
@@ -459,25 +446,21 @@ QT_TRANSLATE_NOOP("alterdot", "Keep the transaction memory pool below <n> megaby
 QT_TRANSLATE_NOOP("alterdot", "Keypool ran out, please call keypoolrefill first"),
 QT_TRANSLATE_NOOP("alterdot", "Last PrivateSend was too recent."),
 QT_TRANSLATE_NOOP("alterdot", "Last successful PrivateSend action was too recent."),
-QT_TRANSLATE_NOOP("alterdot", "Line: %d"),
 QT_TRANSLATE_NOOP("alterdot", "Listen for JSON-RPC connections on <port> (default: %u or testnet: %u)"),
 QT_TRANSLATE_NOOP("alterdot", "Listen for connections on <port> (default: %u or testnet: %u)"),
 QT_TRANSLATE_NOOP("alterdot", "Loading InstantSend data cache..."),
-QT_TRANSLATE_NOOP("alterdot", "Loading addresses..."),
+QT_TRANSLATE_NOOP("alterdot", "Loading P2P addresses..."),
 QT_TRANSLATE_NOOP("alterdot", "Loading banlist..."),
 QT_TRANSLATE_NOOP("alterdot", "Loading block index..."),
 QT_TRANSLATE_NOOP("alterdot", "Loading fulfilled requests cache..."),
 QT_TRANSLATE_NOOP("alterdot", "Loading governance cache..."),
 QT_TRANSLATE_NOOP("alterdot", "Loading masternode cache..."),
-QT_TRANSLATE_NOOP("alterdot", "Loading masternode payment cache..."),
 QT_TRANSLATE_NOOP("alterdot", "Loading sporks cache..."),
 QT_TRANSLATE_NOOP("alterdot", "Loading wallet... (%3.2f %%)"),
 QT_TRANSLATE_NOOP("alterdot", "Loading wallet..."),
 QT_TRANSLATE_NOOP("alterdot", "Location of the auth cookie (default: data dir)"),
 QT_TRANSLATE_NOOP("alterdot", "Lock is already in place."),
-QT_TRANSLATE_NOOP("alterdot", "Lock masternodes from masternode configuration file (default: %u)"),
 QT_TRANSLATE_NOOP("alterdot", "Make the wallet broadcast transactions"),
-QT_TRANSLATE_NOOP("alterdot", "Masternode cache is empty, skipping payments and governance cache..."),
 QT_TRANSLATE_NOOP("alterdot", "Masternode options:"),
 QT_TRANSLATE_NOOP("alterdot", "Masternode queue is full."),
 QT_TRANSLATE_NOOP("alterdot", "Masternode:"),
@@ -502,7 +485,6 @@ QT_TRANSLATE_NOOP("alterdot", "Number of automatic wallet backups (default: %u)"
 QT_TRANSLATE_NOOP("alterdot", "Only connect to nodes in network <net> (ipv4, ipv6 or onion)"),
 QT_TRANSLATE_NOOP("alterdot", "Options:"),
 QT_TRANSLATE_NOOP("alterdot", "Password for JSON-RPC connections"),
-QT_TRANSLATE_NOOP("alterdot", "Port: %d"),
 QT_TRANSLATE_NOOP("alterdot", "Prepend debug output with timestamp (default: %u)"),
 QT_TRANSLATE_NOOP("alterdot", "Print this help message and exit"),
 QT_TRANSLATE_NOOP("alterdot", "Print version and exit"),
@@ -532,7 +514,6 @@ QT_TRANSLATE_NOOP("alterdot", "Set database cache size in megabytes (%d to %d, d
 QT_TRANSLATE_NOOP("alterdot", "Set key pool size to <n> (default: %u)"),
 QT_TRANSLATE_NOOP("alterdot", "Set maximum block size in bytes (default: %d)"),
 QT_TRANSLATE_NOOP("alterdot", "Set the masternode BLS private key"),
-QT_TRANSLATE_NOOP("alterdot", "Set the masternode private key"),
 QT_TRANSLATE_NOOP("alterdot", "Set the number of threads to service RPC calls (default: %d)"),
 QT_TRANSLATE_NOOP("alterdot", "Show all debugging options (usage: --help -help-debug)"),
 QT_TRANSLATE_NOOP("alterdot", "Shrink debug.log file on client startup (default: 1 when no -debug)"),
@@ -540,22 +521,19 @@ QT_TRANSLATE_NOOP("alterdot", "Signing transaction failed"),
 QT_TRANSLATE_NOOP("alterdot", "Specify configuration file (default: %s)"),
 QT_TRANSLATE_NOOP("alterdot", "Specify connection timeout in milliseconds (minimum: 1, default: %d)"),
 QT_TRANSLATE_NOOP("alterdot", "Specify data directory"),
-QT_TRANSLATE_NOOP("alterdot", "Specify masternode configuration file (default: %s)"),
 QT_TRANSLATE_NOOP("alterdot", "Specify pid file (default: %s)"),
 QT_TRANSLATE_NOOP("alterdot", "Specify wallet file (within data directory)"),
 QT_TRANSLATE_NOOP("alterdot", "Specify your own public address"),
 QT_TRANSLATE_NOOP("alterdot", "Spend unconfirmed change when sending transactions (default: %u)"),
 QT_TRANSLATE_NOOP("alterdot", "Starting network threads..."),
-QT_TRANSLATE_NOOP("alterdot", "Submitted following entries to masternode: %u / %d"),
-QT_TRANSLATE_NOOP("alterdot", "Submitted to masternode, waiting for more entries ( %u / %d ) %s"),
+QT_TRANSLATE_NOOP("alterdot", "Submitted following entries to masternode: %u"),
+QT_TRANSLATE_NOOP("alterdot", "Submitted to masternode, waiting for more entries ( %u ) %s"),
 QT_TRANSLATE_NOOP("alterdot", "Submitted to masternode, waiting in queue %s"),
-QT_TRANSLATE_NOOP("alterdot", "Synchroning blockchain..."),
 QT_TRANSLATE_NOOP("alterdot", "Synchronization failed"),
 QT_TRANSLATE_NOOP("alterdot", "Synchronization finished"),
 QT_TRANSLATE_NOOP("alterdot", "Synchronization pending..."),
+QT_TRANSLATE_NOOP("alterdot", "Synchronizing blockchain..."),
 QT_TRANSLATE_NOOP("alterdot", "Synchronizing governance objects..."),
-QT_TRANSLATE_NOOP("alterdot", "Synchronizing masternode payments..."),
-QT_TRANSLATE_NOOP("alterdot", "Synchronizing masternodes..."),
 QT_TRANSLATE_NOOP("alterdot", "The source code is available from %s."),
 QT_TRANSLATE_NOOP("alterdot", "The transaction amount is too small to pay the fee"),
 QT_TRANSLATE_NOOP("alterdot", "The wallet will avoid paying less than the minimum relay fee."),

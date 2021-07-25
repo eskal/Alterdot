@@ -2,8 +2,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef ALTERDOT_BDNSDB_H
-#define ALTERDOT_BDNSDB_H
+#ifndef ADOT_BDNSDB_H
+#define ADOT_BDNSDB_H
 
 #include "dbwrapper.h"
 
@@ -42,4 +42,4 @@ public:
     bool EraseBDNSRecord(const std::string &bdnsName);
 };
 
-#endif // ALTERDOT_BDNSDB_H
+#endif // ADOT_BDNSDB_H

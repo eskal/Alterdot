@@ -92,14 +92,10 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
     }
     
     /* Theme selector */
-    ui->theme->addItem(QString("ADOT-light"), QVariant("light"));
-    ui->theme->addItem(QString("ADOT-light-hires"), QVariant("light-hires"));
-    ui->theme->addItem(QString("ADOT-light-retro"), QVariant("light-retro"));
-    ui->theme->addItem(QString("ADOT-light-hires-retro"), QVariant("light-hires-retro"));
-    ui->theme->addItem(QString("ADOT-blue"), QVariant("drkblue"));
-    ui->theme->addItem(QString("ADOT-Crownium"), QVariant("crownium"));
-    ui->theme->addItem(QString("ADOT-traditional"), QVariant("trad"));
-    
+    ui->theme->addItem(QString("Light"), QVariant("light"));
+    ui->theme->addItem(QString("Light-HiRes"), QVariant("light-hires"));
+    ui->theme->addItem(QString("Traditional"), QVariant("trad"));
+
     /* Language selector */
     QDir translations(":translations");
 

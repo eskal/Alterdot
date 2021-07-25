@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef ALTERDOT_CRYPTO_SHA256_H
-#define ALTERDOT_CRYPTO_SHA256_H
+#ifndef ADOT_CRYPTO_SHA256_H
+#define ADOT_CRYPTO_SHA256_H
 
 #include <stdint.h>
 #include <stdlib.h>
@@ -25,4 +25,4 @@ public:
     CSHA256& Reset();
 };
 
-#endif // ALTERDOT_CRYPTO_SHA256_H
+#endif // ADOT_CRYPTO_SHA256_H

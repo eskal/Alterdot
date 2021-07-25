@@ -1,4 +1,4 @@
-Alterdot 0.13.0
+Alterdot 1.9.0
 =====================
 
 This is the official reference wallet for Alterdot digital currency and comprises the backbone of the Alterdot peer-to-peer network. You can [download Alterdot](https://www.alterdot.org/downloads/) or [build it yourself](#building) using the guides below.
@@ -26,8 +26,7 @@ Drag Alterdot-Qt to your applications folder, and then run Alterdot-Qt.
 
 * See the [Alterdot documentation](https://docs.alterdot.org)
 for help and more information.
-* Ask for help on [Alterdot Nation Discord](http://alterdotchat.org)
-* Ask for help on the [Alterdot Forum](https://alterdot.org/forum)
+* Ask for help on [Alterdot Discord](https://discord.com/invite/86eTp6m7p9)
 
 Building
 ---------------------

@@ -62,7 +62,7 @@
          <number>10</number>
         </property>
         <property name="topMargin">
-         <number>10</number>
+         <number>15</number>
         </property>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayoutCoinControl1">
@@ -85,6 +85,9 @@
             </property>
             <property name="styleSheet">
              <string notr="true">font-weight:bold;</string>
+            </property>
+            <property name="leftMargin">
+             <number>40</number>
             </property>
             <property name="text">
              <string>Coin Control Features</string>
@@ -848,7 +851,7 @@
                  <item>
                   <widget class="QRadioButton" name="radioCustomPerKilobyte">
                    <property name="toolTip">
-                    <string>If the custom fee is set to 1000 duffs and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 duffs in fee,&lt;br /&gt;while &quot;at least&quot; pays 1000 duffs. For transactions bigger than a kilobyte both pay by kilobyte.</string>
+                    <string>If the custom fee is set to 1000 dots and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 dots in fee,&lt;br /&gt;while &quot;at least&quot; pays 1000 dots. For transactions bigger than a kilobyte both pay by kilobyte.</string>
                    </property>
                    <property name="text">
                     <string>per kilobyte</string>
@@ -864,7 +867,7 @@
                  <item>
                   <widget class="QRadioButton" name="radioCustomAtLeast">
                    <property name="toolTip">
-                    <string>If the custom fee is set to 1000 duffs and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 duffs in fee,&lt;br /&gt;while &quot;total at least&quot; pays 1000 duffs. For transactions bigger than a kilobyte both pay by kilobyte.</string>
+                    <string>If the custom fee is set to 1000 dots and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 dots in fee,&lt;br /&gt;while &quot;total at least&quot; pays 1000 dots. For transactions bigger than a kilobyte both pay by kilobyte.</string>
                    </property>
                    <property name="text">
                     <string>total at least</string>
