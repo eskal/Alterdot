@@ -62,12 +62,12 @@
          <number>10</number>
         </property>
         <property name="topMargin">
-         <number>20</number>
+         <number>15</number>
         </property>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayoutCoinControl1">
           <property name="bottomMargin">
-           <number>5</number>
+           <number>15</number>
           </property>
           <item>
            <widget class="QLabel" name="labelCoinControlFeatures">

@@ -4952,9 +4952,9 @@ double GuessVerificationProgress(const ChainTxData& data, CBlockIndex *pindex) {
     double fTxTotal;
 
     if (pindex->nChainTx <= data.nTxCount) {
-        fTxTotal = data.nTxCount + (nNow - data.nTime) * data.dTxRate;
+        fTxTotal = data.nTxCount + (nNow - data.nTime) * (data.dTxRate / 86400); // dTxRate = tx rate per day
     } else {
-        fTxTotal = pindex->nChainTx + (nNow - pindex->GetBlockTime()) * data.dTxRate;
+        fTxTotal = pindex->nChainTx + (nNow - pindex->GetBlockTime()) * (data.dTxRate / 86400);
     }
 
     return pindex->nChainTx / fTxTotal;

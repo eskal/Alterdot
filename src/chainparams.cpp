@@ -434,11 +434,11 @@ public:
             ( 1042000, uint256S("0x000008552f7ecb43e963b811e86bfec4636ac1aafb43b9dd4ae9b4e39a42d037"))
         };
 
-        chainTxData = ChainTxData { // TODO_ADOT_FUTURE update the last checkpoint to a recent point in time
-            1497712544, // * UNIX timestamp of last checkpoint block
-            0,          // * total number of transactions between genesis and last checkpoint
-            //   (the tx=... number in the SetBestChain debug.log lines)
-            2000        // * estimated number of transactions per day after checkpoint
+        chainTxData = ChainTxData {
+            1627218922, // * UNIX timestamp of last checkpoint block (1043903)
+            1420945,          // * total number of transactions between genesis and last checkpoint
+            //   (the tx=... number in the UpdateTip debug.log lines)
+            400        // * estimated number of transactions per day after checkpoint
         };
 
         consensus.nIntPhaseTotalBlocks = 125000;
