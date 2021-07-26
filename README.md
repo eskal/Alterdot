@@ -30,11 +30,15 @@
 
 **Project previously known as [Bitcreds](https://github.com/Bitcreds/Bitcreds).**
 
+Note for v1.9.0: This is a major update for the Alterdot network as this version brings with it a new batch of upgrades from Dash, including the implementation of ChainLocks and LLMQ-based InstantSend which will be activated at a later point in time when our Masternode network has grown and matured to an acceptable level. Until then, these features will stay inactive, but the code is here and ready, do keep in mind that we do not use sporks so another voluntary upgrade across the network will be required at the time.
+
+Even though our main focus is the development of the BlockchainDNS-IPFS ecosystem, features such as ChainLocks are very important for the security of our network as they can protect us from 51% attacks which can be a threat especially to small blockchain networks. This version ties together the latest effort we put into bringing our network to a safer codebase on which we can build powerful and innovative features for the decentralized web.
+
 What is Alterdot?
 ----------------
 * Coin Suffix: ADOT
 * PoW Mining Algorithm: Argon2d250 until January 30, 2021 6:00:00 PM UTC; Argon2d16000 afterwards
-* PoW Difficulty Algorithm: DELTA
+* PoW Difficulty Algorithm: DELTA until block 1,034,000; LWMA afterwards
 * PoW Target Spacing: 128 Seconds until block 1,000,000; 360 Seconds afterwards
 * PoW Reward per Block: See Below
 * Maturity: 10 Blocks
